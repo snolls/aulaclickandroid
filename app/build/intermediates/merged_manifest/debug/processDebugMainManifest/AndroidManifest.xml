@@ -36,6 +36,7 @@
         </activity>
         <activity android:name="com.aulaclick.app.DetalleRecursoActivity" />
         <activity android:name="com.aulaclick.app.NuevaReservaActivity" />
+        <activity android:name="com.aulaclick.app.MisReservasActivity" />
         <activity android:name="com.aulaclick.app.MainActivity" />
 
         <provider

@@ -26,6 +26,7 @@ drawable ic_person
 drawable ic_school
 id appBar
 id bottomNavigation
+id btnCancelarReserva
 id btnConfirmarReserva
 id btnDia
 id btnLogin
@@ -41,6 +42,7 @@ id etHoraFin
 id etHoraInicio
 id etPassword
 id fabNuevaReserva
+id ivBack
 id ivClose
 id ivDetalleHeader
 id ivRecursoIcon
@@ -50,7 +52,9 @@ id nav_recursos
 id nav_reservas
 id rvAgenda
 id rvFechas
+id rvMisReservas
 id rvRecursos
+id tabLayout
 id tilEmail
 id tilHoraFin
 id tilHoraInicio
@@ -67,6 +71,10 @@ id tvForgotPassword
 id tvHora
 id tvRecursoCapacidad
 id tvRecursoNombre
+id tvReservaEstado
+id tvReservaFecha
+id tvReservaHora
+id tvReservaNombre
 id tvSubtitle
 id tvTitle
 id viewIconBackground
@@ -75,9 +83,11 @@ id viewStatusIndicator
 layout activity_dashboard
 layout activity_detalle_recurso
 layout activity_main
+layout activity_mis_reservas
 layout activity_nueva_reserva
 layout item_agenda_hora
 layout item_fecha_selector
+layout item_mis_reservas
 layout item_recurso
 menu bottom_nav_menu
 string app_name

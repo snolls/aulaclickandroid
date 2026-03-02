@@ -3189,6 +3189,7 @@ id bounce
 id bounceBoth
 id bounceEnd
 id bounceStart
+id btnCancelarReserva
 id btnConfirmarReserva
 id btnDia
 id btnLogin
@@ -3332,6 +3333,7 @@ id invisible
 id inward
 id italic
 id item_touch_helper_previous_elevation
+id ivBack
 id ivClose
 id ivDetalleHeader
 id ivRecursoIcon
@@ -3479,6 +3481,7 @@ id rounded
 id row_index_key
 id rvAgenda
 id rvFechas
+id rvMisReservas
 id rvRecursos
 id save_non_transition_alpha
 id save_overlay_view
@@ -3541,6 +3544,7 @@ id stretch
 id submenuarrow
 id submit_area
 id supportScrollUp
+id tabLayout
 id tabMode
 id tag_accessibility_actions
 id tag_accessibility_clickable_spans
@@ -3603,6 +3607,10 @@ id tvForgotPassword
 id tvHora
 id tvRecursoCapacidad
 id tvRecursoNombre
+id tvReservaEstado
+id tvReservaFecha
+id tvReservaHora
+id tvReservaNombre
 id tvSubtitle
 id tvTitle
 id unchecked
@@ -3748,6 +3756,7 @@ layout abc_tooltip
 layout activity_dashboard
 layout activity_detalle_recurso
 layout activity_main
+layout activity_mis_reservas
 layout activity_nueva_reserva
 layout custom_dialog
 layout design_bottom_navigation_item
@@ -3767,6 +3776,7 @@ layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout item_agenda_hora
 layout item_fecha_selector
+layout item_mis_reservas
 layout item_recurso
 layout m3_alert_dialog
 layout m3_alert_dialog_actions

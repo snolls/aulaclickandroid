@@ -40,10 +40,10 @@ public class DashboardActivity extends AppCompatActivity {
             if (id == R.id.nav_recursos) {
                 return true;
             } else if (id == R.id.nav_reservas) {
-                // Navegar a reservas
+                startActivity(new Intent(this, MisReservasActivity.class));
                 return true;
             } else if (id == R.id.nav_perfil) {
-                // Navegar a perfil
+                // Navegar a perfil si existiera
                 return true;
             }
             return false;

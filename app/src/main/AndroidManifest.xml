@@ -20,6 +20,7 @@
 
         <activity android:name=".DetalleRecursoActivity" />
         <activity android:name=".NuevaReservaActivity" />
+        <activity android:name=".MisReservasActivity" />
         <activity android:name=".MainActivity" />
 
     </application>
