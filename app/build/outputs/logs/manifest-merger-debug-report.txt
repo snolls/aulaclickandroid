@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:2:1-22:12
-INJECTED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:2:1-22:12
-INJECTED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:2:1-22:12
-INJECTED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:2:1-22:12
+ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:2:1-27:12
+INJECTED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:2:1-27:12
+INJECTED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:2:1-27:12
+INJECTED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:2:1-27:12
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\apsoto\.gradle\caches\8.11.1\transforms\12652744bfae6d2bb614c48a3fdce642\transformed\material-1.11.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\apsoto\.gradle\caches\8.11.1\transforms\c5c53ea971cffa2b9728d27d45c3d1f8\transformed\constraintlayout-2.1.4\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\apsoto\.gradle\caches\8.11.1\transforms\46085829c6276e42be258e2b1ac6b54b\transformed\appcompat-resources-1.6.1\AndroidManifest.xml:17:1-22:12
@@ -58,8 +58,8 @@ ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidM
 	android:name
 		ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:4:22-64
 application
-ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:6:5-20:19
-INJECTED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:6:5-20:19
+ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:6:5-25:19
+INJECTED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:6:5-25:19
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\apsoto\.gradle\caches\8.11.1\transforms\12652744bfae6d2bb614c48a3fdce642\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\apsoto\.gradle\caches\8.11.1\transforms\12652744bfae6d2bb614c48a3fdce642\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\apsoto\.gradle\caches\8.11.1\transforms\c5c53ea971cffa2b9728d27d45c3d1f8\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -88,12 +88,12 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\apsoto\.gradle\cac
 		ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:7:9-35
 	android:theme
 		ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:10:9-50
-activity#com.aulaclick.app.MainActivity
+activity#com.aulaclick.app.DashboardActivity
 ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:12:9-19:20
 	android:exported
 		ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:14:13-36
 	android:name
-		ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:13:13-41
+		ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:13:13-46
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
 ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:15:13-18:29
 action#android.intent.action.MAIN
@@ -104,6 +104,18 @@ category#android.intent.category.LAUNCHER
 ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:17:17-77
 	android:name
 		ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:17:27-74
+activity#com.aulaclick.app.DetalleRecursoActivity
+ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:21:9-60
+	android:name
+		ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:21:19-57
+activity#com.aulaclick.app.NuevaReservaActivity
+ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:22:9-58
+	android:name
+		ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:22:19-55
+activity#com.aulaclick.app.MainActivity
+ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:23:9-50
+	android:name
+		ADDED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:23:19-47
 uses-sdk
 INJECTED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml
