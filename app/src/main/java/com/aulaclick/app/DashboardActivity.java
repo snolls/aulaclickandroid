@@ -2,14 +2,24 @@ package com.aulaclick.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.aulaclick.app.network.ApiClient;
+import com.aulaclick.app.network.models.Recurso;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DashboardActivity extends AppCompatActivity {
+
+    private RecyclerView rvRecursos;
+    private RecursoAdapter adapter;
+    private List<Recurso> listaRecursos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,16 +27,10 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         // Setup RecyclerView
-        RecyclerView rvRecursos = findViewById(R.id.rvRecursos);
+        rvRecursos = findViewById(R.id.rvRecursos);
         rvRecursos.setLayoutManager(new LinearLayoutManager(this));
 
-        List<Recurso> listaPrueba = new ArrayList<>();
-        listaPrueba.add(new Recurso("Aula de Informática 1", "30", "Libre"));
-        listaPrueba.add(new Recurso("Laboratorio de Física", "20", "Ocupado"));
-        listaPrueba.add(new Recurso("Sala de Juntas", "15", "Mantenimiento"));
-        listaPrueba.add(new Recurso("Aula Magna", "100", "Libre"));
-
-        RecursoAdapter adapter = new RecursoAdapter(listaPrueba, recurso -> {
+        adapter = new RecursoAdapter(listaRecursos, recurso -> {
             Intent intent = new Intent(this, DetalleRecursoActivity.class);
             intent.putExtra("nombre", recurso.getNombre());
             startActivity(intent);
@@ -47,6 +51,34 @@ public class DashboardActivity extends AppCompatActivity {
                 return true;
             }
             return false;
+        });
+
+        cargarRecursos();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cargarRecursos();
+    }
+
+    private void cargarRecursos() {
+        ApiClient.getApiService().getRecursos().enqueue(new Callback<List<Recurso>>() {
+            @Override
+            public void onResponse(Call<List<Recurso>> call, Response<List<Recurso>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    listaRecursos.clear();
+                    listaRecursos.addAll(response.body());
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(DashboardActivity.this, "Error al cargar recursos", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Recurso>> call, Throwable t) {
+                Toast.makeText(DashboardActivity.this, "Error de red: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }

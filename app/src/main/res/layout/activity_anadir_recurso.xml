@@ -38,6 +38,7 @@
 
         <!-- Form -->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilNombreRecurso"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,12 +48,14 @@
             app:startIconTint="@color/colorTextSecondary"
             app:boxBackgroundColor="@color/colorSurface">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNombreRecurso"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorTextPrimary" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilTipoRecurso"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,6 +63,7 @@
             android:hint="Tipo de Recurso"
             app:boxBackgroundColor="@color/colorSurface">
             <AutoCompleteTextView
+                android:id="@+id/actvTipoRecurso"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
@@ -68,6 +72,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCapacidad"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,6 +82,7 @@
             app:startIconTint="@color/colorTextSecondary"
             app:boxBackgroundColor="@color/colorSurface">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCapacidad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -84,6 +90,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilUbicacion"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,6 +100,7 @@
             app:startIconTint="@color/colorTextSecondary"
             app:boxBackgroundColor="@color/colorSurface">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etUbicacion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorTextPrimary" />
@@ -122,6 +130,7 @@
                     android:textSize="16sp" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchEstado"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"

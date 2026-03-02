@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.aulaclick.app.network.models.Recurso;
 import java.util.List;
 
 public class RecursoAdapter extends RecyclerView.Adapter<RecursoAdapter.ViewHolder> {
@@ -36,11 +37,16 @@ public class RecursoAdapter extends RecyclerView.Adapter<RecursoAdapter.ViewHold
         holder.tvCapacidad.setText("Capacidad: " + recurso.getCapacidad());
         
         int colorStatus;
-        switch (recurso.getEstado()) {
-            case "Libre": colorStatus = 0xFF10B981; break; // colorSuccess
-            case "Ocupado": colorStatus = 0xFFEF4444; break; // colorError
-            default: colorStatus = 0xFFF59E0B; break; // Mantenimiento (Yellow)
+        String estado = recurso.getEstado() != null ? recurso.getEstado() : "";
+        
+        if (estado.equalsIgnoreCase("Activo") || estado.equalsIgnoreCase("Disponible")) {
+            colorStatus = 0xFF10B981; // Verde
+        } else if (estado.equalsIgnoreCase("Ocupado") || estado.equalsIgnoreCase("Inactivo")) {
+            colorStatus = 0xFFEF4444; // Rojo
+        } else {
+            colorStatus = 0xFFF59E0B; // Default/Mantenimiento (Amarillo/Naranja)
         }
+
         holder.viewStatus.setBackgroundTintList(android.content.res.ColorStateList.valueOf(colorStatus));
         
         holder.itemView.setOnClickListener(v -> listener.onRecursoClick(recurso));
