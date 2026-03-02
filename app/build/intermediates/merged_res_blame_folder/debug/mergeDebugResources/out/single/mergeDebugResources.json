@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "com.aulaclick.app-debug-31:/drawable_ic_help_outline.xml.flat",
+        "source": "com.aulaclick.app-main-33:/drawable/ic_help_outline.xml"
+    },
+    {
+        "merged": "com.aulaclick.app-debug-31:/drawable_ic_lock.xml.flat",
+        "source": "com.aulaclick.app-main-33:/drawable/ic_lock.xml"
+    },
+    {
+        "merged": "com.aulaclick.app-debug-31:/layout_activity_main.xml.flat",
+        "source": "com.aulaclick.app-main-33:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.aulaclick.app-debug-31:/drawable_ic_email.xml.flat",
+        "source": "com.aulaclick.app-main-33:/drawable/ic_email.xml"
+    },
+    {
+        "merged": "com.aulaclick.app-debug-31:/drawable_bg_rounded_surface.xml.flat",
+        "source": "com.aulaclick.app-main-33:/drawable/bg_rounded_surface.xml"
+    },
+    {
+        "merged": "com.aulaclick.app-debug-31:/drawable_ic_school.xml.flat",
+        "source": "com.aulaclick.app-main-33:/drawable/ic_school.xml"
+    }
+]

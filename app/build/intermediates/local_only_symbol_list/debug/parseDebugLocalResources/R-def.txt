@@ -1,0 +1,26 @@
+R_DEF: Internal format may change without notice
+local
+color colorBackground
+color colorError
+color colorPrimary
+color colorSuccess
+color colorSurface
+color colorTextPrimary
+color colorTextSecondary
+drawable bg_rounded_surface
+drawable ic_email
+drawable ic_help_outline
+drawable ic_lock
+drawable ic_school
+id btnLogin
+id etEmail
+id etPassword
+id logoContainer
+id tilEmail
+id tilPassword
+id tvForgotPassword
+id tvSubtitle
+id tvTitle
+layout activity_main
+string app_name
+style Theme.AulaclickApp
