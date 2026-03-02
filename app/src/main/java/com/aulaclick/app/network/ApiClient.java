@@ -17,4 +17,8 @@ public class ApiClient {
         }
         return retrofit;
     }
+
+    public static AulaclickApiService getApiService() {
+        return getClient().create(AulaclickApiService.class);
+    }
 }

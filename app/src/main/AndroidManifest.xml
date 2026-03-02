@@ -23,6 +23,7 @@
         <activity android:name=".MisReservasActivity" />
         <activity android:name=".AdminPanelActivity" />
         <activity android:name=".AnadirRecursoActivity" />
+        <activity android:name=".PerfilActivity" />
         <activity android:name=".MainActivity" />
 
     </application>

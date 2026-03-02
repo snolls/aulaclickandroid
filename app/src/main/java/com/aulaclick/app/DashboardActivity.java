@@ -43,7 +43,7 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MisReservasActivity.class));
                 return true;
             } else if (id == R.id.nav_perfil) {
-                // Navegar a perfil si existiera
+                startActivity(new Intent(this, PerfilActivity.class));
                 return true;
             }
             return false;
