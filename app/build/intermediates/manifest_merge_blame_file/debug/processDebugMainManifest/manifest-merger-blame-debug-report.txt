@@ -40,8 +40,8 @@
 27-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:10:9-50
 28        <activity
 28-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:12:9-19:20
-29            android:name="com.aulaclick.app.DashboardActivity"
-29-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:13:13-46
+29            android:name="com.aulaclick.app.MainActivity"
+29-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:13:13-41
 30            android:exported="true" >
 30-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:14:13-36
 31            <intent-filter>
@@ -55,27 +55,27 @@
 34-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:17:27-74
 35            </intent-filter>
 36        </activity>
-37        <activity android:name="com.aulaclick.app.DetalleRecursoActivity" />
-37-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:21:9-60
-37-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:21:19-57
-38        <activity android:name="com.aulaclick.app.NuevaReservaActivity" />
-38-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:22:9-58
-38-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:22:19-55
-39        <activity android:name="com.aulaclick.app.MisReservasActivity" />
-39-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:23:9-57
-39-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:23:19-54
-40        <activity android:name="com.aulaclick.app.AdminPanelActivity" />
-40-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:24:9-56
-40-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:24:19-53
-41        <activity android:name="com.aulaclick.app.AnadirRecursoActivity" />
-41-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:25:9-59
-41-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:25:19-56
-42        <activity android:name="com.aulaclick.app.PerfilActivity" />
-42-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:26:9-52
-42-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:26:19-49
-43        <activity android:name="com.aulaclick.app.MainActivity" />
-43-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:27:9-50
-43-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:27:19-47
+37        <activity android:name="com.aulaclick.app.DashboardActivity" />
+37-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:21:9-55
+37-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:21:19-52
+38        <activity android:name="com.aulaclick.app.DetalleRecursoActivity" />
+38-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:22:9-60
+38-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:22:19-57
+39        <activity android:name="com.aulaclick.app.NuevaReservaActivity" />
+39-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:23:9-58
+39-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:23:19-55
+40        <activity android:name="com.aulaclick.app.MisReservasActivity" />
+40-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:24:9-57
+40-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:24:19-54
+41        <activity android:name="com.aulaclick.app.AdminPanelActivity" />
+41-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:25:9-56
+41-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:25:19-53
+42        <activity android:name="com.aulaclick.app.AnadirRecursoActivity" />
+42-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:26:9-59
+42-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:26:19-56
+43        <activity android:name="com.aulaclick.app.PerfilActivity" />
+43-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:27:9-52
+43-->C:\Users\apsoto\StudioProjects\aulaclickandroid\app\src\main\AndroidManifest.xml:27:19-49
 44
 45        <provider
 45-->[androidx.emoji2:emoji2:1.2.0] C:\Users\apsoto\.gradle\caches\8.11.1\transforms\1b33e902a9c73958b1b5163f2c3a80b8\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20

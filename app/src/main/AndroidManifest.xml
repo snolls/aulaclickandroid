@@ -10,7 +10,7 @@
         android:theme="@style/Theme.AulaclickApp">
 
         <activity
-            android:name=".DashboardActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,13 +18,13 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".DashboardActivity" />
         <activity android:name=".DetalleRecursoActivity" />
         <activity android:name=".NuevaReservaActivity" />
         <activity android:name=".MisReservasActivity" />
         <activity android:name=".AdminPanelActivity" />
         <activity android:name=".AnadirRecursoActivity" />
         <activity android:name=".PerfilActivity" />
-        <activity android:name=".MainActivity" />
 
     </application>
 

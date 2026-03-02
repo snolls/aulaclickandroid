@@ -26,7 +26,7 @@
         android:testOnly="true"
         android:theme="@style/Theme.AulaclickApp" >
         <activity
-            android:name="com.aulaclick.app.DashboardActivity"
+            android:name="com.aulaclick.app.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,13 +34,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.aulaclick.app.DashboardActivity" />
         <activity android:name="com.aulaclick.app.DetalleRecursoActivity" />
         <activity android:name="com.aulaclick.app.NuevaReservaActivity" />
         <activity android:name="com.aulaclick.app.MisReservasActivity" />
         <activity android:name="com.aulaclick.app.AdminPanelActivity" />
         <activity android:name="com.aulaclick.app.AnadirRecursoActivity" />
         <activity android:name="com.aulaclick.app.PerfilActivity" />
-        <activity android:name="com.aulaclick.app.MainActivity" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"
