@@ -57,13 +57,19 @@ public class AnadirRecursoActivity extends AppCompatActivity {
 
     private void configurarListeners() {
         tvTipo.setOnItemClickListener((parent, view, position, id) -> {
-            String seleccion = parent.getItemAtPosition(position).toString();
-            idTipoRecursoSeleccionado = mapaTiposRecurso.get(seleccion);
+            Object item = parent.getItemAtPosition(position);
+            if (item != null) {
+                String seleccion = item.toString();
+                idTipoRecursoSeleccionado = mapaTiposRecurso.get(seleccion);
+            }
         });
 
         tvDepartamento.setOnItemClickListener((parent, view, position, id) -> {
-            String seleccion = parent.getItemAtPosition(position).toString();
-            idDepartamentoSeleccionado = mapaDepartamentos.get(seleccion);
+            Object item = parent.getItemAtPosition(position);
+            if (item != null) {
+                String seleccion = item.toString();
+                idDepartamentoSeleccionado = mapaDepartamentos.get(seleccion);
+            }
         });
     }
 
@@ -76,8 +82,10 @@ public class AnadirRecursoActivity extends AppCompatActivity {
                     List<String> nombres = new ArrayList<>();
                     mapaDepartamentos.clear();
                     for (Departamento d : response.body()) {
-                        nombres.add(d.getNombre());
-                        mapaDepartamentos.put(d.getNombre(), d.getId());
+                        if (d.getNombre() != null) {
+                            nombres.add(d.getNombre());
+                            mapaDepartamentos.put(d.getNombre(), d.getId());
+                        }
                     }
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(AnadirRecursoActivity.this,
                             android.R.layout.simple_dropdown_item_1line, nombres);
@@ -98,8 +106,10 @@ public class AnadirRecursoActivity extends AppCompatActivity {
                     List<String> nombres = new ArrayList<>();
                     mapaTiposRecurso.clear();
                     for (TipoRecurso t : response.body()) {
-                        nombres.add(t.getNombre());
-                        mapaTiposRecurso.put(t.getNombre(), t.getId());
+                        if (t.getNombre() != null) {
+                            nombres.add(t.getNombre());
+                            mapaTiposRecurso.put(t.getNombre(), t.getId());
+                        }
                     }
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(AnadirRecursoActivity.this,
                             android.R.layout.simple_dropdown_item_1line, nombres);
