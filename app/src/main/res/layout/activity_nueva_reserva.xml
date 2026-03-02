@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
@@ -22,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Nueva Reserva"
+                android:text="@string/title_new_reservation"
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -34,11 +35,13 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_close"
+                android:contentDescription="@string/btn_cancel"
                 app:tint="@color/colorTextPrimary" />
         </RelativeLayout>
 
         <!-- Resource Indicator -->
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnReservingIndicator"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,18 +49,18 @@
             android:layout_marginBottom="24dp"
             android:clickable="false"
             android:focusable="false"
-            android:text="Reservando: Aula de Informática 1"
             android:textColor="@color/colorPrimary"
             app:backgroundTint="#1A1A73E8"
             app:icon="@drawable/ic_door"
-            app:iconTint="@color/colorPrimary" />
+            app:iconTint="@color/colorPrimary"
+            tools:text="Reservando: Aula de Informática 1" />
 
         <!-- Date Section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Fecha"
+            android:text="@string/label_date"
             android:textColor="@color/colorTextSecondary"
             android:textSize="14sp" />
 
@@ -90,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:hint="Hora de Inicio"
+                android:hint="@string/hint_start_time"
                 app:endIconDrawable="@drawable/ic_clock"
                 app:endIconMode="custom"
                 app:endIconTint="@color/colorTextSecondary"
@@ -113,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:hint="Hora de Fin"
+                android:hint="@string/hint_end_time"
                 app:endIconDrawable="@drawable/ic_clock"
                 app:endIconMode="custom"
                 app:endIconTint="@color/colorTextSecondary"
@@ -135,7 +138,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Motivo de la reserva (opcional)"
+            android:text="@string/label_reason_optional"
             android:textColor="@color/colorTextSecondary"
             android:textSize="14sp" />
 
@@ -147,10 +150,11 @@
             app:boxBackgroundColor="@color/colorSurface">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etReason"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top"
-                android:hint="Ej: Clase de programación..."
+                android:hint="@string/hint_reason_placeholder"
                 android:inputType="textMultiLine"
                 android:minLines="4"
                 android:textColor="@color/colorTextPrimary" />
@@ -161,7 +165,7 @@
             android:id="@+id/btnConfirmarReserva"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="CONFIRMAR RESERVA"
+            android:text="@string/btn_confirm_reservation"
             android:textColor="@color/colorTextPrimary"
             app:backgroundTint="@color/colorPrimary"
             app:cornerRadius="12dp"

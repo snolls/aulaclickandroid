@@ -33,6 +33,7 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_school"
+                    android:contentDescription="@null"
                     app:tint="@color/colorPrimary"
                     android:padding="16dp" />
             </com.google.android.material.card.MaterialCardView>
@@ -52,20 +53,20 @@
                     android:backgroundTint="#2210B981"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="2dp"
-                    android:text="Confirmada"
                     android:textColor="@color/colorSuccess"
                     android:textSize="10sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="@string/label_confirmed" />
 
                 <TextView
                     android:id="@+id/tvReservaNombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Aula de Informática 3"
                     android:textColor="@color/colorTextPrimary"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="Aula de Informática 3" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -78,6 +79,7 @@
                         android:layout_width="14dp"
                         android:layout_height="14dp"
                         android:src="@drawable/ic_calendar"
+                        android:contentDescription="@null"
                         app:tint="@color/colorTextSecondary" />
 
                     <TextView
@@ -85,15 +87,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:text="15 Oct, 2024"
                         android:textColor="@color/colorTextSecondary"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        tools:text="15 Oct, 2024" />
 
                     <ImageView
                         android:layout_width="14dp"
                         android:layout_height="14dp"
                         android:layout_marginStart="12dp"
                         android:src="@drawable/ic_clock"
+                        android:contentDescription="@null"
                         app:tint="@color/colorTextSecondary" />
 
                     <TextView
@@ -101,9 +104,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:text="09:00 - 11:00"
                         android:textColor="@color/colorTextSecondary"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        tools:text="09:00 - 11:00" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -115,7 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:backgroundTint="#11EF4444"
-            android:text="CANCELAR RESERVA"
+            android:text="@string/btn_cancel_reservation"
             android:textColor="@color/colorError"
             app:cornerRadius="8dp"
             app:icon="@drawable/ic_close"

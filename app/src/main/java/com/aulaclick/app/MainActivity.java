@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             String password = etPassword.getText() != null ? etPassword.getText().toString().trim() : "";
 
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-                Toast.makeText(MainActivity.this, "Por favor, rellena todos los campos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.error_fill_fields_login, Toast.LENGTH_SHORT).show();
             } else {
                 ejecutarLogin(email, password);
             }
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void ejecutarLogin(String email, String password) {
         btnLogin.setEnabled(false);
-        btnLogin.setText("Conectando...");
+        btnLogin.setText(R.string.btn_connecting);
 
         LoginRequest loginRequest = new LoginRequest(email, password);
         ApiClient.getApiService().login(loginRequest).enqueue(new Callback<UsuarioResponse>() {
@@ -77,27 +77,27 @@ public class MainActivity extends AppCompatActivity {
                             usuario.getRol()
                     );
 
-                    Toast.makeText(MainActivity.this, "Bienvenido " + usuario.getNombreCompleto(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, getString(R.string.msg_welcome, usuario.getNombreCompleto()), Toast.LENGTH_SHORT).show();
                     
                     Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
                     restaurarBoton();
-                    Toast.makeText(MainActivity.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.error_invalid_credentials, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<UsuarioResponse> call, @NonNull Throwable t) {
                 restaurarBoton();
-                Toast.makeText(MainActivity.this, "Error de red: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, getString(R.string.error_network_prefix, t.getMessage()), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void restaurarBoton() {
         btnLogin.setEnabled(true);
-        btnLogin.setText("ENTRAR");
+        btnLogin.setText(R.string.btn_login);
     }
 }

@@ -71,13 +71,13 @@ public class DashboardActivity extends AppCompatActivity {
                     listaRecursos.addAll(response.body());
                     adapter.notifyDataSetChanged();
                 } else {
-                    Toast.makeText(DashboardActivity.this, "Error al cargar recursos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DashboardActivity.this, R.string.error_load_recursos, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Recurso>> call, Throwable t) {
-                Toast.makeText(DashboardActivity.this, "Error de red: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DashboardActivity.this, getString(R.string.error_network_prefix, t.getMessage()), Toast.LENGTH_SHORT).show();
             }
         });
     }

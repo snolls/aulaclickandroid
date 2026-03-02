@@ -17,6 +17,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_arrow_back"
+            android:contentDescription="@string/btn_cancel"
             app:tint="@color/colorTextPrimary" />
 
         <LinearLayout
@@ -29,7 +30,8 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_shield" />
+                android:src="@drawable/ic_shield"
+                android:contentDescription="@null" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -40,7 +42,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hola, Admin"
+                    android:text="@string/admin_welcome"
                     android:textColor="@color/colorTextPrimary"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -48,7 +50,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gestiona los recursos de AULACLICK"
+                    android:text="@string/admin_subtitle"
                     android:textColor="@color/colorTextSecondary"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -64,13 +66,14 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_bolt" />
+                android:src="@drawable/ic_bolt"
+                android:contentDescription="@null" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Acciones Rápidas"
+                android:text="@string/admin_quick_actions"
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -102,14 +105,15 @@
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/ic_add" />
+                        android:src="@drawable/ic_add"
+                        android:contentDescription="@null" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:gravity="center"
-                        android:text="Añadir Nuevo Recurso"
+                        android:text="@string/admin_add_recurso"
                         android:textColor="@color/colorTextPrimary"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -136,6 +140,7 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:src="@drawable/ic_chart"
+                        android:contentDescription="@null"
                         app:tint="@color/colorPrimary" />
 
                     <TextView
@@ -143,7 +148,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:gravity="center"
-                        android:text="Ver Informes"
+                        android:text="@string/admin_view_reports"
                         android:textColor="@color/colorTextPrimary"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -155,7 +160,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Gestión de Catálogos"
+            android:text="@string/admin_catalog_mgmt"
             android:textColor="@color/colorTextPrimary"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -172,7 +177,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Depto."
+                android:text="@string/admin_btn_depto"
                 android:textColor="@color/colorTextPrimary"
                 app:icon="@drawable/ic_add" />
 
@@ -182,7 +187,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Tipo"
+                android:text="@string/admin_btn_tipo"
                 android:textColor="@color/colorTextPrimary"
                 app:icon="@drawable/ic_add" />
 
@@ -192,7 +197,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Equip."
+                android:text="@string/admin_btn_equip"
                 android:textColor="@color/colorTextPrimary"
                 app:icon="@drawable/ic_add" />
         </LinearLayout>
@@ -201,7 +206,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Estadísticas de Ocupación"
+            android:text="@string/admin_stats_title"
             android:textColor="@color/colorTextPrimary"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -220,7 +225,8 @@
                 android:layout_height="match_parent"
                 android:gravity="bottom"
                 android:orientation="horizontal"
-                android:padding="20dp">
+                android:padding="20dp"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -229,7 +235,7 @@
                     android:gravity="bottom|center_horizontal"
                     android:orientation="vertical">
                     <View android:layout_width="20dp" android:layout_height="120dp" android:background="@color/colorPrimary" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ING" android:textColor="@color/colorTextSecondary" android:textSize="10sp" android:layout_marginTop="8dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_ing" android:textColor="@color/colorTextSecondary" android:textSize="11sp" android:layout_marginTop="8dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -239,7 +245,7 @@
                     android:gravity="bottom|center_horizontal"
                     android:orientation="vertical">
                     <View android:layout_width="20dp" android:layout_height="80dp" android:background="@color/colorPrimary" android:alpha="0.7" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CIE" android:textColor="@color/colorTextSecondary" android:textSize="10sp" android:layout_marginTop="8dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_cie" android:textColor="@color/colorTextSecondary" android:textSize="11sp" android:layout_marginTop="8dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -249,7 +255,7 @@
                     android:gravity="bottom|center_horizontal"
                     android:orientation="vertical">
                     <View android:layout_width="20dp" android:layout_height="150dp" android:background="@color/colorPrimary" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ART" android:textColor="@color/colorTextSecondary" android:textSize="10sp" android:layout_marginTop="8dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_art" android:textColor="@color/colorTextSecondary" android:textSize="11sp" android:layout_marginTop="8dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -259,7 +265,7 @@
                     android:gravity="bottom|center_horizontal"
                     android:orientation="vertical">
                     <View android:layout_width="20dp" android:layout_height="60dp" android:background="@color/colorPrimary" android:alpha="0.5" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="HUM" android:textColor="@color/colorTextSecondary" android:textSize="10sp" android:layout_marginTop="8dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_hum" android:textColor="@color/colorTextSecondary" android:textSize="11sp" android:layout_marginTop="8dp" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

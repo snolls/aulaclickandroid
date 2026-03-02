@@ -32,56 +32,56 @@ public class AdminPanelActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        findViewById(R.id.btnAddDepartamento).setOnClickListener(v -> showAddDialog("Departamento"));
-        findViewById(R.id.btnAddTipo).setOnClickListener(v -> showAddDialog("Tipo de Recurso"));
-        findViewById(R.id.btnAddEquipamiento).setOnClickListener(v -> showAddDialog("Equipamiento"));
+        findViewById(R.id.btnAddDepartamento).setOnClickListener(v -> showAddDialog(getString(R.string.catalog_depto)));
+        findViewById(R.id.btnAddTipo).setOnClickListener(v -> showAddDialog(getString(R.string.catalog_tipo)));
+        findViewById(R.id.btnAddEquipamiento).setOnClickListener(v -> showAddDialog(getString(R.string.catalog_equip)));
     }
 
-    private void showAddDialog(String title) {
+    private void showAddDialog(String titleLabel) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Añadir " + title);
+        builder.setTitle(getString(R.string.title_add_item, titleLabel));
 
         View viewInflated = LayoutInflater.from(this).inflate(R.layout.dialog_add_item, null);
         final EditText input = viewInflated.findViewById(R.id.input);
         builder.setView(viewInflated);
 
-        builder.setPositiveButton("Guardar", (dialog, which) -> {
+        builder.setPositiveButton(R.string.btn_save, (dialog, which) -> {
             String name = input.getText().toString().trim();
             if (!name.isEmpty()) {
-                saveItem(title, name);
+                saveItem(titleLabel, name);
             } else {
-                Toast.makeText(this, "El nombre no puede estar vacío", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.error_empty_name, Toast.LENGTH_SHORT).show();
             }
         });
-        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.cancel());
+        builder.setNegativeButton(R.string.btn_cancel, (dialog, which) -> dialog.cancel());
 
         builder.show();
     }
 
     private void saveItem(String type, String name) {
-        if (type.equals("Departamento")) {
+        if (type.equals(getString(R.string.catalog_depto))) {
             ApiClient.getApiService().crearDepartamento(new Departamento(name)).enqueue(new Callback<Departamento>() {
                 @Override
                 public void onResponse(Call<Departamento> call, Response<Departamento> response) {
-                    if (response.isSuccessful()) Toast.makeText(AdminPanelActivity.this, "Departamento creado", Toast.LENGTH_SHORT).show();
+                    if (response.isSuccessful()) Toast.makeText(AdminPanelActivity.this, R.string.msg_depto_created, Toast.LENGTH_SHORT).show();
                 }
                 @Override
                 public void onFailure(Call<Departamento> call, Throwable t) {}
             });
-        } else if (type.equals("Tipo de Recurso")) {
+        } else if (type.equals(getString(R.string.catalog_tipo))) {
             ApiClient.getApiService().crearTipoRecurso(new TipoRecurso(name)).enqueue(new Callback<TipoRecurso>() {
                 @Override
                 public void onResponse(Call<TipoRecurso> call, Response<TipoRecurso> response) {
-                    if (response.isSuccessful()) Toast.makeText(AdminPanelActivity.this, "Tipo de recurso creado", Toast.LENGTH_SHORT).show();
+                    if (response.isSuccessful()) Toast.makeText(AdminPanelActivity.this, R.string.msg_tipo_created, Toast.LENGTH_SHORT).show();
                 }
                 @Override
                 public void onFailure(Call<TipoRecurso> call, Throwable t) {}
             });
-        } else if (type.equals("Equipamiento")) {
+        } else if (type.equals(getString(R.string.catalog_equip))) {
             ApiClient.getApiService().crearEquipamiento(new Equipamiento(name)).enqueue(new Callback<Equipamiento>() {
                 @Override
                 public void onResponse(Call<Equipamiento> call, Response<Equipamiento> response) {
-                    if (response.isSuccessful()) Toast.makeText(AdminPanelActivity.this, "Equipamiento creado", Toast.LENGTH_SHORT).show();
+                    if (response.isSuccessful()) Toast.makeText(AdminPanelActivity.this, R.string.msg_equip_created, Toast.LENGTH_SHORT).show();
                 }
                 @Override
                 public void onFailure(Call<Equipamiento> call, Throwable t) {}

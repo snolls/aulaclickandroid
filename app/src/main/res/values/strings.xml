@@ -1,3 +1,132 @@
 <resources>
     <string name="app_name">AulaclickApp</string>
+
+    <!-- General -->
+    <string name="btn_saving">Guardando...</string>
+    <string name="btn_connecting">Conectando...</string>
+    <string name="error_network_prefix">Error de red: %1$s</string>
+    <string name="error_server_prefix">Error de servidor: %1$d</string>
+    <string name="app_title">AULACLICK</string>
+    <string name="label_available">Disponible</string>
+    <string name="label_capacity">Capacidad: %1$d</string>
+    <string name="error_fill_fields_general">Por favor, rellena todos los campos</string>
+
+    <!-- Login (MainActivity) -->
+    <string name="login_subtitle">Gestión de recursos y aulas</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="btn_forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="btn_login">ENTRAR</string>
+    <string name="label_contact_admin">Contactar con administración</string>
+    <string name="error_fill_fields_login">Por favor, rellena todos los campos</string>
+    <string name="msg_welcome">Bienvenido %1$s</string>
+    <string name="error_invalid_credentials">Credenciales incorrectas</string>
+
+    <!-- Dashboard -->
+    <string name="error_load_recursos">Error al cargar recursos</string>
+    <string name="filter_all">Todos</string>
+    <string name="filter_available">Disponible</string>
+    <string name="filter_it">Informática</string>
+    <string name="filter_labs">Laboratorios</string>
+
+    <!-- Item Recurso (Placeholders) -->
+    <string name="placeholder_recurso_nombre">Nombre del Recurso</string>
+    <string name="placeholder_recurso_capacidad">Capacidad: %1$d alumnos</string>
+
+    <!-- Añadir Recurso -->
+    <string name="title_add_recurso">Añadir Recurso</string>
+    <string name="subtitle_add_recurso">Complete los detalles para registrar un nuevo espacio...</string>
+    <string name="hint_recurso_nombre">Nombre del Recurso</string>
+    <string name="hint_recurso_tipo">Tipo de Recurso</string>
+    <string name="hint_recurso_capacidad">Capacidad / Aforo</string>
+    <string name="hint_recurso_ubicacion">Ubicación</string>
+    <string name="hint_recurso_departamento">Seleccionar departamento</string>
+    <string name="hint_recurso_equipamiento">Ej: Proyector, 20 PCs, Pizarra Digital</string>
+    <string name="label_recurso_estado">Estado del Recurso</string>
+    <string name="status_activo">Activo</string>
+    <string name="status_inactivo">Inactivo</string>
+    <string name="btn_save_recurso">GUARDAR RECURSO</string>
+    <string name="msg_recurso_saved">Recurso guardado con éxito</string>
+    <string name="error_fill_fields">Por favor, completa todos los campos y selecciona opciones de las listas</string>
+    <string name="error_load_deptos">Error cargando departamentos</string>
+    <string name="error_load_tipos">Error cargando tipos</string>
+
+    <!-- Detalle Recurso -->
+    <string name="label_status">ESTADO</string>
+    <string name="label_equipment">EQUIPAMIENTO</string>
+    <string name="label_schedule">Horario</string>
+    <string name="btn_week">Semana</string>
+    <string name="btn_day">Día</string>
+    <string name="label_agenda_prefix">AGENDA DEL %1$s</string>
+
+    <!-- Mis Reservas -->
+    <string name="title_my_reservations">Mis Reservas</string>
+    <string name="tab_active">Activas</string>
+    <string name="tab_history">Historial</string>
+    <string name="tab_canceled">Canceladas</string>
+    <string name="label_confirmed">Confirmada</string>
+    <string name="btn_cancel_reservation">CANCELAR RESERVA</string>
+
+    <!-- Nueva Reserva -->
+    <string name="title_new_reservation">Nueva Reserva</string>
+    <string name="label_reserving_prefix">Reservando: %1$s</string>
+    <string name="label_date">Fecha</string>
+    <string name="hint_start_time">Hora de Inicio</string>
+    <string name="hint_end_time">Hora de Fin</string>
+    <string name="label_reason_optional">Motivo de la reserva (opcional)</string>
+    <string name="hint_reason_placeholder">Ej: Clase de programación...</string>
+    <string name="btn_confirm_reservation">CONFIRMAR RESERVA</string>
+    <string name="msg_validating_server">Validando con el servidor...</string>
+    <string name="title_select_time">Selecciona la hora</string>
+
+    <!-- Perfil -->
+    <string name="title_profile">Mi Perfil</string>
+    <string name="placeholder_user_name">Nombre de Usuario</string>
+    <string name="placeholder_user_email">usuario@aulaclick.edu</string>
+    <string name="label_role_prefix">Rol: %1$s</string>
+    <string name="label_security">Seguridad</string>
+    <string name="hint_current_password">Contraseña Actual</string>
+    <string name="hint_new_password">Nueva Contraseña</string>
+    <string name="hint_confirm_password">Confirmar Nueva Contraseña</string>
+    <string name="btn_update_password">ACTUALIZAR CONTRASEÑA</string>
+    <string name="label_admin_options">Opciones de Administrador</string>
+    <string name="btn_go_admin_panel">IR AL PANEL DE ADMINISTRACIÓN</string>
+    <string name="btn_logout">CERRAR SESIÓN</string>
+    <string name="error_password_empty">Por favor, introduce una nueva contraseña</string>
+    <string name="msg_password_updated">Contraseña actualizada correctamente</string>
+    <string name="error_passwords_dont_match">Las contraseñas nuevas no coinciden</string>
+    <string name="msg_logging_out">Cerrando sesión...</string>
+
+    <!-- Item Agenda -->
+    <string name="label_tap_to_reserve">Toca para reservar</string>
+    <string name="placeholder_time">08:00</string>
+
+    <!-- Admin Panel -->
+    <string name="admin_welcome">Hola, Admin</string>
+    <string name="admin_subtitle">Gestiona los recursos de AULACLICK</string>
+    <string name="admin_quick_actions">Acciones Rápidas</string>
+    <string name="admin_add_recurso">Añadir Nuevo Recurso</string>
+    <string name="admin_view_reports">Ver Informes</string>
+    <string name="admin_catalog_mgmt">Gestión de Catálogos</string>
+    <string name="admin_btn_depto">Depto.</string>
+    <string name="admin_btn_tipo">Tipo</string>
+    <string name="admin_btn_equip">Equip.</string>
+    <string name="admin_stats_title">Estadísticas de Ocupación</string>
+    <string name="label_ing">ING</string>
+    <string name="label_cie">CIE</string>
+    <string name="label_art">ART</string>
+    <string name="label_hum">HUM</string>
+
+    <!-- Dialogs -->
+    <string name="title_add_item">Añadir %1$s</string>
+    <string name="hint_name">Nombre</string>
+    <string name="btn_save">Guardar</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="error_empty_name">El nombre no puede estar vacío</string>
+    <string name="msg_depto_created">Departamento creado</string>
+    <string name="msg_tipo_created">Tipo de recurso creado</string>
+    <string name="msg_equip_created">Equipamiento creado</string>
+    <string name="catalog_depto">Departamento</string>
+    <string name="catalog_tipo">Tipo de Recurso</string>
+    <string name="catalog_equip">Equipamiento</string>
 </resources>

@@ -7,7 +7,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.aulaclick.app.network.ApiClient;
 import com.aulaclick.app.network.models.Departamento;
-import com.aulaclick.app.network.models.Equipamiento;
 import com.aulaclick.app.network.models.Recurso;
 import com.aulaclick.app.network.models.TipoRecurso;
 import com.google.android.material.button.MaterialButton;
@@ -28,8 +27,10 @@ public class AnadirRecursoActivity extends AppCompatActivity {
     private SwitchMaterial switchEstado;
     private MaterialButton btnGuardar;
 
-    private Map<String, Integer> deptoMap = new HashMap<>();
-    private Map<String, Integer> tipoMap = new HashMap<>();
+    private Integer idDepartamentoSeleccionado;
+    private Integer idTipoRecursoSeleccionado;
+    private Map<String, Integer> mapaDepartamentos = new HashMap<>();
+    private Map<String, Integer> mapaTiposRecurso = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,21 +49,35 @@ public class AnadirRecursoActivity extends AppCompatActivity {
 
         findViewById(R.id.ivBack).setOnClickListener(v -> finish());
 
-        cargarDatosDesplegables();
+        configurarListeners();
+        cargarDatosDinámicos();
 
         btnGuardar.setOnClickListener(v -> guardarRecurso());
     }
 
-    private void cargarDatosDesplegables() {
+    private void configurarListeners() {
+        tvTipo.setOnItemClickListener((parent, view, position, id) -> {
+            String seleccion = parent.getItemAtPosition(position).toString();
+            idTipoRecursoSeleccionado = mapaTiposRecurso.get(seleccion);
+        });
+
+        tvDepartamento.setOnItemClickListener((parent, view, position, id) -> {
+            String seleccion = parent.getItemAtPosition(position).toString();
+            idDepartamentoSeleccionado = mapaDepartamentos.get(seleccion);
+        });
+    }
+
+    private void cargarDatosDinámicos() {
         // Cargar Departamentos
         ApiClient.getApiService().getDepartamentos().enqueue(new Callback<List<Departamento>>() {
             @Override
             public void onResponse(Call<List<Departamento>> call, Response<List<Departamento>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<String> nombres = new ArrayList<>();
+                    mapaDepartamentos.clear();
                     for (Departamento d : response.body()) {
                         nombres.add(d.getNombre());
-                        deptoMap.put(d.getNombre(), d.getId());
+                        mapaDepartamentos.put(d.getNombre(), d.getId());
                     }
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(AnadirRecursoActivity.this,
                             android.R.layout.simple_dropdown_item_1line, nombres);
@@ -70,7 +85,9 @@ public class AnadirRecursoActivity extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<List<Departamento>> call, Throwable t) {}
+            public void onFailure(Call<List<Departamento>> call, Throwable t) {
+                Toast.makeText(AnadirRecursoActivity.this, R.string.error_load_deptos, Toast.LENGTH_SHORT).show();
+            }
         });
 
         // Cargar Tipos de Recurso
@@ -79,9 +96,10 @@ public class AnadirRecursoActivity extends AppCompatActivity {
             public void onResponse(Call<List<TipoRecurso>> call, Response<List<TipoRecurso>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<String> nombres = new ArrayList<>();
+                    mapaTiposRecurso.clear();
                     for (TipoRecurso t : response.body()) {
                         nombres.add(t.getNombre());
-                        tipoMap.put(t.getNombre(), t.getId());
+                        mapaTiposRecurso.put(t.getNombre(), t.getId());
                     }
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(AnadirRecursoActivity.this,
                             android.R.layout.simple_dropdown_item_1line, nombres);
@@ -89,55 +107,53 @@ public class AnadirRecursoActivity extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<List<TipoRecurso>> call, Throwable t) {}
+            public void onFailure(Call<List<TipoRecurso>> call, Throwable t) {
+                Toast.makeText(AnadirRecursoActivity.this, R.string.error_load_tipos, Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
     private void guardarRecurso() {
         String nombre = etNombre.getText().toString().trim();
-        String tipoTexto = tvTipo.getText().toString().trim();
         String capacidadStr = etCapacidad.getText().toString().trim();
         String ubicacion = etUbicacion.getText().toString().trim();
-        String deptoTexto = tvDepartamento.getText().toString().trim();
         String equipamiento = etEquipamiento.getText().toString().trim();
-        String estado = switchEstado.isChecked() ? "Activo" : "Inactivo";
+        String estado = switchEstado.isChecked() ? getString(R.string.status_activo) : "Inactivo"; // "Inactivo" should probably be in strings too
 
-        if (nombre.isEmpty() || capacidadStr.isEmpty() || ubicacion.isEmpty() || deptoTexto.isEmpty() || tipoTexto.isEmpty()) {
-            Toast.makeText(this, "Por favor, completa todos los campos requeridos", Toast.LENGTH_SHORT).show();
+        if (nombre.isEmpty() || capacidadStr.isEmpty() || ubicacion.isEmpty() || 
+            idDepartamentoSeleccionado == null || idTipoRecursoSeleccionado == null) {
+            Toast.makeText(this, R.string.error_fill_fields, Toast.LENGTH_SHORT).show();
             return;
         }
 
         Integer capacidad = Integer.parseInt(capacidadStr);
-        Integer idDepartamento = deptoMap.get(deptoTexto);
+        
+        // Usamos el nombre del tipo seleccionado para el campo 'tipo' del modelo
+        String tipoNombre = tvTipo.getText().toString();
 
-        if (idDepartamento == null) {
-            Toast.makeText(this, "Departamento no válido", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        Recurso nuevoRecurso = new Recurso(nombre, tipoNombre, capacidad, ubicacion, estado, idDepartamentoSeleccionado, equipamiento);
 
-        Recurso nuevoRecurso = new Recurso(nombre, tipoTexto, capacidad, ubicacion, estado, idDepartamento, equipamiento);
-
-        btnGuardar.setText("Guardando...");
+        btnGuardar.setText(R.string.btn_saving);
         btnGuardar.setEnabled(false);
 
         ApiClient.getApiService().crearRecurso(nuevoRecurso).enqueue(new Callback<Recurso>() {
             @Override
             public void onResponse(Call<Recurso> call, Response<Recurso> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(AnadirRecursoActivity.this, "Recurso guardado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AnadirRecursoActivity.this, R.string.msg_recurso_saved, Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-                    btnGuardar.setText("GUARDAR RECURSO");
+                    btnGuardar.setText(R.string.btn_save_recurso);
                     btnGuardar.setEnabled(true);
-                    Toast.makeText(AnadirRecursoActivity.this, "Error al guardar", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AnadirRecursoActivity.this, getString(R.string.error_server_prefix, response.code()), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Recurso> call, Throwable t) {
-                btnGuardar.setText("GUARDAR RECURSO");
+                btnGuardar.setText(R.string.btn_save_recurso);
                 btnGuardar.setEnabled(true);
-                Toast.makeText(AnadirRecursoActivity.this, "Error de red", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AnadirRecursoActivity.this, getString(R.string.error_network_prefix, t.getMessage()), Toast.LENGTH_SHORT).show();
             }
         });
     }

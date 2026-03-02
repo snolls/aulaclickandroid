@@ -19,13 +19,14 @@
             android:layout_height="24dp"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_arrow_back"
+            android:contentDescription="@string/btn_cancel"
             app:tint="@color/colorTextPrimary" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Mis Reservas"
+            android:text="@string/title_my_reservations"
             android:textColor="@color/colorTextPrimary"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -46,17 +47,17 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Activas" />
+            android:text="@string/tab_active" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Historial" />
+            android:text="@string/tab_history" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Canceladas" />
+            android:text="@string/tab_canceled" />
     </com.google.android.material.tabs.TabLayout>
 
     <!-- List -->

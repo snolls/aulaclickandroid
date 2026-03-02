@@ -2,7 +2,6 @@ package com.aulaclick.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,6 +30,7 @@ public class DetalleRecursoActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fabNuevaReserva);
         fab.setOnClickListener(v -> {
             Intent intent = new Intent(this, NuevaReservaActivity.class);
+            intent.putExtra("nombre", nombreRecurso);
             startActivity(intent);
         });
     }

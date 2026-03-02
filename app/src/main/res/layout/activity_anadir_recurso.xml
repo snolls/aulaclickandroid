@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Añadir Recurso"
+            android:text="@string/title_add_recurso"
             android:textColor="@color/colorTextPrimary"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Complete los detalles para registrar un nuevo espacio..."
+            android:text="@string/subtitle_add_recurso"
             android:textColor="@color/colorTextSecondary"
             android:textSize="14sp" />
 
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:hint="Nombre del Recurso"
+            android:hint="@string/hint_recurso_nombre"
             app:startIconDrawable="@drawable/ic_door"
             app:startIconTint="@color/colorTextSecondary"
             app:boxBackgroundColor="@color/colorSurface">
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Tipo de Recurso"
+            android:hint="@string/hint_recurso_tipo"
             app:boxBackgroundColor="@color/colorSurface">
             <AutoCompleteTextView
                 android:id="@+id/tvTipoRecurso"
@@ -76,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Capacidad / Aforo"
+            android:hint="@string/hint_recurso_capacidad"
             app:startIconDrawable="@drawable/ic_group"
             app:startIconTint="@color/colorTextSecondary"
             app:boxBackgroundColor="@color/colorSurface">
@@ -94,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Ubicación"
+            android:hint="@string/hint_recurso_ubicacion"
             app:startIconDrawable="@drawable/ic_location"
             app:startIconTint="@color/colorTextSecondary"
             app:boxBackgroundColor="@color/colorSurface">
@@ -111,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Seleccionar departamento"
+            android:hint="@string/hint_recurso_departamento"
             app:boxBackgroundColor="@color/colorSurface">
             <AutoCompleteTextView
                 android:id="@+id/tvDepartamento"
@@ -127,7 +127,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Ej: Proyector, 20 PCs, Pizarra Digital"
+            android:hint="@string/hint_recurso_equipamiento"
             app:boxBackgroundColor="@color/colorSurface">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEquipamiento"
@@ -155,7 +155,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Estado del Recurso"
+                    android:text="@string/label_recurso_estado"
                     android:textColor="@color/colorTextPrimary"
                     android:textSize="16sp" />
 
@@ -164,7 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="Activo"
+                    android:text="@string/status_activo"
                     android:textColor="@color/colorTextSecondary" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -175,7 +175,7 @@
             android:layout_height="56dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"
-            android:text="GUARDAR RECURSO"
+            android:text="@string/btn_save_recurso"
             android:textColor="@color/colorTextPrimary"
             app:backgroundTint="@color/colorPrimary"
             app:cornerRadius="12dp"

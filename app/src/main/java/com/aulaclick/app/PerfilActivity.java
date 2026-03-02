@@ -23,21 +23,21 @@ public class PerfilActivity extends AppCompatActivity {
         MaterialButton btnLogout = findViewById(R.id.btnLogout);
 
         btnUpdatePassword.setOnClickListener(v -> {
-            String newPass = etNewPassword.getText().toString();
-            String confirmPass = etConfirmPassword.getText().toString();
+            String newPass = etNewPassword.getText() != null ? etNewPassword.getText().toString() : "";
+            String confirmPass = etConfirmPassword.getText() != null ? etConfirmPassword.getText().toString() : "";
 
             if (newPass.isEmpty()) {
-                Toast.makeText(this, "Por favor, introduce una nueva contraseña", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.error_password_empty, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (newPass.equals(confirmPass)) {
-                Toast.makeText(this, "Contraseña actualizada correctamente", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.msg_password_updated, Toast.LENGTH_SHORT).show();
                 etNewPassword.setText("");
                 etConfirmPassword.setText("");
                 findViewById(R.id.etCurrentPassword).requestFocus();
             } else {
-                Toast.makeText(this, "Las contraseñas nuevas no coinciden", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.error_passwords_dont_match, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -47,7 +47,7 @@ public class PerfilActivity extends AppCompatActivity {
         });
 
         btnLogout.setOnClickListener(v -> {
-            Toast.makeText(this, "Cerrando sesión...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.msg_logging_out, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

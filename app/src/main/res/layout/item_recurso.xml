@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
@@ -31,6 +32,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="-36dp"
             android:src="@drawable/ic_school"
+            android:contentDescription="@null"
             app:tint="@color/colorPrimary" />
 
         <LinearLayout
@@ -44,19 +46,19 @@
                 android:id="@+id/tvRecursoNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Aula de Informática 1"
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="@string/placeholder_recurso_nombre" />
 
             <TextView
                 android:id="@+id/tvRecursoCapacidad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Capacidad: 30 alumnos"
                 android:textColor="@color/colorTextSecondary"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:text="Capacidad: 30 alumnos" />
         </LinearLayout>
 
         <View

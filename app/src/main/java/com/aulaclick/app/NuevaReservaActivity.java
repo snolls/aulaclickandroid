@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
@@ -24,12 +23,18 @@ public class NuevaReservaActivity extends AppCompatActivity {
         etHoraInicio = findViewById(R.id.etHoraInicio);
         etHoraFin = findViewById(R.id.etHoraFin);
         MaterialButton btnConfirmar = findViewById(R.id.btnConfirmarReserva);
+        MaterialButton btnReservingIndicator = findViewById(R.id.btnReservingIndicator);
+
+        String nombreRecurso = getIntent().getStringExtra("nombre");
+        if (nombreRecurso != null) {
+            btnReservingIndicator.setText(getString(R.string.label_reserving_prefix, nombreRecurso));
+        }
 
         etHoraInicio.setOnClickListener(v -> showTimePicker(true));
         etHoraFin.setOnClickListener(v -> showTimePicker(false));
 
         btnConfirmar.setOnClickListener(v -> {
-            Toast.makeText(this, "Validando con el servidor...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.msg_validating_server, Toast.LENGTH_SHORT).show();
             v.postDelayed(this::finish, 1500);
         });
     }
@@ -39,7 +44,7 @@ public class NuevaReservaActivity extends AppCompatActivity {
                 .setTimeFormat(TimeFormat.CLOCK_24H)
                 .setHour(12)
                 .setMinute(0)
-                .setTitleText("Selecciona la hora")
+                .setTitleText(R.string.title_select_time)
                 .build();
 
         picker.addOnPositiveButtonClickListener(v -> {

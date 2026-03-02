@@ -21,6 +21,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_school"
+            android:contentDescription="@null"
             app:tint="@color/colorPrimary" />
     </LinearLayout>
 
@@ -29,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="AULACLICK"
+        android:text="@string/app_title"
         android:textColor="@color/colorTextPrimary"
         android:textSize="28sp"
         android:textStyle="bold"
@@ -42,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Gestión de recursos y aulas"
+        android:text="@string/login_subtitle"
         android:textColor="@color/colorTextSecondary"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
@@ -55,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:hint="Email"
+        android:hint="@string/hint_email"
         app:boxBackgroundColor="@color/colorSurface"
         app:boxStrokeColor="@color/colorTextSecondary"
         app:hintTextColor="@color/colorTextSecondary"
@@ -79,7 +80,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Contraseña"
+        android:hint="@string/hint_password"
         app:boxBackgroundColor="@color/colorSurface"
         app:boxStrokeColor="@color/colorTextSecondary"
         app:hintTextColor="@color/colorTextSecondary"
@@ -104,7 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="¿Olvidaste tu contraseña?"
+        android:text="@string/btn_forgot_password"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/tilPassword"
@@ -115,7 +116,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="32dp"
-        android:text="ENTRAR"
+        android:text="@string/btn_login"
         android:textColor="@color/colorTextPrimary"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -139,13 +140,14 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/ic_help_outline"
+            android:contentDescription="@null"
             app:tint="@color/colorTextSecondary"
             android:layout_marginEnd="8dp" />
             
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Contactar con administración"
+            android:text="@string/label_contact_admin"
             android:textColor="@color/colorTextSecondary"
             android:textSize="14sp" />
     </LinearLayout>

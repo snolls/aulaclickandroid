@@ -15,7 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="AULACLICK"
+            app:title="@string/app_title"
             app:titleTextColor="@color/colorTextPrimary"
             app:navigationIcon="@drawable/ic_school"
             app:navigationIconTint="@color/colorPrimary">
@@ -31,6 +31,7 @@
                 android:layout_gravity="end"
                 android:padding="12dp"
                 android:src="@drawable/ic_menu"
+                android:contentDescription="@null"
                 app:tint="@color/colorTextPrimary" />
 
         </com.google.android.material.appbar.MaterialToolbar>
@@ -55,7 +56,7 @@
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Todos"
+                    android:text="@string/filter_all"
                     android:checked="true"
                     app:chipBackgroundColor="@color/colorPrimary"
                     android:textColor="@color/colorTextPrimary" />
@@ -65,7 +66,7 @@
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Disponible"
+                    android:text="@string/filter_available"
                     app:chipBackgroundColor="@color/colorSurface"
                     android:textColor="@color/colorTextSecondary" />
 
@@ -74,7 +75,7 @@
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Informática"
+                    android:text="@string/filter_it"
                     app:chipBackgroundColor="@color/colorSurface"
                     android:textColor="@color/colorTextSecondary" />
 
@@ -83,7 +84,7 @@
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Laboratorios"
+                    android:text="@string/filter_labs"
                     app:chipBackgroundColor="@color/colorSurface"
                     android:textColor="@color/colorTextSecondary" />
 
