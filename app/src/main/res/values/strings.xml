@@ -10,6 +10,7 @@
     <string name="label_available">Disponible</string>
     <string name="label_capacity">Capacidad: %1$d</string>
     <string name="error_fill_fields_general">Por favor, rellena todos los campos</string>
+    <string name="btn_back">Volver</string>
 
     <!-- Login (MainActivity) -->
     <string name="login_subtitle">Gestión de recursos y aulas</string>
@@ -50,6 +51,8 @@
     <string name="error_fill_fields">Por favor, completa todos los campos y selecciona opciones de las listas</string>
     <string name="error_load_deptos">Error cargando departamentos</string>
     <string name="error_load_tipos">Error cargando tipos</string>
+    <string name="label_equipamiento_disponible">Equipamiento disponible</string>
+    <string name="error_load_equipamiento">Error cargando equipamiento</string>
 
     <!-- Detalle Recurso -->
     <string name="label_status">ESTADO</string>

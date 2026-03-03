@@ -9,18 +9,18 @@ public class Recurso {
     private Integer capacidad;
     private String estado;
     private Integer idDepartamento;
-    private List<String> equipamiento;
+    private List<Integer> idsEquipamiento;
 
     public Recurso() {
     }
 
-    public Recurso(String nombre, String tipo, Integer capacidad, String estado, Integer idDepartamento, List<String> equipamiento) {
+    public Recurso(String nombre, String tipo, Integer capacidad, String estado, Integer idDepartamento, List<Integer> idsEquipamiento) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.capacidad = capacidad;
         this.estado = estado;
         this.idDepartamento = idDepartamento;
-        this.equipamiento = equipamiento;
+        this.idsEquipamiento = idsEquipamiento;
     }
 
     public Integer getIdRecurso() {
@@ -71,11 +71,11 @@ public class Recurso {
         this.idDepartamento = idDepartamento;
     }
 
-    public List<String> getEquipamiento() {
-        return equipamiento;
+    public List<Integer> getIdsEquipamiento() {
+        return idsEquipamiento;
     }
 
-    public void setEquipamiento(List<String> equipamiento) {
-        this.equipamiento = equipamiento;
+    public void setIdsEquipamiento(List<Integer> idsEquipamiento) {
+        this.idsEquipamiento = idsEquipamiento;
     }
 }
