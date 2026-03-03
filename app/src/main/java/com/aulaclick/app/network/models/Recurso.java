@@ -1,23 +1,23 @@
 package com.aulaclick.app.network.models;
 
+import java.util.List;
+
 public class Recurso {
     private Integer idRecurso;
     private String nombre;
     private String tipo;
     private Integer capacidad;
-    private String ubicacion;
     private String estado;
     private Integer idDepartamento;
-    private String equipamiento;
+    private List<String> equipamiento;
 
     public Recurso() {
     }
 
-    public Recurso(String nombre, String tipo, Integer capacidad, String ubicacion, String estado, Integer idDepartamento, String equipamiento) {
+    public Recurso(String nombre, String tipo, Integer capacidad, String estado, Integer idDepartamento, List<String> equipamiento) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.capacidad = capacidad;
-        this.ubicacion = ubicacion;
         this.estado = estado;
         this.idDepartamento = idDepartamento;
         this.equipamiento = equipamiento;
@@ -55,14 +55,6 @@ public class Recurso {
         this.capacidad = capacidad;
     }
 
-    public String getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
     public String getEstado() {
         return estado;
     }
@@ -79,11 +71,11 @@ public class Recurso {
         this.idDepartamento = idDepartamento;
     }
 
-    public String getEquipamiento() {
+    public List<String> getEquipamiento() {
         return equipamiento;
     }
 
-    public void setEquipamiento(String equipamiento) {
+    public void setEquipamiento(List<String> equipamiento) {
         this.equipamiento = equipamiento;
     }
 }
