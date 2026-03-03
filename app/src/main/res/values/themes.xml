@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Tema principal de la aplicación heredando de Material Components -->
     <style name="Theme.AulaclickApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Colores principales -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="colorPrimaryVariant">@color/colorPrimary</item>
         <item name="colorOnPrimary">@color/colorTextPrimary</item>
+
+        <!-- Colores de superficie y fondo -->
+        <item name="android:windowBackground">@color/colorBackground</item>
         <item name="colorSurface">@color/colorSurface</item>
         <item name="colorOnSurface">@color/colorTextPrimary</item>
+
+        <!-- Colores de error -->
         <item name="colorError">@color/colorError</item>
+
+        <!-- Compatibilidad de texto -->
         <item name="android:textColorPrimary">@color/colorTextPrimary</item>
         <item name="android:textColorSecondary">@color/colorTextSecondary</item>
     </style>

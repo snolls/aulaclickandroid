@@ -119,6 +119,9 @@
     <string name="label_cie">CIE</string>
     <string name="label_art">ART</string>
     <string name="label_hum">HUM</string>
+    <string name="subtitle_catalog_depto">Añadir o gestionar áreas</string>
+    <string name="subtitle_catalog_tipo">Categorías de espacios</string>
+    <string name="subtitle_catalog_equip">Inventario de recursos</string>
 
     <!-- Dialogs -->
     <string name="title_add_item">Añadir %1$s</string>
