@@ -1,6 +1,9 @@
 package com.aulaclick.app.network.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class TipoRecurso {
+    @SerializedName("idTipoRecurso")
     private Integer id;
     private String nombre;
 

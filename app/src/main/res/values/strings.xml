@@ -124,7 +124,9 @@
     <!-- Gestion Catalogos -->
     <string name="delete_confirm_title">¿Eliminar elemento?</string>
     <string name="delete_confirm_msg">¿Seguro que deseas eliminarlo?</string>
-    <string name="error_delete_conflict">No se puede eliminar, está en uso por un recurso</string>
+    <string name="error_delete_conflict">No se puede eliminar: está en uso</string>
+    <string name="msg_deleted_successfully">Eliminado correctamente</string>
+    <string name="error_delete_generic">Error al eliminar</string>
 
     <!-- Dialogs -->
     <string name="title_add_item">Añadir %1$s</string>

@@ -118,16 +118,19 @@ public class GestionEquipamientoActivity extends AppCompatActivity {
         ApiClient.getApiService().eliminarEquipamiento(id).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.code() == 204) {
+                if (response.isSuccessful() || response.code() == 204) {
+                    Toast.makeText(GestionEquipamientoActivity.this, R.string.msg_deleted_successfully, Toast.LENGTH_SHORT).show();
                     cargarEquipamiento();
                 } else if (response.code() == 409) {
-                    Toast.makeText(GestionEquipamientoActivity.this, R.string.error_delete_conflict, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GestionEquipamientoActivity.this, R.string.error_delete_conflict, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(GestionEquipamientoActivity.this, R.string.error_delete_generic, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(GestionEquipamientoActivity.this, R.string.error_network_prefix, Toast.LENGTH_SHORT).show();
+                Toast.makeText(GestionEquipamientoActivity.this, getString(R.string.error_network_prefix, t.getMessage()), Toast.LENGTH_SHORT).show();
             }
         });
     }

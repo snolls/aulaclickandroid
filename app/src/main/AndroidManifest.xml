@@ -25,6 +25,9 @@
         <activity android:name=".AdminPanelActivity" />
         <activity android:name=".AnadirRecursoActivity" />
         <activity android:name=".PerfilActivity" />
+        <activity android:name=".GestionDepartamentosActivity"/>
+        <activity android:name=".GestionTiposActivity"/>
+        <activity android:name=".GestionEquipamientoActivity"/>
 
     </application>
 
