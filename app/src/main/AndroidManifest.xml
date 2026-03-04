@@ -18,16 +18,16 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".DashboardActivity" />
-        <activity android:name=".DetalleRecursoActivity" />
-        <activity android:name=".NuevaReservaActivity" />
-        <activity android:name=".MisReservasActivity" />
-        <activity android:name=".AdminPanelActivity" />
-        <activity android:name=".AnadirRecursoActivity" />
-        <activity android:name=".PerfilActivity" />
-        <activity android:name=".GestionDepartamentosActivity"/>
-        <activity android:name=".GestionTiposActivity"/>
-        <activity android:name=".GestionEquipamientoActivity"/>
+        <activity android:name=".DashboardActivity" android:exported="false" />
+        <activity android:name=".DetalleRecursoActivity" android:exported="false" />
+        <activity android:name=".NuevaReservaActivity" android:exported="false" />
+        <activity android:name=".MisReservasActivity" android:exported="false" />
+        <activity android:name=".AdminPanelActivity" android:exported="false" />
+        <activity android:name=".AnadirRecursoActivity" android:exported="false" />
+        <activity android:name=".PerfilActivity" android:exported="false" />
+        <activity android:name=".GestionDepartamentosActivity" android:exported="false" />
+        <activity android:name=".GestionTiposActivity" android:exported="false" />
+        <activity android:name=".GestionEquipamientoActivity" android:exported="false" />
 
     </application>
 

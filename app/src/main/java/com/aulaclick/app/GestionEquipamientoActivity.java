@@ -2,10 +2,12 @@ package com.aulaclick.app;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -54,9 +56,12 @@ public class GestionEquipamientoActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        finish(); // Cierra esta pantalla y vuelve a la anterior limpiamente
-        return true;
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // Cierra esta activity actual y vuelve a la anterior
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void cargarEquipamiento() {
