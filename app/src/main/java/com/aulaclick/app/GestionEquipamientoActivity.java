@@ -36,7 +36,10 @@ public class GestionEquipamientoActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(v -> finish());
+        
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         rvEquipamiento = findViewById(R.id.rvEquipamiento);
         rvEquipamiento.setLayoutManager(new LinearLayoutManager(this));
@@ -48,6 +51,12 @@ public class GestionEquipamientoActivity extends AppCompatActivity {
         fabAdd.setOnClickListener(v -> showAddDialog());
 
         cargarEquipamiento();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish(); // Cierra esta pantalla y vuelve a la anterior limpiamente
+        return true;
     }
 
     private void cargarEquipamiento() {

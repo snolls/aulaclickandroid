@@ -53,6 +53,8 @@
     <string name="error_load_tipos">Error cargando tipos</string>
     <string name="label_equipamiento_disponible">Equipamiento disponible</string>
     <string name="error_load_equipamiento">Error cargando equipamiento</string>
+    <string name="label_select_tipo">Selecciona Tipo de Recurso</string>
+    <string name="label_select_depto">Selecciona Departamento</string>
 
     <!-- Detalle Recurso -->
     <string name="label_status">ESTADO</string>

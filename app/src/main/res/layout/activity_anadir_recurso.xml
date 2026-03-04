@@ -61,24 +61,32 @@
                 android:inputType="textCapSentences" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilTipoRecurso"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvTipoLabel"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="@string/hint_recurso_tipo"
-            app:endIconDrawable="@drawable/ic_add"
-            app:endIconMode="custom"
-            app:layout_constraintTop_toBottomOf="@id/tilNombreRecurso"
-            app:startIconDrawable="@drawable/ic_school">
+            android:text="Selecciona Tipo de Recurso"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorTextPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilNombreRecurso" />
 
-            <AutoCompleteTextView
-                android:id="@+id/tvTipoRecurso"
-                android:layout_width="match_parent"
+        <HorizontalScrollView
+            android:id="@+id/hsvTipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@id/tvTipoLabel">
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cgTipo"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="none" />
-        </com.google.android.material.textfield.TextInputLayout>
+                app:singleLine="true"
+                app:singleSelection="true" />
+        </HorizontalScrollView>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilCapacidad"
@@ -87,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/hint_recurso_capacidad"
-            app:layout_constraintTop_toBottomOf="@id/tilTipoRecurso"
+            app:layout_constraintTop_toBottomOf="@id/hsvTipo"
             app:startIconDrawable="@drawable/ic_group">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -97,24 +105,32 @@
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilDepartamento"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvDepartamentoLabel"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="@string/hint_recurso_departamento"
-            app:endIconDrawable="@drawable/ic_add"
-            app:endIconMode="custom"
-            app:layout_constraintTop_toBottomOf="@id/tilCapacidad"
-            app:startIconDrawable="@drawable/ic_location">
+            android:text="Selecciona Departamento"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorTextPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilCapacidad" />
 
-            <AutoCompleteTextView
-                android:id="@+id/tvDepartamento"
-                android:layout_width="match_parent"
+        <HorizontalScrollView
+            android:id="@+id/hsvDepartamento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@id/tvDepartamentoLabel">
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cgDepartamento"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="none" />
-        </com.google.android.material.textfield.TextInputLayout>
+                app:singleLine="true"
+                app:singleSelection="true" />
+        </HorizontalScrollView>
 
         <TextView
             android:id="@+id/tvEquipamientoLabel"
@@ -126,14 +142,15 @@
             android:textStyle="bold"
             android:textColor="@color/colorTextPrimary"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilDepartamento" />
+            app:layout_constraintTop_toBottomOf="@id/hsvDepartamento" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroupEquipamiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/tvEquipamientoLabel" />
+            app:layout_constraintTop_toBottomOf="@id/tvEquipamientoLabel"
+            app:singleSelection="false" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardEstado"

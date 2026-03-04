@@ -36,7 +36,10 @@ public class GestionDepartamentosActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(v -> finish());
+        
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         rvDepartamentos = findViewById(R.id.rvDepartamentos);
         rvDepartamentos.setLayoutManager(new LinearLayoutManager(this));
@@ -48,6 +51,12 @@ public class GestionDepartamentosActivity extends AppCompatActivity {
         fabAdd.setOnClickListener(v -> showAddDialog());
 
         cargarDepartamentos();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish(); // Cierra esta pantalla y vuelve a la anterior limpiamente
+        return true;
     }
 
     private void cargarDepartamentos() {

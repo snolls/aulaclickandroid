@@ -1,14 +1,8 @@
 package com.aulaclick.app;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.aulaclick.app.network.ApiClient;
@@ -21,12 +15,9 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,59 +26,40 @@ import retrofit2.Response;
 public class AnadirRecursoActivity extends AppCompatActivity {
 
     private TextInputEditText etNombre, etCapacidad;
-    private AutoCompleteTextView tvTipo, tvDepartamento;
-    private TextInputLayout tilTipo, tilDepartamento;
-    private ChipGroup chipGroupEquipamiento;
+    private ChipGroup cgTipo, cgDepartamento, cgEquipamiento;
     private SwitchMaterial switchEstado;
     private MaterialButton btnGuardar;
-
-    private Integer idDepartamentoSeleccionado;
-    private Integer idTipoRecursoSeleccionado;
-    private Map<String, Integer> mapaDepartamentos = new HashMap<>();
-    private Map<String, Integer> mapaTiposRecurso = new HashMap<>();
-    private Map<Integer, Chip> mapaChipsEquipamiento = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anadir_recurso);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         // Inicializar vistas
         etNombre = findViewById(R.id.etNombreRecurso);
-        tilTipo = findViewById(R.id.tilTipoRecurso);
-        tvTipo = findViewById(R.id.tvTipoRecurso);
+        cgTipo = findViewById(R.id.cgTipo);
         etCapacidad = findViewById(R.id.etCapacidad);
-        tilDepartamento = findViewById(R.id.tilDepartamento);
-        tvDepartamento = findViewById(R.id.tvDepartamento);
-        chipGroupEquipamiento = findViewById(R.id.chipGroupEquipamiento);
+        cgDepartamento = findViewById(R.id.cgDepartamento);
+        cgEquipamiento = findViewById(R.id.chipGroupEquipamiento);
         switchEstado = findViewById(R.id.switchEstado);
         btnGuardar = findViewById(R.id.btnGuardarRecurso);
 
-        findViewById(R.id.ivBack).setOnClickListener(v -> finish());
+        // Eliminamos el listener manual del ivBack para usar la navegación Up estándar
+        // findViewById(R.id.ivBack).setOnClickListener(v -> finish());
 
-        configurarListeners();
         cargarDatosDinámicos();
 
         btnGuardar.setOnClickListener(v -> guardarRecurso());
     }
 
-    private void configurarListeners() {
-        tvTipo.setOnItemClickListener((parent, view, position, id) -> {
-            Object item = parent.getItemAtPosition(position);
-            if (item != null) {
-                idTipoRecursoSeleccionado = mapaTiposRecurso.get(item.toString());
-            }
-        });
-
-        tvDepartamento.setOnItemClickListener((parent, view, position, id) -> {
-            Object item = parent.getItemAtPosition(position);
-            if (item != null) {
-                idDepartamentoSeleccionado = mapaDepartamentos.get(item.toString());
-            }
-        });
-
-        tilTipo.setEndIconOnClickListener(v -> mostrarDialogoAnadir(getString(R.string.catalog_tipo)));
-        tilDepartamento.setEndIconOnClickListener(v -> mostrarDialogoAnadir(getString(R.string.catalog_depto)));
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish(); // Cierra esta pantalla y vuelve a la anterior limpiamente
+        return true;
     }
 
     private void cargarDatosDinámicos() {
@@ -101,20 +73,15 @@ public class AnadirRecursoActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Departamento>> call, Response<List<Departamento>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<String> nombres = new ArrayList<>();
-                    mapaDepartamentos.clear();
+                    cgDepartamento.removeAllViews();
                     for (Departamento d : response.body()) {
                         if (d.getNombre() != null) {
-                            nombres.add(d.getNombre());
-                            mapaDepartamentos.put(d.getNombre(), d.getId());
+                            Chip chip = createChip(d.getNombre(), d.getId());
+                            cgDepartamento.addView(chip);
                         }
                     }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(AnadirRecursoActivity.this,
-                            android.R.layout.simple_dropdown_item_1line, nombres);
-                    tvDepartamento.setAdapter(adapter);
                 }
             }
-
             @Override
             public void onFailure(Call<List<Departamento>> call, Throwable t) {
                 Toast.makeText(AnadirRecursoActivity.this, R.string.error_load_deptos, Toast.LENGTH_SHORT).show();
@@ -127,20 +94,15 @@ public class AnadirRecursoActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<TipoRecurso>> call, Response<List<TipoRecurso>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<String> nombres = new ArrayList<>();
-                    mapaTiposRecurso.clear();
+                    cgTipo.removeAllViews();
                     for (TipoRecurso t : response.body()) {
                         if (t.getNombre() != null) {
-                            nombres.add(t.getNombre());
-                            mapaTiposRecurso.put(t.getNombre(), t.getId());
+                            Chip chip = createChip(t.getNombre(), t.getId());
+                            cgTipo.addView(chip);
                         }
                     }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(AnadirRecursoActivity.this,
-                            android.R.layout.simple_dropdown_item_1line, nombres);
-                    tvTipo.setAdapter(adapter);
                 }
             }
-
             @Override
             public void onFailure(Call<List<TipoRecurso>> call, Throwable t) {
                 Toast.makeText(AnadirRecursoActivity.this, R.string.error_load_tipos, Toast.LENGTH_SHORT).show();
@@ -153,20 +115,15 @@ public class AnadirRecursoActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Equipamiento>> call, Response<List<Equipamiento>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    chipGroupEquipamiento.removeAllViews();
-                    mapaChipsEquipamiento.clear();
+                    cgEquipamiento.removeAllViews();
                     for (Equipamiento e : response.body()) {
                         if (e.getNombre() != null) {
-                            Chip chip = new Chip(AnadirRecursoActivity.this);
-                            chip.setText(e.getNombre());
-                            chip.setCheckable(true);
-                            chipGroupEquipamiento.addView(chip);
-                            mapaChipsEquipamiento.put(e.getId(), chip);
+                            Chip chip = createChip(e.getNombre(), e.getId());
+                            cgEquipamiento.addView(chip);
                         }
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<List<Equipamiento>> call, Throwable t) {
                 Toast.makeText(AnadirRecursoActivity.this, R.string.error_load_equipamiento, Toast.LENGTH_SHORT).show();
@@ -174,61 +131,13 @@ public class AnadirRecursoActivity extends AppCompatActivity {
         });
     }
 
-    private void mostrarDialogoAnadir(String tipo) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.title_add_item, tipo));
-
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_add_item, null);
-        builder.setView(dialogView);
-
-        EditText etInput = dialogView.findViewById(R.id.input);
-
-        builder.setPositiveButton(R.string.btn_save, (dialog, which) -> {
-            String nombre = etInput.getText().toString().trim();
-            if (!nombre.isEmpty()) {
-                if (tipo.equals(getString(R.string.catalog_tipo))) {
-                    crearTipoRecurso(nombre);
-                } else if (tipo.equals(getString(R.string.catalog_depto))) {
-                    crearDepartamento(nombre);
-                }
-            } else {
-                Toast.makeText(this, R.string.error_empty_name, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        builder.setNegativeButton(R.string.btn_cancel, null);
-        builder.show();
-    }
-
-    private void crearTipoRecurso(String nombre) {
-        ApiClient.getApiService().crearTipoRecurso(new TipoRecurso(nombre)).enqueue(new Callback<TipoRecurso>() {
-            @Override
-            public void onResponse(Call<TipoRecurso> call, Response<TipoRecurso> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(AnadirRecursoActivity.this, R.string.msg_tipo_created, Toast.LENGTH_SHORT).show();
-                    cargarTiposRecurso();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<TipoRecurso> call, Throwable t) {}
-        });
-    }
-
-    private void crearDepartamento(String nombre) {
-        ApiClient.getApiService().crearDepartamento(new Departamento(nombre)).enqueue(new Callback<Departamento>() {
-            @Override
-            public void onResponse(Call<Departamento> call, Response<Departamento> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(AnadirRecursoActivity.this, R.string.msg_depto_created, Toast.LENGTH_SHORT).show();
-                    cargarDepartamentos();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Departamento> call, Throwable t) {}
-        });
+    private Chip createChip(String text, Integer id) {
+        Chip chip = new Chip(this);
+        chip.setText(text);
+        chip.setCheckable(true);
+        chip.setTag(id);
+        chip.setClickable(true);
+        return chip;
     }
 
     private void guardarRecurso() {
@@ -236,21 +145,29 @@ public class AnadirRecursoActivity extends AppCompatActivity {
         String capacidadStr = etCapacidad.getText().toString().trim();
         String estado = switchEstado.isChecked() ? getString(R.string.status_activo) : getString(R.string.status_inactivo);
 
-        if (nombre.isEmpty() || capacidadStr.isEmpty() || idDepartamentoSeleccionado == null || idTipoRecursoSeleccionado == null) {
+        int deptoChipId = cgDepartamento.getCheckedChipId();
+        int tipoChipId = cgTipo.getCheckedChipId();
+
+        if (nombre.isEmpty() || capacidadStr.isEmpty() || deptoChipId == -1 || tipoChipId == -1) {
             Toast.makeText(this, R.string.error_fill_fields, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        List<Integer> idsEquipamientoSeleccionados = new ArrayList<>();
-        for (Map.Entry<Integer, Chip> entry : mapaChipsEquipamiento.entrySet()) {
-            if (entry.getValue().isChecked()) {
-                idsEquipamientoSeleccionados.add(entry.getKey());
-            }
+        Chip deptoChip = findViewById(deptoChipId);
+        Chip tipoChip = findViewById(tipoChipId);
+        
+        Integer idDepartamento = (Integer) deptoChip.getTag();
+        Integer idTipoRecurso = (Integer) tipoChip.getTag();
+
+        List<Integer> idsEquipamiento = new ArrayList<>();
+        for (int id : cgEquipamiento.getCheckedChipIds()) {
+            Chip chip = findViewById(id);
+            idsEquipamiento.add((Integer) chip.getTag());
         }
 
         Integer capacidad = Integer.parseInt(capacidadStr);
         
-        Recurso nuevoRecurso = new Recurso(nombre, idTipoRecursoSeleccionado, capacidad, estado, idDepartamentoSeleccionado, idsEquipamientoSeleccionados);
+        Recurso nuevoRecurso = new Recurso(nombre, idTipoRecurso, capacidad, estado, idDepartamento, idsEquipamiento);
 
         btnGuardar.setText(R.string.btn_saving);
         btnGuardar.setEnabled(false);

@@ -36,7 +36,10 @@ public class GestionTiposActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(v -> finish());
+        
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         rvTipos = findViewById(R.id.rvTipos);
         rvTipos.setLayoutManager(new LinearLayoutManager(this));
@@ -48,6 +51,12 @@ public class GestionTiposActivity extends AppCompatActivity {
         fabAdd.setOnClickListener(v -> showAddDialog());
 
         cargarTipos();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish(); // Cierra esta pantalla y vuelve a la anterior limpiamente
+        return true;
     }
 
     private void cargarTipos() {
