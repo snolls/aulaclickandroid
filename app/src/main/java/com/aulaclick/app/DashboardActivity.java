@@ -39,15 +39,20 @@ public class DashboardActivity extends AppCompatActivity {
 
         // Setup Bottom Navigation
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
+        bottomNav.setSelectedItemId(R.id.nav_recursos);
         bottomNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_recursos) {
                 return true;
             } else if (id == R.id.nav_reservas) {
-                startActivity(new Intent(this, MisReservasActivity.class));
+                Intent intent = new Intent(this, MisReservasActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
                 return true;
             } else if (id == R.id.nav_perfil) {
-                startActivity(new Intent(this, PerfilActivity.class));
+                Intent intent = new Intent(this, AdminPanelActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
                 return true;
             }
             return false;

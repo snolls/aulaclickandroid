@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.card.MaterialCardView;
 
 public class AdminPanelActivity extends AppCompatActivity {
@@ -18,8 +18,6 @@ public class AdminPanelActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-        findViewById(R.id.ivBack).setOnClickListener(v -> finish());
 
         MaterialCardView cardAddRecurso = findViewById(R.id.cardAddRecurso);
         cardAddRecurso.setOnClickListener(v -> {
@@ -42,6 +40,29 @@ public class AdminPanelActivity extends AppCompatActivity {
             Intent intent = new Intent(this, GestionEquipamientoActivity.class);
             startActivity(intent);
         });
+
+        // Setup Bottom Navigation
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
+        if (bottomNav != null) {
+            bottomNav.setSelectedItemId(R.id.nav_perfil);
+            bottomNav.setOnItemSelectedListener(item -> {
+                int id = item.getItemId();
+                if (id == R.id.nav_recursos) {
+                    Intent intent = new Intent(this, DashboardActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(intent);
+                    return true;
+                } else if (id == R.id.nav_reservas) {
+                    Intent intent = new Intent(this, MisReservasActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(intent);
+                    return true;
+                } else if (id == R.id.nav_perfil) {
+                    return true;
+                }
+                return false;
+            });
+        }
     }
 
     @Override

@@ -48,9 +48,6 @@ public class AnadirRecursoActivity extends AppCompatActivity {
         switchEstado = findViewById(R.id.switchEstado);
         btnGuardar = findViewById(R.id.btnGuardarRecurso);
 
-        // Eliminamos el listener manual del ivBack para usar la navegación Up estándar
-        // findViewById(R.id.ivBack).setOnClickListener(v -> finish());
-
         cargarDatosDinámicos();
 
         btnGuardar.setOnClickListener(v -> guardarRecurso());
@@ -159,15 +156,15 @@ public class AnadirRecursoActivity extends AppCompatActivity {
         Integer idDepartamento = (Integer) deptoChip.getTag();
         Integer idTipoRecurso = (Integer) tipoChip.getTag();
 
-        List<Integer> idsEquipamiento = new ArrayList<>();
+        List<Integer> idsEquipamientoSeleccionados = new ArrayList<>();
         for (int id : cgEquipamiento.getCheckedChipIds()) {
             Chip chip = findViewById(id);
-            idsEquipamiento.add((Integer) chip.getTag());
+            idsEquipamientoSeleccionados.add((Integer) chip.getTag());
         }
 
         Integer capacidad = Integer.parseInt(capacidadStr);
         
-        Recurso nuevoRecurso = new Recurso(nombre, idTipoRecurso, capacidad, estado, idDepartamento, idsEquipamiento);
+        Recurso nuevoRecurso = new Recurso(nombre, idTipoRecurso, capacidad, estado, idDepartamento, idsEquipamientoSeleccionados);
 
         btnGuardar.setText(R.string.btn_saving);
         btnGuardar.setEnabled(false);

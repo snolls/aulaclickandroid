@@ -1,9 +1,11 @@
 package com.aulaclick.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,9 @@ public class MisReservasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mis_reservas);
 
-        findViewById(R.id.ivBack).setOnClickListener(v -> finish());
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         RecyclerView rvMisReservas = findViewById(R.id.rvMisReservas);
         rvMisReservas.setLayoutManager(new LinearLayoutManager(this));
@@ -26,5 +30,34 @@ public class MisReservasActivity extends AppCompatActivity {
 
         MisReservasAdapter adapter = new MisReservasAdapter(listaPrueba);
         rvMisReservas.setAdapter(adapter);
+
+        // Setup Bottom Navigation
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
+        if (bottomNav != null) {
+            bottomNav.setSelectedItemId(R.id.nav_reservas);
+            bottomNav.setOnItemSelectedListener(item -> {
+                int id = item.getItemId();
+                if (id == R.id.nav_recursos) {
+                    Intent intent = new Intent(this, DashboardActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(intent);
+                    return true;
+                } else if (id == R.id.nav_reservas) {
+                    return true;
+                } else if (id == R.id.nav_perfil) {
+                    Intent intent = new Intent(this, AdminPanelActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            });
+        }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
