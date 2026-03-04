@@ -2,6 +2,9 @@ package com.aulaclick.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,7 +48,7 @@ public class MisReservasActivity extends AppCompatActivity {
                 } else if (id == R.id.nav_reservas) {
                     return true;
                 } else if (id == R.id.nav_perfil) {
-                    Intent intent = new Intent(this, AdminPanelActivity.class);
+                    Intent intent = new Intent(this, PerfilActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent);
                     return true;
@@ -56,8 +59,11 @@ public class MisReservasActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

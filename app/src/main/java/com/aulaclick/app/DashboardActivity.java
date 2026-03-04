@@ -50,7 +50,7 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             } else if (id == R.id.nav_perfil) {
-                Intent intent = new Intent(this, AdminPanelActivity.class);
+                Intent intent = new Intent(this, PerfilActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 return true;
