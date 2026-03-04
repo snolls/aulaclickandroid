@@ -1,25 +1,30 @@
 package com.aulaclick.app;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.aulaclick.app.network.ApiClient;
 import com.aulaclick.app.network.models.Recurso;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DashboardActivity extends AppCompatActivity {
 
-    private RecyclerView rvRecursos;
     private RecursoAdapter adapter;
-    private List<Recurso> listaRecursos = new ArrayList<>();
+    private final List<Recurso> listaRecursos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +32,7 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         // Setup RecyclerView
-        rvRecursos = findViewById(R.id.rvRecursos);
+        RecyclerView rvRecursos = findViewById(R.id.rvRecursos);
         rvRecursos.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new RecursoAdapter(listaRecursos, recurso -> {
@@ -68,9 +73,10 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void cargarRecursos() {
-        ApiClient.getApiService().getRecursos().enqueue(new Callback<List<Recurso>>() {
+        ApiClient.getApiService().getRecursos().enqueue(new Callback<>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onResponse(Call<List<Recurso>> call, Response<List<Recurso>> response) {
+            public void onResponse(@NonNull Call<List<Recurso>> call, @NonNull Response<List<Recurso>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     listaRecursos.clear();
                     listaRecursos.addAll(response.body());
@@ -81,7 +87,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Recurso>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Recurso>> call, @NonNull Throwable t) {
                 Toast.makeText(DashboardActivity.this, getString(R.string.error_network_prefix, t.getMessage()), Toast.LENGTH_SHORT).show();
             }
         });

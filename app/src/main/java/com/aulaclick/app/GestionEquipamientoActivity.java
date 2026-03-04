@@ -27,7 +27,6 @@ import retrofit2.Response;
 
 public class GestionEquipamientoActivity extends AppCompatActivity {
 
-    private RecyclerView rvEquipamiento;
     private EquipamientoAdapter adapter;
     private List<Equipamiento> listaEquipamiento = new ArrayList<>();
 
@@ -43,7 +42,7 @@ public class GestionEquipamientoActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        rvEquipamiento = findViewById(R.id.rvEquipamiento);
+        RecyclerView rvEquipamiento = findViewById(R.id.rvEquipamiento);
         rvEquipamiento.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new EquipamientoAdapter(listaEquipamiento, this::showDeleteConfirmation);
@@ -65,9 +64,9 @@ public class GestionEquipamientoActivity extends AppCompatActivity {
     }
 
     private void cargarEquipamiento() {
-        ApiClient.getApiService().getEquipamientos().enqueue(new Callback<List<Equipamiento>>() {
+        ApiClient.getApiService().getEquipamientos().enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<List<Equipamiento>> call, Response<List<Equipamiento>> response) {
+            public void onResponse(@NonNull Call<List<Equipamiento>> call, @NonNull Response<List<Equipamiento>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     listaEquipamiento = response.body();
                     adapter.updateData(listaEquipamiento);
@@ -75,7 +74,7 @@ public class GestionEquipamientoActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Equipamiento>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Equipamiento>> call, @NonNull Throwable t) {
                 Toast.makeText(GestionEquipamientoActivity.this, R.string.error_load_equipamiento, Toast.LENGTH_SHORT).show();
             }
         });
@@ -103,9 +102,9 @@ public class GestionEquipamientoActivity extends AppCompatActivity {
     }
 
     private void crearEquipamiento(String name) {
-        ApiClient.getApiService().crearEquipamiento(new Equipamiento(name)).enqueue(new Callback<Equipamiento>() {
+        ApiClient.getApiService().crearEquipamiento(new Equipamiento(name)).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<Equipamiento> call, Response<Equipamiento> response) {
+            public void onResponse(@NonNull Call<Equipamiento> call, @NonNull Response<Equipamiento> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(GestionEquipamientoActivity.this, R.string.msg_equip_created, Toast.LENGTH_SHORT).show();
                     cargarEquipamiento();
@@ -113,7 +112,7 @@ public class GestionEquipamientoActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Equipamiento> call, Throwable t) {
+            public void onFailure(@NonNull Call<Equipamiento> call, @NonNull Throwable t) {
                 Toast.makeText(GestionEquipamientoActivity.this, R.string.error_network_prefix, Toast.LENGTH_SHORT).show();
             }
         });
@@ -129,9 +128,9 @@ public class GestionEquipamientoActivity extends AppCompatActivity {
     }
 
     private void eliminarEquipamiento(Integer id) {
-        ApiClient.getApiService().eliminarEquipamiento(id).enqueue(new Callback<Void>() {
+        ApiClient.getApiService().eliminarEquipamiento(id).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful() || response.code() == 204) {
                     Toast.makeText(GestionEquipamientoActivity.this, R.string.msg_deleted_successfully, Toast.LENGTH_SHORT).show();
                     cargarEquipamiento();
@@ -143,7 +142,7 @@ public class GestionEquipamientoActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                 Toast.makeText(GestionEquipamientoActivity.this, getString(R.string.error_network_prefix, t.getMessage()), Toast.LENGTH_SHORT).show();
             }
         });

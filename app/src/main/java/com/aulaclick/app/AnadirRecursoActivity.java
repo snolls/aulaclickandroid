@@ -71,9 +71,9 @@ public class AnadirRecursoActivity extends AppCompatActivity {
     }
 
     private void cargarDepartamentos() {
-        ApiClient.getApiService().getDepartamentos().enqueue(new Callback<List<Departamento>>() {
+        ApiClient.getApiService().getDepartamentos().enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<List<Departamento>> call, Response<List<Departamento>> response) {
+            public void onResponse(@NonNull Call<List<Departamento>> call, @NonNull Response<List<Departamento>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     cgDepartamento.removeAllViews();
                     for (Departamento d : response.body()) {
@@ -85,16 +85,16 @@ public class AnadirRecursoActivity extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<List<Departamento>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Departamento>> call, @NonNull Throwable t) {
                 Toast.makeText(AnadirRecursoActivity.this, R.string.error_load_deptos, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void cargarTiposRecurso() {
-        ApiClient.getApiService().getTiposRecurso().enqueue(new Callback<List<TipoRecurso>>() {
+        ApiClient.getApiService().getTiposRecurso().enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<List<TipoRecurso>> call, Response<List<TipoRecurso>> response) {
+            public void onResponse(@NonNull Call<List<TipoRecurso>> call, @NonNull Response<List<TipoRecurso>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     cgTipo.removeAllViews();
                     for (TipoRecurso t : response.body()) {
@@ -106,16 +106,16 @@ public class AnadirRecursoActivity extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<List<TipoRecurso>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<TipoRecurso>> call, @NonNull Throwable t) {
                 Toast.makeText(AnadirRecursoActivity.this, R.string.error_load_tipos, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void cargarEquipamiento() {
-        ApiClient.getApiService().getEquipamientos().enqueue(new Callback<List<Equipamiento>>() {
+        ApiClient.getApiService().getEquipamientos().enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<List<Equipamiento>> call, Response<List<Equipamiento>> response) {
+            public void onResponse(@NonNull Call<List<Equipamiento>> call, @NonNull Response<List<Equipamiento>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     cgEquipamiento.removeAllViews();
                     for (Equipamiento e : response.body()) {
@@ -127,7 +127,7 @@ public class AnadirRecursoActivity extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<List<Equipamiento>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Equipamiento>> call, @NonNull Throwable t) {
                 Toast.makeText(AnadirRecursoActivity.this, R.string.error_load_equipamiento, Toast.LENGTH_SHORT).show();
             }
         });
@@ -143,8 +143,8 @@ public class AnadirRecursoActivity extends AppCompatActivity {
     }
 
     private void guardarRecurso() {
-        String nombre = etNombre.getText().toString().trim();
-        String capacidadStr = etCapacidad.getText().toString().trim();
+        String nombre = etNombre.getText() != null ? etNombre.getText().toString().trim() : "";
+        String capacidadStr = etCapacidad.getText() != null ? etCapacidad.getText().toString().trim() : "";
         String estado = switchEstado.isChecked() ? getString(R.string.status_activo) : getString(R.string.status_inactivo);
 
         int deptoChipId = cgDepartamento.getCheckedChipId();
@@ -174,9 +174,9 @@ public class AnadirRecursoActivity extends AppCompatActivity {
         btnGuardar.setText(R.string.btn_saving);
         btnGuardar.setEnabled(false);
 
-        ApiClient.getApiService().crearRecurso(nuevoRecurso).enqueue(new Callback<Recurso>() {
+        ApiClient.getApiService().crearRecurso(nuevoRecurso).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<Recurso> call, Response<Recurso> response) {
+            public void onResponse(@NonNull Call<Recurso> call, @NonNull Response<Recurso> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(AnadirRecursoActivity.this, R.string.msg_recurso_saved, Toast.LENGTH_SHORT).show();
                     finish();
@@ -188,7 +188,7 @@ public class AnadirRecursoActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Recurso> call, Throwable t) {
+            public void onFailure(@NonNull Call<Recurso> call, @NonNull Throwable t) {
                 btnGuardar.setText(R.string.btn_save_recurso);
                 btnGuardar.setEnabled(true);
                 Toast.makeText(AnadirRecursoActivity.this, getString(R.string.error_network_prefix, t.getMessage()), Toast.LENGTH_SHORT).show();

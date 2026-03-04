@@ -27,7 +27,6 @@ import retrofit2.Response;
 
 public class GestionDepartamentosActivity extends AppCompatActivity {
 
-    private RecyclerView rvDepartamentos;
     private DepartamentoAdapter adapter;
     private List<Departamento> listaDepartamentos = new ArrayList<>();
 
@@ -43,7 +42,7 @@ public class GestionDepartamentosActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        rvDepartamentos = findViewById(R.id.rvDepartamentos);
+        RecyclerView rvDepartamentos = findViewById(R.id.rvDepartamentos);
         rvDepartamentos.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new DepartamentoAdapter(listaDepartamentos, this::showDeleteConfirmation);
@@ -65,9 +64,9 @@ public class GestionDepartamentosActivity extends AppCompatActivity {
     }
 
     private void cargarDepartamentos() {
-        ApiClient.getApiService().getDepartamentos().enqueue(new Callback<List<Departamento>>() {
+        ApiClient.getApiService().getDepartamentos().enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<List<Departamento>> call, Response<List<Departamento>> response) {
+            public void onResponse(@NonNull Call<List<Departamento>> call, @NonNull Response<List<Departamento>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     listaDepartamentos = response.body();
                     adapter.updateData(listaDepartamentos);
@@ -75,7 +74,7 @@ public class GestionDepartamentosActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Departamento>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Departamento>> call, @NonNull Throwable t) {
                 Toast.makeText(GestionDepartamentosActivity.this, R.string.error_load_deptos, Toast.LENGTH_SHORT).show();
             }
         });
@@ -103,9 +102,9 @@ public class GestionDepartamentosActivity extends AppCompatActivity {
     }
 
     private void crearDepartamento(String name) {
-        ApiClient.getApiService().crearDepartamento(new Departamento(name)).enqueue(new Callback<Departamento>() {
+        ApiClient.getApiService().crearDepartamento(new Departamento(name)).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<Departamento> call, Response<Departamento> response) {
+            public void onResponse(@NonNull Call<Departamento> call, @NonNull Response<Departamento> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(GestionDepartamentosActivity.this, R.string.msg_depto_created, Toast.LENGTH_SHORT).show();
                     cargarDepartamentos();
@@ -113,7 +112,7 @@ public class GestionDepartamentosActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Departamento> call, Throwable t) {
+            public void onFailure(@NonNull Call<Departamento> call, @NonNull Throwable t) {
                 Toast.makeText(GestionDepartamentosActivity.this, R.string.error_network_prefix, Toast.LENGTH_SHORT).show();
             }
         });
@@ -129,9 +128,9 @@ public class GestionDepartamentosActivity extends AppCompatActivity {
     }
 
     private void eliminarDepartamento(Integer id) {
-        ApiClient.getApiService().eliminarDepartamento(id).enqueue(new Callback<Void>() {
+        ApiClient.getApiService().eliminarDepartamento(id).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful() || response.code() == 204) {
                     Toast.makeText(GestionDepartamentosActivity.this, R.string.msg_deleted_successfully, Toast.LENGTH_SHORT).show();
                     cargarDepartamentos();
@@ -143,7 +142,7 @@ public class GestionDepartamentosActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                 Toast.makeText(GestionDepartamentosActivity.this, getString(R.string.error_network_prefix, t.getMessage()), Toast.LENGTH_SHORT).show();
             }
         });

@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setText(R.string.btn_connecting);
 
         LoginRequest loginRequest = new LoginRequest(email, password);
-        ApiClient.getApiService().login(loginRequest).enqueue(new Callback<UsuarioResponse>() {
+        ApiClient.getApiService().login(loginRequest).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<UsuarioResponse> call, @NonNull Response<UsuarioResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {

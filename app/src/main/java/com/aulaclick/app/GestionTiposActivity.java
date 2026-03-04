@@ -27,7 +27,6 @@ import retrofit2.Response;
 
 public class GestionTiposActivity extends AppCompatActivity {
 
-    private RecyclerView rvTipos;
     private TipoRecursoAdapter adapter;
     private List<TipoRecurso> listaTipos = new ArrayList<>();
 
@@ -43,7 +42,7 @@ public class GestionTiposActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        rvTipos = findViewById(R.id.rvTipos);
+        RecyclerView rvTipos = findViewById(R.id.rvTipos);
         rvTipos.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new TipoRecursoAdapter(listaTipos, this::showDeleteConfirmation);
@@ -65,9 +64,9 @@ public class GestionTiposActivity extends AppCompatActivity {
     }
 
     private void cargarTipos() {
-        ApiClient.getApiService().getTiposRecurso().enqueue(new Callback<List<TipoRecurso>>() {
+        ApiClient.getApiService().getTiposRecurso().enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<List<TipoRecurso>> call, Response<List<TipoRecurso>> response) {
+            public void onResponse(@NonNull Call<List<TipoRecurso>> call, @NonNull Response<List<TipoRecurso>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     listaTipos = response.body();
                     adapter.updateData(listaTipos);
@@ -75,7 +74,7 @@ public class GestionTiposActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<TipoRecurso>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<TipoRecurso>> call, @NonNull Throwable t) {
                 Toast.makeText(GestionTiposActivity.this, R.string.error_load_tipos, Toast.LENGTH_SHORT).show();
             }
         });
@@ -103,9 +102,9 @@ public class GestionTiposActivity extends AppCompatActivity {
     }
 
     private void crearTipo(String name) {
-        ApiClient.getApiService().crearTipoRecurso(new TipoRecurso(name)).enqueue(new Callback<TipoRecurso>() {
+        ApiClient.getApiService().crearTipoRecurso(new TipoRecurso(name)).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<TipoRecurso> call, Response<TipoRecurso> response) {
+            public void onResponse(@NonNull Call<TipoRecurso> call, @NonNull Response<TipoRecurso> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(GestionTiposActivity.this, R.string.msg_tipo_created, Toast.LENGTH_SHORT).show();
                     cargarTipos();
@@ -113,7 +112,7 @@ public class GestionTiposActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<TipoRecurso> call, Throwable t) {
+            public void onFailure(@NonNull Call<TipoRecurso> call, @NonNull Throwable t) {
                 Toast.makeText(GestionTiposActivity.this, R.string.error_network_prefix, Toast.LENGTH_SHORT).show();
             }
         });
@@ -129,9 +128,9 @@ public class GestionTiposActivity extends AppCompatActivity {
     }
 
     private void eliminarTipo(Integer id) {
-        ApiClient.getApiService().eliminarTipoRecurso(id).enqueue(new Callback<Void>() {
+        ApiClient.getApiService().eliminarTipoRecurso(id).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful() || response.code() == 204) {
                     Toast.makeText(GestionTiposActivity.this, R.string.msg_deleted_successfully, Toast.LENGTH_SHORT).show();
                     cargarTipos();
@@ -143,7 +142,7 @@ public class GestionTiposActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                 Toast.makeText(GestionTiposActivity.this, getString(R.string.error_network_prefix, t.getMessage()), Toast.LENGTH_SHORT).show();
             }
         });
