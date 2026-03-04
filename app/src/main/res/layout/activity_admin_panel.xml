@@ -157,7 +157,7 @@
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
-        <!-- Catalog Management Section (Redesigned) -->
+        <!-- Catalog Management Section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -215,7 +215,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/subtitle_catalog_depto"
+                            android:text="@string/subtitle_catalog_generic"
                             android:textColor="@color/colorTextSecondary"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -272,7 +272,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/subtitle_catalog_tipo"
+                            android:text="@string/subtitle_catalog_generic"
                             android:textColor="@color/colorTextSecondary"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -329,7 +329,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/subtitle_catalog_equip"
+                            android:text="@string/subtitle_catalog_generic"
                             android:textColor="@color/colorTextSecondary"
                             android:textSize="14sp" />
                     </LinearLayout>

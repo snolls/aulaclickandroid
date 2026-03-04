@@ -119,20 +119,24 @@
     <string name="label_cie">CIE</string>
     <string name="label_art">ART</string>
     <string name="label_hum">HUM</string>
-    <string name="subtitle_catalog_depto">Añadir o gestionar áreas</string>
-    <string name="subtitle_catalog_tipo">Categorías de espacios</string>
-    <string name="subtitle_catalog_equip">Inventario de recursos</string>
+    <string name="subtitle_catalog_generic">Crear, listar y eliminar</string>
+
+    <!-- Gestion Catalogos -->
+    <string name="delete_confirm_title">¿Eliminar elemento?</string>
+    <string name="delete_confirm_msg">¿Seguro que deseas eliminarlo?</string>
+    <string name="error_delete_conflict">No se puede eliminar, está en uso por un recurso</string>
 
     <!-- Dialogs -->
     <string name="title_add_item">Añadir %1$s</string>
     <string name="hint_name">Nombre</string>
     <string name="btn_save">Guardar</string>
     <string name="btn_cancel">Cancelar</string>
+    <string name="btn_delete">Eliminar</string>
     <string name="error_empty_name">El nombre no puede estar vacío</string>
     <string name="msg_depto_created">Departamento creado</string>
     <string name="msg_tipo_created">Tipo de recurso creado</string>
     <string name="msg_equip_created">Equipamiento creado</string>
-    <string name="catalog_depto">Departamento</string>
-    <string name="catalog_tipo">Tipo de Recurso</string>
+    <string name="catalog_depto">Departamentos</string>
+    <string name="catalog_tipo">Tipos de Recurso</string>
     <string name="catalog_equip">Equipamiento</string>
 </resources>
