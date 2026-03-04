@@ -1,34 +1,39 @@
 package com.aulaclick.app.network.models;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Recurso {
-    private Integer idRecurso;
+    @SerializedName("idRecurso")
+    private Integer id;
     private String nombre;
-    private String tipo;
+    private Integer idTipoRecurso;
     private Integer capacidad;
     private String estado;
     private Integer idDepartamento;
     private List<Integer> idsEquipamiento;
+    
+    // Campo auxiliar para mostrar el nombre del tipo en la lista si fuera necesario
+    private String nombreTipo;
 
     public Recurso() {
     }
 
-    public Recurso(String nombre, String tipo, Integer capacidad, String estado, Integer idDepartamento, List<Integer> idsEquipamiento) {
+    public Recurso(String nombre, Integer idTipoRecurso, Integer capacidad, String estado, Integer idDepartamento, List<Integer> idsEquipamiento) {
         this.nombre = nombre;
-        this.tipo = tipo;
+        this.idTipoRecurso = idTipoRecurso;
         this.capacidad = capacidad;
         this.estado = estado;
         this.idDepartamento = idDepartamento;
         this.idsEquipamiento = idsEquipamiento;
     }
 
-    public Integer getIdRecurso() {
-        return idRecurso;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdRecurso(Integer idRecurso) {
-        this.idRecurso = idRecurso;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -39,12 +44,12 @@ public class Recurso {
         this.nombre = nombre;
     }
 
-    public String getTipo() {
-        return tipo;
+    public Integer getIdTipoRecurso() {
+        return idTipoRecurso;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setIdTipoRecurso(Integer idTipoRecurso) {
+        this.idTipoRecurso = idTipoRecurso;
     }
 
     public Integer getCapacidad() {
@@ -77,5 +82,13 @@ public class Recurso {
 
     public void setIdsEquipamiento(List<Integer> idsEquipamiento) {
         this.idsEquipamiento = idsEquipamiento;
+    }
+
+    public String getNombreTipo() {
+        return nombreTipo;
+    }
+
+    public void setNombreTipo(String nombreTipo) {
+        this.nombreTipo = nombreTipo;
     }
 }

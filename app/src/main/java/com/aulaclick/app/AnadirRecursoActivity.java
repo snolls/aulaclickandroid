@@ -2,6 +2,7 @@ package com.aulaclick.app;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -178,7 +179,7 @@ public class AnadirRecursoActivity extends AppCompatActivity {
         builder.setTitle(getString(R.string.title_add_item, tipo));
 
         LayoutInflater inflater = getLayoutInflater();
-        android.view.View dialogView = inflater.inflate(R.layout.dialog_add_item, null);
+        View dialogView = inflater.inflate(R.layout.dialog_add_item, null);
         builder.setView(dialogView);
 
         EditText etInput = dialogView.findViewById(R.id.input);
@@ -240,17 +241,16 @@ public class AnadirRecursoActivity extends AppCompatActivity {
             return;
         }
 
-        List<Integer> idsEquipamiento = new ArrayList<>();
+        List<Integer> idsEquipamientoSeleccionados = new ArrayList<>();
         for (Map.Entry<Integer, Chip> entry : mapaChipsEquipamiento.entrySet()) {
             if (entry.getValue().isChecked()) {
-                idsEquipamiento.add(entry.getKey());
+                idsEquipamientoSeleccionados.add(entry.getKey());
             }
         }
 
         Integer capacidad = Integer.parseInt(capacidadStr);
-        String tipoNombre = tvTipo.getText().toString();
-
-        Recurso nuevoRecurso = new Recurso(nombre, tipoNombre, capacidad, estado, idDepartamentoSeleccionado, idsEquipamiento);
+        
+        Recurso nuevoRecurso = new Recurso(nombre, idTipoRecursoSeleccionado, capacidad, estado, idDepartamentoSeleccionado, idsEquipamientoSeleccionados);
 
         btnGuardar.setText(R.string.btn_saving);
         btnGuardar.setEnabled(false);
