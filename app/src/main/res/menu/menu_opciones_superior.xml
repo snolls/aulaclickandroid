@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_panel_admin"
+        android:title="Panel de Administración"
+        android:visible="false"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_ayuda"
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="Ayuda / Soporte"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_cerrar_sesion"
+        android:title="Cerrar Sesión"
+        app:showAsAction="never" />
+
+</menu>

@@ -1,0 +1,73 @@
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+}
+
+// ── Leer credenciales desde local.properties ─────────────────────────────
+Properties properties = new Properties()
+if (project.rootProject.file('local.properties').exists()) {
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+}
+
+android {
+    namespace 'com.aulaclick.app'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.aulaclick.app"
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        // Credenciales Cloudinary inyectadas desde local.properties
+        buildConfigField "String", "CLOUDINARY_CLOUD_NAME",     properties.getProperty("CLOUDINARY_CLOUD_NAME", '""')
+        buildConfigField "String", "CLOUDINARY_UPLOAD_PRESET",  properties.getProperty("CLOUDINARY_UPLOAD_PRESET", '""')
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        buildConfig true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'androidx.fragment:fragment:1.6.2'
+
+    // Retrofit & Gson
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    
+    // OkHttp & Logging Interceptor
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+
+    // Cloudinary - subida de imágenes
+    implementation 'com.cloudinary:cloudinary-android:2.5.0'
+
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:34.11.0')
+
+
+    // TODO: Add the dependencies for Firebase products you want to use
+    // When using the BoM, don't specify versions in Firebase dependencies
+    implementation 'com.google.firebase:firebase-analytics'
+
+}

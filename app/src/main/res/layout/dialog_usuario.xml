@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Nombre -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilDialogNombre"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre completo"
+            app:boxStrokeColor="@color/colorPrimary"
+            app:hintTextColor="@color/colorTextSecondary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDialogNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorTextPrimary"
+                android:textColorHint="@color/colorTextSecondary" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Email -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilDialogEmail"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="Email"
+            app:boxStrokeColor="@color/colorPrimary"
+            app:hintTextColor="@color/colorTextSecondary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDialogEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorTextPrimary"
+                android:textColorHint="@color/colorTextSecondary" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Contraseña (solo creación) -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilDialogPassword"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="Contraseña"
+            app:boxStrokeColor="@color/colorPrimary"
+            app:endIconMode="password_toggle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDialogPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textColor="@color/colorTextPrimary"
+                android:textColorHint="@color/colorTextSecondary" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Cambiar contraseña (solo edición, opcional) -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilDialogCambiarPassword"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="Nueva contraseña (dejar vacío para no cambiar)"
+            app:boxStrokeColor="@color/colorPrimary"
+            app:hintTextColor="@color/colorTextSecondary"
+            app:endIconMode="password_toggle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDialogCambiarPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textColor="@color/colorTextPrimary"
+                android:textColorHint="@color/colorTextSecondary" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Rol -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Rol"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="12sp" />
+
+        <Spinner
+            android:id="@+id/spinnerRol"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_chip_rol"
+            android:paddingHorizontal="12dp" />
+
+        <!-- Sede -->
+        <TextView
+            android:id="@+id/tvSedeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Sede"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="12sp" />
+
+        <Spinner
+            android:id="@+id/spinnerSede"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_chip_rol"
+            android:paddingHorizontal="12dp" />
+
+    </LinearLayout>
+</ScrollView>

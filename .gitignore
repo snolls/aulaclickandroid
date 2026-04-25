@@ -1,0 +1,25 @@
+# Root level ignores
+.gradle/
+local.properties
+.idea/
+build/
+.claude/
+.vscode/
+
+# Module level ignores
+**/build/
+*.iml
+*.jks
+*.keystore
+
+# Android Studio
+/captures
+.externalNativeBuild
+.cxx
+
+# App signing
+**/google-services.json
+
+# OS specific
+.DS_Store
+Thumbs.db

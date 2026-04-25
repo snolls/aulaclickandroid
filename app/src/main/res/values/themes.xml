@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Tema principal de la aplicación heredando de Material Components -->
+    <style name="Theme.AulaclickApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Colores principales -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorTextPrimary</item>
+
+        <!-- Colores de superficie y fondo -->
+        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorTextPrimary</item>
+
+        <!-- Colores de error -->
+        <item name="colorError">@color/colorError</item>
+
+        <!-- Compatibilidad de texto -->
+        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:textColorSecondary">@color/colorTextSecondary</item>
+        <!-- Dialogs & Menus -->
+        <item name="materialAlertDialogTheme">@style/MiEstiloDialogo</item>
+        <item name="popupMenuBackground">@drawable/fondo_menu_redondeado</item>
+    </style>
+
+    <style name="MiEstiloDialogo" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="shapeAppearanceOverlay">@style/EsquinasRedondeadasDialogo</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorTextPrimary</item>
+        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:textColorSecondary">@color/colorTextSecondary</item>
+        <item name="android:colorBackground">@color/colorSurface</item>
+        <item name="alertDialogStyle">@style/MiAlertDialogEstilo</item>
+    </style>
+
+    <style name="MiAlertDialogEstilo" parent="MaterialAlertDialog.MaterialComponents">
+        <item name="android:background">@color/colorSurface</item>
+    </style>
+
+    <style name="EsquinasRedondeadasDialogo">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="RoundedSquare">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+</resources>

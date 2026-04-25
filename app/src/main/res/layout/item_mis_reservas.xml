@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginBottom="10dp"
+    app:cardBackgroundColor="@color/colorSurface"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="104dp">
+
+        <!-- Cinta lateral de estado (píldora flotante con márgenes) -->
+        <View
+            android:id="@+id/viewEstadoLateral"
+            android:layout_width="5dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginVertical="12dp"
+            android:background="@drawable/bg_cinta_lateral"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Imagen del recurso -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivIconoRecurso"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_school"
+            app:layout_constraintStart_toEndOf="@id/viewEstadoLateral"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/RoundedSquare" />
+
+        <!-- Píldora de estado (esquina superior derecha) -->
+        <TextView
+            android:id="@+id/tvReservaEstado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_badge_estado"
+            android:letterSpacing="0.05"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="CONFIRMADA" />
+
+        <!-- Nombre del recurso -->
+        <TextView
+            android:id="@+id/tvReservaNombre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/tvReservaEstado"
+            app:layout_constraintStart_toEndOf="@id/ivIconoRecurso"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Aula de Informática 3" />
+
+        <!-- Fila de fecha y hora -->
+        <LinearLayout
+            android:id="@+id/llFechaHora"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivIconoRecurso"
+            app:layout_constraintTop_toBottomOf="@id/tvReservaNombre">
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_calendar"
+                app:tint="@color/colorTextSecondary" />
+
+            <TextView
+                android:id="@+id/tvReservaFecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="13sp"
+                tools:text="15 Oct, 2024" />
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginStart="12dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_clock"
+                app:tint="@color/colorTextSecondary" />
+
+            <TextView
+                android:id="@+id/tvReservaHora"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="13sp"
+                tools:text="09:00 – 11:00" />
+
+        </LinearLayout>
+
+        <!-- Botón de cancelar reserva -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCancelarReserva"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:minHeight="40dp"
+            android:paddingHorizontal="20dp"
+            android:text="Cancelar Reserva"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            app:backgroundTint="#E53935"
+            app:cornerRadius="8dp"
+            app:icon="@drawable/ic_close"
+            app:iconGravity="textStart"
+            app:iconSize="14dp"
+            app:iconTint="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivIconoRecurso" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
