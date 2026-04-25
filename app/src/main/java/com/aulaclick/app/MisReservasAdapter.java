@@ -44,6 +44,10 @@ public class MisReservasAdapter extends RecyclerView.Adapter<MisReservasAdapter.
         holder.tvNombre.setText(reserva.getNombreRecurso());
         holder.tvFecha.setText(reserva.getFecha());
         holder.tvHora.setText(reserva.getHora());
+        if (holder.tvUsuario != null) {
+            String usuario = reserva.getNombreUsuario();
+            holder.tvUsuario.setText(usuario != null && !usuario.isEmpty() ? usuario : "—");
+        }
 
         String url = reserva.getImagenUrl();
         android.util.Log.d("DEBUG_IMAGEN_RESERVA", "Reserva [" + reserva.getNombreRecurso() + "] -> URL recibida: [" + url + "]");
@@ -149,7 +153,7 @@ public class MisReservasAdapter extends RecyclerView.Adapter<MisReservasAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNombre, tvFecha, tvHora, tvEstado;
+        TextView tvNombre, tvFecha, tvHora, tvEstado, tvUsuario;
         MaterialButton btnCancelar;
         ImageView ivIcono;
         View viewEstadoLateral;
@@ -160,6 +164,7 @@ public class MisReservasAdapter extends RecyclerView.Adapter<MisReservasAdapter.
             tvFecha           = itemView.findViewById(R.id.tvReservaFecha);
             tvHora            = itemView.findViewById(R.id.tvReservaHora);
             tvEstado          = itemView.findViewById(R.id.tvReservaEstado);
+            tvUsuario         = itemView.findViewById(R.id.tvReservaUsuario);
             btnCancelar       = itemView.findViewById(R.id.btnCancelarReserva);
             ivIcono           = itemView.findViewById(R.id.ivIconoRecurso);
             viewEstadoLateral = itemView.findViewById(R.id.viewEstadoLateral);

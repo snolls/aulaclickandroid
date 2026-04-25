@@ -202,6 +202,13 @@ public class DetalleRecursoActivity extends AppCompatActivity {
             tvEquipamiento.setText(String.join(", ", equipNames));
         }
 
+        com.google.android.material.card.MaterialCardView cardSede = findViewById(R.id.cardDetalleSede);
+        TextView tvSede = findViewById(R.id.tvDetalleSede);
+        if (cardSede != null && tvSede != null && recurso.getSedeNombre() != null && !recurso.getSedeNombre().isEmpty()) {
+            tvSede.setText(recurso.getSedeNombre());
+            cardSede.setVisibility(View.VISIBLE);
+        }
+
         ImageView ivDetalleHeader = findViewById(R.id.ivDetalleHeader);
         if (ivDetalleHeader != null) {
             String urlParaMostrar = null;

@@ -161,7 +161,9 @@ public class ListaReservasFragment extends Fragment {
             String fecha  = dto.getFecha() != null ? dto.getFecha() : "";
             String hora   = formatHora(dto.getHoraInicio()) + " – " + formatHora(dto.getHoraFin());
             String est    = dto.getEstado() != null ? dto.getEstado() : "Confirmada";
-            lista.add(new Reserva(dto.getId(), nombre, fecha, hora, est, dto.getImagenUrl()));
+            Reserva r = new Reserva(dto.getId(), nombre, fecha, hora, est, dto.getImagenUrl());
+            r.setNombreUsuario(dto.getNombreUsuario());
+            lista.add(r);
         }
         return lista;
     }

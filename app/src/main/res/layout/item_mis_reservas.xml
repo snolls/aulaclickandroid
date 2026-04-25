@@ -126,13 +126,50 @@
 
         </LinearLayout>
 
+        <!-- Nombre del usuario que realizó la reserva -->
+        <LinearLayout
+            android:id="@+id/llUsuarioReserva"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivIconoRecurso"
+            app:layout_constraintTop_toBottomOf="@id/llFechaHora"
+            app:layout_constraintBottom_toTopOf="@id/btnCancelarReserva"
+            app:layout_goneMarginBottom="16dp"
+            app:layout_constraintVertical_bias="0">
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_person"
+                app:tint="@color/colorTextSecondary" />
+
+            <TextView
+                android:id="@+id/tvReservaUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="13sp"
+                tools:text="María García" />
+
+        </LinearLayout>
+
         <!-- Botón de cancelar reserva -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCancelarReserva"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
             android:minHeight="40dp"
             android:paddingHorizontal="20dp"
             android:text="Cancelar Reserva"
@@ -147,7 +184,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivIconoRecurso" />
+            app:layout_constraintTop_toBottomOf="@id/llUsuarioReserva" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
