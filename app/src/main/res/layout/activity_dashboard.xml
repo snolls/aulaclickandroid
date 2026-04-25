@@ -20,6 +20,28 @@
             app:titleTextColor="@color/colorTextPrimary" />
 
 
+        <!-- Filtro de sede (solo ADMIN global) -->
+        <HorizontalScrollView
+            android:id="@+id/hsvFiltroSede"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:visibility="gone">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cgFiltroSede"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                app:singleLine="true"
+                app:singleSelection="true"
+                app:selectionRequired="true" />
+
+        </HorizontalScrollView>
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayoutFiltrosRecursos"
             android:layout_width="match_parent"

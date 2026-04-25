@@ -19,6 +19,10 @@ public class Recurso {
     private Boolean permiteFinesSemana;
     private String horaApertura;
     private String horaCierre;
+    @SerializedName("sedeId")
+    private Long sedeId;
+    @SerializedName("sedeNombre")
+    private String sedeNombre;
 
     public Recurso() {
     }
@@ -107,4 +111,10 @@ public class Recurso {
     
     public String getHoraCierre() { return horaCierre; }
     public void setHoraCierre(String horaCierre) { this.horaCierre = horaCierre; }
+
+    public Long getSedeId() { return sedeId; }
+    public void setSedeId(Long sedeId) { this.sedeId = sedeId; }
+
+    public String getSedeNombre() { return sedeNombre; }
+    public void setSedeNombre(String sedeNombre) { this.sedeNombre = sedeNombre; }
 }

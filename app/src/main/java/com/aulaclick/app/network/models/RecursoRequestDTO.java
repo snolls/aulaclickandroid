@@ -13,6 +13,7 @@ public class RecursoRequestDTO {
     private Boolean permiteFinesSemana;
     private String horaApertura;
     private String horaCierre;
+    private Long idSede;
 
     public RecursoRequestDTO() {
     }
@@ -77,5 +78,7 @@ public class RecursoRequestDTO {
     public String getHoraCierre() { return horaCierre; }
     public void setHoraCierre(String horaCierre) { this.horaCierre = horaCierre; }
 
+    public Long getIdSede() { return idSede; }
+    public void setIdSede(Long idSede) { this.idSede = idSede; }
 }
 

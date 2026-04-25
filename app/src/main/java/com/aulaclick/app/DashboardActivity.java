@@ -41,6 +41,8 @@ public class DashboardActivity extends AppCompatActivity {
     private final List<Recurso> listaCompleta = new ArrayList<>();
     private final List<Recurso> listaFiltrada = new ArrayList<>();
     private com.google.android.material.tabs.TabLayout tabLayoutFiltros;
+    private com.google.android.material.chip.ChipGroup cgFiltroSede;
+    private Long sedeFiltroCurrent = null; // null = todas las sedes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class DashboardActivity extends AppCompatActivity {
         toolbar.setOverflowIcon(ContextCompat.getDrawable(this, R.drawable.ic_menu));
 
         tabLayoutFiltros = findViewById(R.id.tabLayoutFiltrosRecursos);
+        cgFiltroSede     = findViewById(R.id.cgFiltroSede);
 
         // Configurar el RecyclerView
         RecyclerView rvRecursos = findViewById(R.id.rvRecursos);
@@ -75,7 +78,13 @@ public class DashboardActivity extends AppCompatActivity {
         SessionManager sessionManager = new SessionManager(this);
         ApiClient.setToken(sessionManager.getToken());
         String rol = sessionManager.getUserRole();
-        
+
+        if ("ADMIN".equalsIgnoreCase(rol)) {
+            View hsvSede = findViewById(R.id.hsvFiltroSede);
+            if (hsvSede != null) hsvSede.setVisibility(View.VISIBLE);
+            cargarFiltroSedes();
+        }
+
         boolean esAdminOAdminSede = rol != null &&
                 (rol.equalsIgnoreCase("ADMIN") || rol.equals("1") || rol.equalsIgnoreCase("ADMIN_SEDE"));
 
@@ -280,13 +289,61 @@ public class DashboardActivity extends AppCompatActivity {
         });
     }
 
+    private void cargarFiltroSedes() {
+        ApiClient.getApiService().getSedes().enqueue(new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<List<com.aulaclick.app.network.models.SedeDTO>> call,
+                                   @NonNull Response<List<com.aulaclick.app.network.models.SedeDTO>> response) {
+                if (response.isSuccessful() && response.body() != null && cgFiltroSede != null) {
+                    cgFiltroSede.removeAllViews();
+
+                    // Chip "Todas"
+                    com.google.android.material.chip.Chip chipTodas = new com.google.android.material.chip.Chip(DashboardActivity.this);
+                    chipTodas.setText("Todas las sedes");
+                    chipTodas.setCheckable(true);
+                    chipTodas.setChecked(true);
+                    chipTodas.setTag(null);
+                    chipTodas.setOnClickListener(v -> {
+                        sedeFiltroCurrent = null;
+                        configurarTabsFiltros();
+                    });
+                    cgFiltroSede.addView(chipTodas);
+
+                    for (com.aulaclick.app.network.models.SedeDTO sede : response.body()) {
+                        com.google.android.material.chip.Chip chip = new com.google.android.material.chip.Chip(DashboardActivity.this);
+                        chip.setText(sede.getNombre());
+                        chip.setCheckable(true);
+                        chip.setTag(sede.getId());
+                        chip.setOnClickListener(v -> {
+                            sedeFiltroCurrent = sede.getId();
+                            configurarTabsFiltros();
+                        });
+                        cgFiltroSede.addView(chip);
+                    }
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<List<com.aulaclick.app.network.models.SedeDTO>> call,
+                                  @NonNull Throwable t) {}
+        });
+    }
+
     private void configurarTabsFiltros() {
         if (tabLayoutFiltros == null) return;
         tabLayoutFiltros.removeAllTabs();
         tabLayoutFiltros.clearOnTabSelectedListeners();
 
-        List<String> tiposUnicos = new ArrayList<>();
+        // Recursos filtrados por sede (para calcular tipos disponibles)
+        List<Recurso> recursosVisuales = new ArrayList<>();
         for (Recurso r : listaCompleta) {
+            if (sedeFiltroCurrent == null || sedeFiltroCurrent.equals(
+                    r.getSedeId() != null ? r.getSedeId() : null)) {
+                recursosVisuales.add(r);
+            }
+        }
+
+        List<String> tiposUnicos = new ArrayList<>();
+        for (Recurso r : recursosVisuales) {
             if (r.getTipoRecurso() != null && r.getTipoRecurso().getNombre() != null) {
                 String tipo = r.getTipoRecurso().getNombre();
                 if (!tiposUnicos.contains(tipo)) tiposUnicos.add(tipo);
@@ -317,6 +374,9 @@ public class DashboardActivity extends AppCompatActivity {
         listaFiltrada.clear();
         String filtro = filtroSeleccionado != null ? filtroSeleccionado.toLowerCase() : "todos";
         for (Recurso r : listaCompleta) {
+            // Filtro sede (solo ADMIN)
+            if (sedeFiltroCurrent != null && !sedeFiltroCurrent.equals(r.getSedeId())) continue;
+
             String estadoDB = r.getEstado() != null ? r.getEstado().toLowerCase() : "";
             String tipoDB   = (r.getTipoRecurso() != null && r.getTipoRecurso().getNombre() != null)
                               ? r.getTipoRecurso().getNombre().toLowerCase() : "";
@@ -325,8 +385,7 @@ public class DashboardActivity extends AppCompatActivity {
             } else if (filtro.equals("disponible")) {
                 if (estadoDB.equals("disponible") || estadoDB.equals("activo")) listaFiltrada.add(r);
             } else if (filtro.equals("no disponible")) {
-                if (estadoDB.contains("no disponible") || estadoDB.contains("mantenimiento")
-                        || estadoDB.equals("no disponible")) listaFiltrada.add(r);
+                if (estadoDB.contains("no disponible") || estadoDB.contains("mantenimiento")) listaFiltrada.add(r);
             } else {
                 if (tipoDB.equals(filtro)) listaFiltrada.add(r);
             }

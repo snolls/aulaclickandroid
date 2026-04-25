@@ -65,6 +65,11 @@ public class AnadirRecursoActivity extends AppCompatActivity {
     private Long recursoId = -1L;
     private Recurso recursoEnEdicion = null;
 
+    // ── Sede (solo ADMIN global) ─────────────────────────────────────────────
+    private List<com.aulaclick.app.network.models.SedeDTO> sedesDisponibles = new ArrayList<>();
+    private android.widget.Spinner spinnerSedeAdmin;
+    private boolean esAdminGlobal = false;
+
     // ── Cloudinary / imagen ──────────────────────────────────────────────────
     private String urlImagenSubida = null;
     private Long idImagenActual = null;
@@ -110,6 +115,10 @@ public class AnadirRecursoActivity extends AppCompatActivity {
 
         inicializarCloudinary();
 
+        // Detectar rol
+        SessionManager sm = new SessionManager(this);
+        esAdminGlobal = "ADMIN".equalsIgnoreCase(sm.getUserRole());
+
         // Inicializar vistas
         etNombre            = findViewById(R.id.etNombreRecurso);
         cgTipo              = findViewById(R.id.cgTipo);
@@ -123,6 +132,12 @@ public class AnadirRecursoActivity extends AppCompatActivity {
         btnGuardar          = findViewById(R.id.btnGuardarRecurso);
         btnSeleccionarFoto  = findViewById(R.id.btnSeleccionarFoto);
         ivMiniaturaFoto     = findViewById(R.id.ivMiniaturaFoto);
+        spinnerSedeAdmin    = findViewById(R.id.spinnerSedeAdmin);
+
+        if (esAdminGlobal) {
+            android.view.View llSede = findViewById(R.id.llSedeAdmin);
+            if (llSede != null) llSede.setVisibility(android.view.View.VISIBLE);
+        }
 
         if (etHoraApertura != null) {
             etHoraApertura.setOnClickListener(v -> showTimePicker(etHoraApertura, "Hora Apertura"));
@@ -423,6 +438,17 @@ public class AnadirRecursoActivity extends AppCompatActivity {
                 }
             }
         }
+
+        // Pre-seleccionar sede en modo edición (solo ADMIN)
+        if (esAdminGlobal && recursoEnEdicion.getSedeId() != null && !sedesDisponibles.isEmpty()) {
+            for (int i = 0; i < sedesDisponibles.size(); i++) {
+                if (sedesDisponibles.get(i).getId() != null &&
+                        sedesDisponibles.get(i).getId().equals(recursoEnEdicion.getSedeId())) {
+                    spinnerSedeAdmin.setSelection(i);
+                    break;
+                }
+            }
+        }
     }
 
     private void seleccionarChipPorTag(ChipGroup chipGroup, Object idBaseDatos) {
@@ -451,6 +477,11 @@ public class AnadirRecursoActivity extends AppCompatActivity {
             return;
         }
 
+        if (esAdminGlobal && sedesDisponibles.isEmpty()) {
+            Toast.makeText(this, "Por favor, espera a que carguen las sedes", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         RecursoRequestDTO dto = new RecursoRequestDTO();
         dto.setNombre(nombre);
         dto.setCapacidad(Integer.parseInt(capacidadStr));
@@ -463,6 +494,13 @@ public class AnadirRecursoActivity extends AppCompatActivity {
             dto.setHoraApertura(etHoraApertura.getText().toString());
         if (etHoraCierre != null && etHoraCierre.getText() != null)
             dto.setHoraCierre(etHoraCierre.getText().toString());
+
+        if (esAdminGlobal && !sedesDisponibles.isEmpty()) {
+            int pos = spinnerSedeAdmin.getSelectedItemPosition();
+            if (pos >= 0 && pos < sedesDisponibles.size()) {
+                dto.setIdSede(sedesDisponibles.get(pos).getId());
+            }
+        }
 
         if (uriImagenLocal != null) {
             // Caso A: imagen local nueva → subir a Cloudinary → registrar → guardar
@@ -565,9 +603,33 @@ public class AnadirRecursoActivity extends AppCompatActivity {
     // ── Datos dinámicos ──────────────────────────────────────────────────────
 
     private void cargarDatosDinámicos() {
+        if (esAdminGlobal) cargarSedes();
         cargarDepartamentos();
         cargarTiposRecurso();
         cargarEquipamiento();
+    }
+
+    private void cargarSedes() {
+        ApiClient.getApiService().getSedes().enqueue(new Callback<List<com.aulaclick.app.network.models.SedeDTO>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<com.aulaclick.app.network.models.SedeDTO>> call,
+                                   @NonNull Response<List<com.aulaclick.app.network.models.SedeDTO>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    sedesDisponibles = response.body();
+                    android.widget.ArrayAdapter<com.aulaclick.app.network.models.SedeDTO> adapter =
+                            new android.widget.ArrayAdapter<>(AnadirRecursoActivity.this,
+                                    android.R.layout.simple_spinner_item, sedesDisponibles);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerSedeAdmin.setAdapter(adapter);
+                    aplicarDatosEdicion();
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<List<com.aulaclick.app.network.models.SedeDTO>> call,
+                                  @NonNull Throwable t) {
+                Toast.makeText(AnadirRecursoActivity.this, "Error al cargar sedes", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void cargarDepartamentos() {
