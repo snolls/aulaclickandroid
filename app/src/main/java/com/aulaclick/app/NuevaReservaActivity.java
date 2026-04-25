@@ -292,24 +292,6 @@ public class NuevaReservaActivity extends AppCompatActivity {
         }
     }
 
-    private boolean esHorarioValido(int horaInicio, int minInicio, int horaFin, int minFin) {
-        int totalMinutosInicio = (horaInicio * 60) + minInicio;
-        int totalMinutosFin = (horaFin * 60) + minFin;
-        
-        int diferencia = totalMinutosFin - totalMinutosInicio;
-        
-        if (diferencia <= 0) {
-            Toast.makeText(this, "La hora de fin debe ser posterior a la de inicio.", Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-        if (diferencia < 15) {
-            Toast.makeText(this, "La reserva debe durar al menos 15 minutos.", Toast.LENGTH_LONG).show();
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public boolean onOptionsItemSelected(android.view.MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

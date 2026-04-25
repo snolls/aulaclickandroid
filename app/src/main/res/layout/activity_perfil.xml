@@ -64,14 +64,6 @@
                     android:textStyle="bold"
                     tools:text="@string/placeholder_user_name" />
 
-                <TextView
-                    android:id="@+id/tvUserEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextSecondary"
-                    android:textSize="14sp"
-                    tools:text="@string/placeholder_user_email" />
-
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipUserRole"
                     android:layout_width="wrap_content"

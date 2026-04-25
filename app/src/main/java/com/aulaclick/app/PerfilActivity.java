@@ -36,11 +36,9 @@ public class PerfilActivity extends AppCompatActivity {
         String rolDisplay = formatRol(rolRaw);
 
         TextView tvUserName  = findViewById(R.id.tvUserName);
-        TextView tvUserEmail = findViewById(R.id.tvUserEmail);
         Chip chipUserRole    = findViewById(R.id.chipUserRole);
 
         if (tvUserName  != null) tvUserName.setText(nombre.isEmpty() ? "Usuario" : nombre);
-        if (tvUserEmail != null) tvUserEmail.setVisibility(android.view.View.GONE);
         if (chipUserRole != null) chipUserRole.setText(rolDisplay);
 
         etNewPassword = findViewById(R.id.etNewPassword);
