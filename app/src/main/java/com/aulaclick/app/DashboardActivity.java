@@ -41,8 +41,9 @@ public class DashboardActivity extends AppCompatActivity {
     private final List<Recurso> listaCompleta = new ArrayList<>();
     private final List<Recurso> listaFiltrada = new ArrayList<>();
     private com.google.android.material.tabs.TabLayout tabLayoutFiltros;
-    private com.google.android.material.chip.ChipGroup cgFiltroSede;
+    private android.widget.Spinner spinnerFiltroSede;
     private Long sedeFiltroCurrent = null; // null = todas las sedes
+    private final List<com.aulaclick.app.network.models.SedeDTO> sedesFilter = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +55,8 @@ public class DashboardActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setOverflowIcon(ContextCompat.getDrawable(this, R.drawable.ic_menu));
 
-        tabLayoutFiltros = findViewById(R.id.tabLayoutFiltrosRecursos);
-        cgFiltroSede     = findViewById(R.id.cgFiltroSede);
+        tabLayoutFiltros  = findViewById(R.id.tabLayoutFiltrosRecursos);
+        spinnerFiltroSede = findViewById(R.id.spinnerFiltroSede);
 
         // Configurar el RecyclerView
         RecyclerView rvRecursos = findViewById(R.id.rvRecursos);
@@ -80,8 +81,8 @@ public class DashboardActivity extends AppCompatActivity {
         String rol = sessionManager.getUserRole();
 
         if ("ADMIN".equalsIgnoreCase(rol)) {
-            View hsvSede = findViewById(R.id.hsvFiltroSede);
-            if (hsvSede != null) hsvSede.setVisibility(View.VISIBLE);
+            View llFiltroSede = findViewById(R.id.llFiltroSede);
+            if (llFiltroSede != null) llFiltroSede.setVisibility(View.VISIBLE);
             cargarFiltroSedes();
         }
 
@@ -294,32 +295,33 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<List<com.aulaclick.app.network.models.SedeDTO>> call,
                                    @NonNull Response<List<com.aulaclick.app.network.models.SedeDTO>> response) {
-                if (response.isSuccessful() && response.body() != null && cgFiltroSede != null) {
-                    cgFiltroSede.removeAllViews();
+                if (response.isSuccessful() && response.body() != null && spinnerFiltroSede != null) {
+                    sedesFilter.clear();
+                    // Primer elemento: "Todas las sedes" (id null → representado como null en la lista)
+                    com.aulaclick.app.network.models.SedeDTO todas = new com.aulaclick.app.network.models.SedeDTO();
+                    todas.setNombre("Todas las sedes");
+                    sedesFilter.add(todas);
+                    sedesFilter.addAll(response.body());
 
-                    // Chip "Todas"
-                    com.google.android.material.chip.Chip chipTodas = new com.google.android.material.chip.Chip(DashboardActivity.this);
-                    chipTodas.setText("Todas las sedes");
-                    chipTodas.setCheckable(true);
-                    chipTodas.setChecked(true);
-                    chipTodas.setTag(null);
-                    chipTodas.setOnClickListener(v -> {
-                        sedeFiltroCurrent = null;
-                        configurarTabsFiltros();
-                    });
-                    cgFiltroSede.addView(chipTodas);
+                    android.widget.ArrayAdapter<com.aulaclick.app.network.models.SedeDTO> adapter =
+                            new android.widget.ArrayAdapter<>(DashboardActivity.this,
+                                    android.R.layout.simple_spinner_item, sedesFilter);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerFiltroSede.setAdapter(adapter);
 
-                    for (com.aulaclick.app.network.models.SedeDTO sede : response.body()) {
-                        com.google.android.material.chip.Chip chip = new com.google.android.material.chip.Chip(DashboardActivity.this);
-                        chip.setText(sede.getNombre());
-                        chip.setCheckable(true);
-                        chip.setTag(sede.getId());
-                        chip.setOnClickListener(v -> {
-                            sedeFiltroCurrent = sede.getId();
+                    spinnerFiltroSede.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                            if (position == 0) {
+                                sedeFiltroCurrent = null;
+                            } else {
+                                sedeFiltroCurrent = sedesFilter.get(position).getId();
+                            }
                             configurarTabsFiltros();
-                        });
-                        cgFiltroSede.addView(chip);
-                    }
+                        }
+                        @Override
+                        public void onNothingSelected(android.widget.AdapterView<?> parent) {}
+                    });
                 }
             }
             @Override

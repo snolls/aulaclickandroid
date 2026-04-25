@@ -21,26 +21,33 @@
 
 
         <!-- Filtro de sede (solo ADMIN global) -->
-        <HorizontalScrollView
-            android:id="@+id/hsvFiltroSede"
+        <LinearLayout
+            android:id="@+id/llFiltroSede"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:visibility="gone">
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/cgFiltroSede"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                app:singleLine="true"
-                app:singleSelection="true"
-                app:selectionRequired="true" />
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_location"
+                android:contentDescription="@null"
+                app:tint="@color/colorTextSecondary" />
 
-        </HorizontalScrollView>
+            <Spinner
+                android:id="@+id/spinnerFiltroSede"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:background="@android:color/transparent" />
+
+        </LinearLayout>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayoutFiltrosRecursos"
