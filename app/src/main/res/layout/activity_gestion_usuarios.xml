@@ -20,23 +20,24 @@
             app:titleCentered="true"
             app:titleTextColor="@color/colorTextPrimary" />
 
-        <!-- Filtro de sede (solo ADMIN global) -->
+        <!-- Fila filtro sede + ordenar -->
         <LinearLayout
-            android:id="@+id/llFiltroSedeUsuarios"
+            android:id="@+id/llFiltroUsuarios"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:visibility="gone">
+            android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/ivSedeIconUsuarios"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_location"
+                android:visibility="gone"
                 app:tint="@color/colorTextSecondary" />
 
             <Spinner
@@ -45,7 +46,27 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:background="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                android:visibility="gone" />
+
+            <!-- Spacer cuando no hay spinner -->
+            <View
+                android:id="@+id/spacerFiltroUsuarios"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:visibility="gone" />
+
+            <!-- Botón ordenar (siempre visible) -->
+            <ImageButton
+                android:id="@+id/btnOrdenarUsuarios"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Ordenar"
+                android:src="@drawable/ic_menu"
+                android:rotation="90"
+                app:tint="@color/colorTextSecondary" />
 
         </LinearLayout>
 

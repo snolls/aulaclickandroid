@@ -48,6 +48,7 @@ public class GestionUsuariosActivity extends AppCompatActivity {
     private List<SedeDTO>    sedesDisponibles  = new ArrayList<>();
     private List<UsuarioDTO> todosLosUsuarios  = new ArrayList<>();
     private Long             sedeFiltroCurrent = null;
+    private int              ordenActual       = 0; // 0=NombreAZ 1=NombreZA 2=Rol 3=Sede
     private int pendingLoads = 0;
     private AlertDialog dialogActivo;
     private String miRol;
@@ -71,9 +72,24 @@ public class GestionUsuariosActivity extends AppCompatActivity {
 
         rvUsuarios.setLayoutManager(new LinearLayoutManager(this));
 
+        // Sede filter visible solo para ADMIN global
         if ("ADMIN".equalsIgnoreCase(miRol)) {
-            android.view.View llFiltro = findViewById(R.id.llFiltroSedeUsuarios);
-            if (llFiltro != null) llFiltro.setVisibility(android.view.View.VISIBLE);
+            android.view.View ivSede = findViewById(R.id.ivSedeIconUsuarios);
+            android.widget.Spinner spSede = findViewById(R.id.spinnerFiltroSedeUsuarios);
+            android.view.View spacer = findViewById(R.id.spacerFiltroUsuarios);
+            if (ivSede != null)  ivSede.setVisibility(android.view.View.VISIBLE);
+            if (spSede != null)  spSede.setVisibility(android.view.View.VISIBLE);
+            if (spacer != null)  spacer.setVisibility(android.view.View.GONE);
+        } else {
+            // ADMIN_SEDE: solo mostrar spacer para empujar el icono a la derecha
+            android.view.View spacer = findViewById(R.id.spacerFiltroUsuarios);
+            if (spacer != null) spacer.setVisibility(android.view.View.VISIBLE);
+        }
+
+        // Botón ordenar (siempre visible para cualquier admin)
+        android.widget.ImageButton btnOrdenar = findViewById(R.id.btnOrdenarUsuarios);
+        if (btnOrdenar != null) {
+            btnOrdenar.setOnClickListener(v -> mostrarDialogoOrden());
         }
 
         FloatingActionButton fab = findViewById(R.id.fabNuevoUsuario);
@@ -169,6 +185,24 @@ public class GestionUsuariosActivity extends AppCompatActivity {
         });
     }
 
+    private void mostrarDialogoOrden() {
+        String[] opciones = {
+                "Nombre (A → Z)",
+                "Nombre (Z → A)",
+                "Rol",
+                "Sede"
+        };
+        new android.app.AlertDialog.Builder(this)
+                .setTitle("Ordenar por")
+                .setSingleChoiceItems(opciones, ordenActual, (dialog, which) -> {
+                    ordenActual = which;
+                    aplicarFiltroSede();
+                    dialog.dismiss();
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
+
     private void configurarSpinnerFiltroSede() {
         android.widget.Spinner spinner = findViewById(R.id.spinnerFiltroSedeUsuarios);
         if (spinner == null) return;
@@ -200,14 +234,13 @@ public class GestionUsuariosActivity extends AppCompatActivity {
         List<UsuarioDTO> filtrados = new ArrayList<>();
         for (UsuarioDTO u : todosLosUsuarios) {
             if (sedeFiltroCurrent == null) {
-                // "Todas las sedes": mostrar todos
                 filtrados.add(u);
             } else {
-                // Filtro activo: el ADMIN global es transversal, no pertenece a ninguna sede
                 if ("ADMIN".equalsIgnoreCase(u.getRol())) continue;
                 if (sedeFiltroCurrent.equals(u.getSedeId())) filtrados.add(u);
             }
         }
+        ordenarLista(filtrados);
         if (filtrados.isEmpty()) {
             rvUsuarios.setVisibility(View.GONE);
             tvEmpty.setVisibility(View.VISIBLE);
@@ -217,6 +250,63 @@ public class GestionUsuariosActivity extends AppCompatActivity {
             rvUsuarios.setVisibility(View.VISIBLE);
             tvEmpty.setVisibility(View.GONE);
         }
+    }
+
+    private void ordenarLista(List<UsuarioDTO> lista) {
+        java.util.Comparator<UsuarioDTO> comparator;
+        switch (ordenActual) {
+            case 1: // Nombre Z→A
+                comparator = (a, b) -> {
+                    String na = a.getNombreCompleto() != null ? a.getNombreCompleto() : "";
+                    String nb = b.getNombreCompleto() != null ? b.getNombreCompleto() : "";
+                    return nb.compareToIgnoreCase(na);
+                };
+                break;
+            case 2: // Rol (ADMIN → ADMIN_SEDE → resto, luego nombre A→Z)
+                comparator = (a, b) -> {
+                    int pa = pesoRol(a.getRol()), pb = pesoRol(b.getRol());
+                    if (pa != pb) return pa - pb;
+                    String na = a.getNombreCompleto() != null ? a.getNombreCompleto() : "";
+                    String nb = b.getNombreCompleto() != null ? b.getNombreCompleto() : "";
+                    return na.compareToIgnoreCase(nb);
+                };
+                break;
+            case 3: // Sede A→Z, luego nombre A→Z
+                comparator = (a, b) -> {
+                    String sa = nombreSede(a.getSedeId());
+                    String sb = nombreSede(b.getSedeId());
+                    int cmp = sa.compareToIgnoreCase(sb);
+                    if (cmp != 0) return cmp;
+                    String na = a.getNombreCompleto() != null ? a.getNombreCompleto() : "";
+                    String nb = b.getNombreCompleto() != null ? b.getNombreCompleto() : "";
+                    return na.compareToIgnoreCase(nb);
+                };
+                break;
+            default: // 0: Nombre A→Z
+                comparator = (a, b) -> {
+                    String na = a.getNombreCompleto() != null ? a.getNombreCompleto() : "";
+                    String nb = b.getNombreCompleto() != null ? b.getNombreCompleto() : "";
+                    return na.compareToIgnoreCase(nb);
+                };
+        }
+        lista.sort(comparator);
+    }
+
+    private int pesoRol(String rol) {
+        if (rol == null) return 99;
+        switch (rol.toUpperCase()) {
+            case "ADMIN":      return 0;
+            case "ADMIN_SEDE": return 1;
+            default:           return 2;
+        }
+    }
+
+    private String nombreSede(Long sedeId) {
+        if (sedeId == null) return "";
+        for (SedeDTO s : sedesDisponibles) {
+            if (sedeId.equals(s.getId())) return s.getNombre() != null ? s.getNombre() : "";
+        }
+        return "";
     }
 
     private void mostrarDialogoUsuario(@Nullable UsuarioDTO usuarioAEditar) {
@@ -478,7 +568,7 @@ public class GestionUsuariosActivity extends AppCompatActivity {
                                 public void onResponse(@NonNull Call<Void> call,
                                                        @NonNull Response<Void> response) {
                                     if (response.isSuccessful()) {
-                                        actualizarRolSede(usuarioAEditar.getId(), finalIdRol, finalIdSede);
+                                        actualizarRolSede(usuarioAEditar.getId(), finalIdRol, finalIdSede, nombre, email);
                                     } else if (response.code() == 400) {
                                         String msg = parseErrorMessage(response.errorBody());
                                         tilCambiarPass.setError(msg != null ? msg : "Contraseña no válida");
@@ -496,7 +586,7 @@ public class GestionUsuariosActivity extends AppCompatActivity {
                                 }
                             });
                 } else {
-                    actualizarRolSede(usuarioAEditar.getId(), finalIdRol, finalIdSede);
+                    actualizarRolSede(usuarioAEditar.getId(), finalIdRol, finalIdSede, nombre, email);
                 }
             }
         });
@@ -532,9 +622,9 @@ public class GestionUsuariosActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void actualizarRolSede(Long idUsuario, Long idRol, Long idSede) {
+    private void actualizarRolSede(Long idUsuario, Long idRol, Long idSede, String nombre, String email) {
         ApiClient.getApiService()
-                .actualizarRolSede(idUsuario, new UsuarioRolSedeDTO(idRol, idSede))
+                .actualizarRolSede(idUsuario, new UsuarioRolSedeDTO(idRol, idSede, nombre, email))
                 .enqueue(new Callback<>() {
                     @Override
                     public void onResponse(@NonNull Call<UsuarioDTO> call,
@@ -544,6 +634,9 @@ public class GestionUsuariosActivity extends AppCompatActivity {
                                     "Usuario actualizado correctamente", Toast.LENGTH_SHORT).show();
                             if (dialogActivo != null) dialogActivo.dismiss();
                             cargarUsuarios();
+                        } else if (response.code() == 409) {
+                            Toast.makeText(GestionUsuariosActivity.this,
+                                    "El correo ya está en uso por otro usuario", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(GestionUsuariosActivity.this,
                                     "Error " + response.code() + ": " + response.message(),
