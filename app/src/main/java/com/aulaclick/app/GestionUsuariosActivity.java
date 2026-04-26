@@ -187,13 +187,13 @@ public class GestionUsuariosActivity extends AppCompatActivity {
 
     private void mostrarDialogoOrden() {
         String[] opciones = {
-                "Nombre (A → Z)",
-                "Nombre (Z → A)",
-                "Rol",
-                "Sede"
+                getString(R.string.sort_nombre_az),
+                getString(R.string.sort_nombre_za),
+                getString(R.string.sort_rol),
+                getString(R.string.sort_sede)
         };
         new android.app.AlertDialog.Builder(this)
-                .setTitle("Ordenar por")
+                .setTitle(R.string.dialog_title_sort)
                 .setSingleChoiceItems(opciones, ordenActual, (dialog, which) -> {
                     ordenActual = which;
                     aplicarFiltroSede();
@@ -209,7 +209,7 @@ public class GestionUsuariosActivity extends AppCompatActivity {
 
         List<SedeDTO> opciones = new ArrayList<>();
         SedeDTO todas = new SedeDTO();
-        todas.setNombre("Todas las sedes");
+        todas.setNombre(getString(R.string.label_todas_las_sedes));
         opciones.add(todas);
         opciones.addAll(sedesDisponibles);
 
@@ -401,7 +401,7 @@ public class GestionUsuariosActivity extends AppCompatActivity {
         etCambiarPassword.addTextChangedListener(clearErrors);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle(isNew ? "Nuevo Usuario" : "Editar Usuario")
+                .setTitle(isNew ? getString(R.string.dialog_nuevo_usuario) : getString(R.string.dialog_editar_usuario))
                 .setView(dialogView)
                 .setNegativeButton("Cancelar", null)
                 .setPositiveButton("Guardar", null);
@@ -452,26 +452,26 @@ public class GestionUsuariosActivity extends AppCompatActivity {
             }
 
             if (nombre.isEmpty()) {
-                tilNombre.setError("El nombre es obligatorio");
+                tilNombre.setError(getString(R.string.error_nombre_obligatorio));
                 etNombre.requestFocus();
                 return;
             }
             if (email.isEmpty()) {
-                tilEmail.setError("El email es obligatorio");
+                tilEmail.setError(getString(R.string.error_email_obligatorio));
                 etEmail.requestFocus();
                 return;
             }
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                tilEmail.setError("Formato de email no válido");
+                tilEmail.setError(getString(R.string.error_formato_email));
                 etEmail.requestFocus();
                 return;
             }
             if (idRolSeleccionado == null) {
-                Toast.makeText(this, "Por favor, selecciona un Rol válido", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.error_selecciona_rol, Toast.LENGTH_SHORT).show();
                 return;
             }
             if (!esAdminSede && !rolEsAdmin && idSedeSeleccionada == null) {
-                Toast.makeText(this, "Por favor, selecciona una Sede válida", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.error_selecciona_sede, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -484,7 +484,7 @@ public class GestionUsuariosActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                         if (response.code() == 409) {
-                            tilEmail.setError("El correo ya está en uso por otro usuario");
+                            tilEmail.setError(getString(R.string.error_email_en_uso));
                             etEmail.requestFocus();
                             return;
                         }
@@ -492,7 +492,7 @@ public class GestionUsuariosActivity extends AppCompatActivity {
                         // Email OK — now validate password
                         String pass = etPassword.getText() != null ? etPassword.getText().toString().trim() : "";
                         if (pass.isEmpty()) {
-                            tilPass.setError("La contraseña es obligatoria");
+                            tilPass.setError(getString(R.string.error_password_required));
                             etPassword.requestFocus();
                             return;
                         }
@@ -517,11 +517,11 @@ public class GestionUsuariosActivity extends AppCompatActivity {
                                                    @NonNull Response<UsuarioDTO> response2) {
                                 if (response2.isSuccessful()) {
                                     Toast.makeText(GestionUsuariosActivity.this,
-                                            "Usuario creado correctamente", Toast.LENGTH_SHORT).show();
+                                            getString(R.string.msg_usuario_creado), Toast.LENGTH_SHORT).show();
                                     dialogActivo.dismiss();
                                     cargarUsuarios();
                                 } else if (response2.code() == 409) {
-                                    tilEmail.setError("El correo ya está en uso por otro usuario");
+                                    tilEmail.setError(getString(R.string.error_email_en_uso));
                                     etEmail.requestFocus();
                                 } else if (response2.code() == 400) {
                                     String msg = parseErrorMessage(response2.errorBody());
@@ -595,14 +595,14 @@ public class GestionUsuariosActivity extends AppCompatActivity {
     private void confirmarEliminar(UsuarioDTO usuario) {
         new AlertDialog.Builder(this)
                 .setTitle("Eliminar usuario")
-                .setMessage("¿Eliminar a " + usuario.getNombreCompleto() + "? Esta acción no se puede deshacer.")
+                .setMessage(getString(R.string.dialog_eliminar_usuario_msg, usuario.getNombreCompleto()))
                 .setPositiveButton("Eliminar", (d, w) -> {
                     ApiClient.getApiService().eliminarUsuario(usuario.getId()).enqueue(new Callback<>() {
                         @Override
                         public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                             if (response.isSuccessful()) {
                                 Toast.makeText(GestionUsuariosActivity.this,
-                                        "Usuario eliminado", Toast.LENGTH_SHORT).show();
+                                        R.string.msg_usuario_eliminado, Toast.LENGTH_SHORT).show();
                                 if (dialogActivo != null) dialogActivo.dismiss();
                                 cargarUsuarios();
                             } else {
@@ -631,7 +631,7 @@ public class GestionUsuariosActivity extends AppCompatActivity {
                                            @NonNull Response<UsuarioDTO> response) {
                         if (response.isSuccessful()) {
                             Toast.makeText(GestionUsuariosActivity.this,
-                                    "Usuario actualizado correctamente", Toast.LENGTH_SHORT).show();
+                                    getString(R.string.msg_usuario_actualizado), Toast.LENGTH_SHORT).show();
                             if (dialogActivo != null) dialogActivo.dismiss();
                             cargarUsuarios();
                         } else if (response.code() == 409) {
@@ -653,25 +653,25 @@ public class GestionUsuariosActivity extends AppCompatActivity {
 
     private String validarPassword(String pass, String nombre, String email) {
         if (pass.length() < 12)
-            return "La contraseña debe tener al menos 12 caracteres.";
+            return getString(R.string.val_pass_min_length);
         if (!pass.matches(".*[0-9].*"))
-            return "La contraseña debe incluir al menos un número.";
+            return getString(R.string.val_pass_needs_digit);
         if (!pass.matches(".*[a-zA-Z].*"))
-            return "La contraseña debe incluir al menos una letra (sin acentos ni eñes).";
+            return getString(R.string.val_pass_needs_letter);
         if (pass.contains("@") || pass.contains("\""))
-            return "La contraseña no puede contener '@' ni comillas (\").";
+            return getString(R.string.val_pass_forbidden_chars);
         if (!pass.matches(".*[!#$%&'()*+,\\-./:;<=>?\\[\\]^_`{|}~].*"))
-            return "La contraseña debe incluir al menos un símbolo especial permitido.";
+            return getString(R.string.val_pass_needs_special);
         String passLower = pass.toLowerCase();
         if (email != null && !email.isEmpty()) {
             String localPart = email.contains("@") ? email.split("@")[0].toLowerCase() : email.toLowerCase();
             if (passLower.contains(localPart))
-                return "La contraseña no puede contener tu nombre de usuario/email.";
+                return getString(R.string.val_pass_contains_email);
         }
         if (nombre != null && !nombre.isEmpty()) {
             for (String parte : nombre.toLowerCase().split(" ")) {
                 if (parte.length() > 2 && passLower.contains(parte))
-                    return "La contraseña no puede contener tu nombre o apellidos.";
+                    return getString(R.string.val_pass_contains_name);
             }
         }
         return null;

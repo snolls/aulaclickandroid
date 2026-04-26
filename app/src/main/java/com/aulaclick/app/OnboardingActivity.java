@@ -27,18 +27,8 @@ public class OnboardingActivity extends AppCompatActivity {
             R.drawable.ic_calendar,
             R.drawable.ic_person
     };
-    private static final String[] TITLES = {
-            "Bienvenido a AulaClick",
-            "Explora los Recursos",
-            "Reserva en Segundos",
-            "Gestiona tus Reservas"
-    };
-    private static final String[] DESCS = {
-            "Tu plataforma para descubrir y reservar espacios y recursos académicos de tu institución.",
-            "Navega por el catálogo de aulas, laboratorios, salas de reuniones y equipamiento disponible.",
-            "Elige un recurso, selecciona la fecha y el horario, y confirma tu reserva al instante.",
-            "Consulta tus reservas activas, revisa el historial y cancela cuando lo necesites."
-    };
+    private String[] TITLES;
+    private String[] DESCS;
 
     private ViewPager2 viewPager;
     private LinearLayout dotsContainer;
@@ -51,6 +41,18 @@ public class OnboardingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding);
 
+        TITLES = new String[]{
+                getString(R.string.onboarding_title_1),
+                getString(R.string.onboarding_title_2),
+                getString(R.string.onboarding_title_3),
+                getString(R.string.onboarding_title_4)
+        };
+        DESCS = new String[]{
+                getString(R.string.onboarding_desc_1),
+                getString(R.string.onboarding_desc_2),
+                getString(R.string.onboarding_desc_3),
+                getString(R.string.onboarding_desc_4)
+        };
         totalSlides = TITLES.length;
         viewPager    = findViewById(R.id.viewPagerOnboarding);
         dotsContainer = findViewById(R.id.dotsContainer);
@@ -66,7 +68,7 @@ public class OnboardingActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 crearDots(position);
                 boolean esUltima = position == totalSlides - 1;
-                btnSiguiente.setText(esUltima ? "¡Comenzar!" : "Siguiente");
+                btnSiguiente.setText(esUltima ? getString(R.string.onboarding_start) : getString(R.string.onboarding_next));
                 btnSaltar.setVisibility(esUltima ? View.INVISIBLE : View.VISIBLE);
             }
         });

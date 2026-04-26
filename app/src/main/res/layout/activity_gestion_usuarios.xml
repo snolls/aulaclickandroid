@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_arrow_back"
-            app:title="Gestión de Usuarios"
+            app:title="@string/title_gestion_usuarios"
             app:titleCentered="true"
             app:titleTextColor="@color/colorTextPrimary" />
 
@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="No hay usuarios disponibles"
+            android:text="@string/empty_usuarios"
             android:textColor="@color/colorTextSecondary"
             android:textSize="14sp"
             android:visibility="gone" />

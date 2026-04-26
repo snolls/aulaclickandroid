@@ -92,7 +92,7 @@ public class AdminListaReservasFragment extends Fragment {
                         return h2.compareTo(h1);
                     });
                     if (filtradas.isEmpty()) {
-                        tvEmpty.setText("No hay reservas");
+                        tvEmpty.setText(R.string.no_hay_reservas);
                         tvEmpty.setVisibility(View.VISIBLE);
                     } else {
                         rvReservas.setAdapter(new MisReservasAdapter(convertir(filtradas)));

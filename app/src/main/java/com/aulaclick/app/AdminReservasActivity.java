@@ -33,7 +33,9 @@ public class AdminReservasActivity extends AppCompatActivity {
         Long sedeId      = sedeIdRaw == -1L ? null : sedeIdRaw;
 
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(tabInicial == TAB_CANCELADAS ? "Reservas Canceladas" : "Reservas Activas");
+        toolbar.setTitle(tabInicial == TAB_CANCELADAS
+                ? getString(R.string.title_reservas_canceladas)
+                : getString(R.string.title_reservas_activas));
         toolbar.setNavigationOnClickListener(v -> finish());
 
         ViewPager2 viewPager = findViewById(R.id.viewPager);
@@ -42,9 +44,9 @@ public class AdminReservasActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             switch (position) {
-                case 0: tab.setText("ACTIVAS");    break;
-                case 1: tab.setText("HISTORIAL");  break;
-                case 2: tab.setText("CANCELADAS"); break;
+                case 0: tab.setText(R.string.tab_activas);    break;
+                case 1: tab.setText(R.string.tab_historial);  break;
+                case 2: tab.setText(R.string.tab_canceladas); break;
             }
         }).attach();
 

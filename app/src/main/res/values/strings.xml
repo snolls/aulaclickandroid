@@ -161,4 +161,88 @@
     <string name="catalog_tipo">Tipos de Recurso</string>
     <string name="catalog_equip">Equipamiento</string>
     <string name="no_hay_reservas">No hay reservas</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">Saltar</string>
+    <string name="onboarding_next">Siguiente</string>
+    <string name="onboarding_start">¡Comenzar!</string>
+    <string name="onboarding_title_1">Bienvenido a AulaClick</string>
+    <string name="onboarding_title_2">Explora los Recursos</string>
+    <string name="onboarding_title_3">Reserva en Segundos</string>
+    <string name="onboarding_title_4">Gestiona tus Reservas</string>
+    <string name="onboarding_desc_1">Tu plataforma para descubrir y reservar espacios y recursos académicos de tu institución.</string>
+    <string name="onboarding_desc_2">Navega por el catálogo de aulas, laboratorios, salas de reuniones y equipamiento disponible.</string>
+    <string name="onboarding_desc_3">Elige un recurso, selecciona la fecha y el horario, y confirma tu reserva al instante.</string>
+    <string name="onboarding_desc_4">Consulta tus reservas activas, revisa el historial y cancela cuando lo necesites.</string>
+
+    <!-- Ayuda -->
+    <string name="title_ayuda">Ayuda y Soporte</string>
+    <string name="label_preguntas_frecuentes">Preguntas Frecuentes</string>
+    <string name="faq_q1">¿Cómo hago una reserva?</string>
+    <string name="faq_a1">Desde la pantalla principal, pulsa en cualquier recurso para ver sus detalles. Toca el botón de calendario, elige la fecha y el horario disponible y confirma tu reserva.</string>
+    <string name="faq_q2">¿Puedo cancelar una reserva?</string>
+    <string name="faq_a2">Sí. Ve a \'Mis Reservas\', localiza la reserva que deseas cancelar en la pestaña ACTIVAS y pulsa \'Cancelar\'. La cancelación es inmediata.</string>
+    <string name="faq_q3">¿Qué tipos de recursos puedo reservar?</string>
+    <string name="faq_a3">Puedes reservar aulas, laboratorios, salas de reuniones, equipamiento audiovisual y cualquier otro recurso que el centro tenga configurado en la plataforma.</string>
+    <string name="faq_q4">¿Con cuánta antelación puedo reservar?</string>
+    <string name="faq_a4">Puedes reservar cualquier día desde hoy hacia el futuro, siempre que el recurso esté disponible en ese horario.</string>
+    <string name="faq_q5">¿Qué pasa si el horario que quiero ya está ocupado?</string>
+    <string name="faq_a5">El sistema te avisará al intentar confirmar la reserva. Elige otro horario o consulta la disponibilidad del recurso en el calendario de detalles.</string>
+    <string name="faq_q6">¿Se pueden hacer reservas en fin de semana?</string>
+    <string name="faq_a6">Depende del recurso. Cada recurso tiene configurado si permite o no reservas en fines de semana. Si no está disponible, el sistema te lo indicará.</string>
+    <string name="faq_q7">¿Dónde veo mis reservas pasadas?</string>
+    <string name="faq_a7">En \'Mis Reservas\', pestaña HISTORIAL. Ahí encontrarás todas las reservas finalizadas.</string>
+    <string name="faq_q8">¿Qué significa cada estado de reserva?</string>
+    <string name="faq_a8">• ACTIVA: confirmada y pendiente de realizar.\n• EN CURSO: el recurso está siendo utilizado en este momento.\n• EMPIEZA PRONTO: comienza en menos de 30 minutos.\n• FINALIZADA: ya ha concluido.\n• CANCELADA: fue cancelada por ti o por un administrador.</string>
+    <string name="faq_q9">¿Cómo contacto con el administrador?</string>
+    <string name="faq_a9">Si tienes algún problema técnico o necesitas ayuda, contacta con el administrador de tu sede a través de los canales que tu institución haya habilitado.</string>
+
+    <!-- Admin Reservas -->
+    <string name="title_reservas_activas">Reservas Activas</string>
+    <string name="title_reservas_canceladas">Reservas Canceladas</string>
+    <string name="tab_activas">ACTIVAS</string>
+    <string name="tab_historial">HISTORIAL</string>
+    <string name="tab_canceladas">CANCELADAS</string>
+
+    <!-- Gestión Usuarios -->
+    <string name="title_gestion_usuarios">Gestión de Usuarios</string>
+    <string name="label_todas_las_sedes">Todas las sedes</string>
+    <string name="dialog_title_sort">Ordenar por</string>
+    <string name="sort_nombre_az">Nombre (A → Z)</string>
+    <string name="sort_nombre_za">Nombre (Z → A)</string>
+    <string name="sort_rol">Rol</string>
+    <string name="sort_sede">Sede</string>
+    <string name="dialog_nuevo_usuario">Nuevo Usuario</string>
+    <string name="dialog_editar_usuario">Editar Usuario</string>
+    <string name="dialog_eliminar_usuario_title">Eliminar usuario</string>
+    <string name="dialog_eliminar_usuario_msg">¿Eliminar a %1$s? Esta acción no se puede deshacer.</string>
+    <string name="msg_usuario_creado">Usuario creado correctamente</string>
+    <string name="msg_usuario_actualizado">Usuario actualizado correctamente</string>
+    <string name="msg_usuario_eliminado">Usuario eliminado</string>
+    <string name="error_email_en_uso">El correo ya está en uso por otro usuario</string>
+    <string name="error_nombre_obligatorio">El nombre es obligatorio</string>
+    <string name="error_email_obligatorio">El email es obligatorio</string>
+    <string name="error_formato_email">Formato de email no válido</string>
+    <string name="error_selecciona_rol">Por favor, selecciona un Rol válido</string>
+    <string name="error_selecciona_sede">Por favor, selecciona una Sede válida</string>
+    <string name="error_esperar_sedes">Por favor, espera a que carguen las sedes</string>
+    <string name="empty_usuarios">No hay usuarios disponibles</string>
+
+    <!-- Validación contraseña -->
+    <string name="val_pass_min_length">La contraseña debe tener al menos 12 caracteres.</string>
+    <string name="val_pass_needs_digit">La contraseña debe incluir al menos un número.</string>
+    <string name="val_pass_needs_letter">La contraseña debe incluir al menos una letra (sin acentos ni eñes).</string>
+    <string name="val_pass_forbidden_chars">La contraseña no puede contener \'@\' ni comillas (\").</string>
+    <string name="val_pass_needs_special">La contraseña debe incluir al menos un símbolo especial permitido.</string>
+    <string name="val_pass_contains_email">La contraseña no puede contener tu nombre de usuario/email.</string>
+    <string name="val_pass_contains_name">La contraseña no puede contener tu nombre o apellidos.</string>
+
+    <!-- Detalle Recurso -->
+    <string name="label_sede">Sede</string>
+    <string name="label_reservas">Reservas</string>
+    <string name="btn_hoy">Hoy</string>
+    <string name="schedule_weekends">(Incluye fines de semana)</string>
+    <string name="schedule_weekdays">(Lunes a Viernes)</string>
+    <string name="empty_agenda">No hay reservas programadas para este día</string>
+    <string name="btn_sort">Ordenar</string>
 </resources>

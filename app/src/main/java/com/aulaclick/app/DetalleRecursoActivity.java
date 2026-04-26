@@ -237,9 +237,9 @@ public class DetalleRecursoActivity extends AppCompatActivity {
             String textoHorario = "Horario: " + horaApertura + " - " + horaCierre;
 
             if (Boolean.TRUE.equals(recurso.getPermiteFinesSemana())) {
-                textoHorario += " (Incluye fines de semana)";
+                textoHorario += " " + getString(R.string.schedule_weekends);
             } else {
-                textoHorario += " (Lunes a Viernes)";
+                textoHorario += " " + getString(R.string.schedule_weekdays);
             }
             tvHorarioPermitido.setText(textoHorario);
         }

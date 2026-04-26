@@ -240,7 +240,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sede"
+                            android:text="@string/label_sede"
                             android:textColor="@color/colorTextSecondary"
                             android:textSize="11sp"
                             android:textStyle="bold" />
@@ -292,7 +292,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Reservas"
+                android:text="@string/label_reservas"
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -306,7 +306,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="12dp"
                 android:gravity="center"
-                android:text="Hoy"
+                android:text="@string/btn_hoy"
                 android:textSize="14sp"
                 app:icon="@drawable/ic_calendar"
                 app:iconGravity="textStart"
@@ -349,7 +349,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:gravity="center"
-                android:text="No hay reservas programadas para este día"
+                android:text="@string/empty_agenda"
                 android:textColor="#888888"
                 android:textSize="14sp" />
 

@@ -23,44 +23,19 @@ import java.util.List;
 
 public class AyudaActivity extends AppCompatActivity {
 
-    private static final String[][] FAQ = {
-            {
-                    "¿Cómo hago una reserva?",
-                    "Desde la pantalla principal, pulsa en cualquier recurso para ver sus detalles. Toca el botón de calendario, elige la fecha y el horario disponible y confirma tu reserva."
-            },
-            {
-                    "¿Puedo cancelar una reserva?",
-                    "Sí. Ve a 'Mis Reservas', localiza la reserva que deseas cancelar en la pestaña ACTIVAS y pulsa 'Cancelar'. La cancelación es inmediata."
-            },
-            {
-                    "¿Qué tipos de recursos puedo reservar?",
-                    "Puedes reservar aulas, laboratorios, salas de reuniones, equipamiento audiovisual y cualquier otro recurso que el centro tenga configurado en la plataforma."
-            },
-            {
-                    "¿Con cuánta antelación puedo reservar?",
-                    "Puedes reservar cualquier día desde hoy hacia el futuro, siempre que el recurso esté disponible en ese horario."
-            },
-            {
-                    "¿Qué pasa si el horario que quiero ya está ocupado?",
-                    "El sistema te avisará al intentar confirmar la reserva. Elige otro horario o consulta la disponibilidad del recurso en el calendario de detalles."
-            },
-            {
-                    "¿Se pueden hacer reservas en fin de semana?",
-                    "Depende del recurso. Cada recurso tiene configurado si permite o no reservas en fines de semana. Si no está disponible, el sistema te lo indicará."
-            },
-            {
-                    "¿Dónde veo mis reservas pasadas?",
-                    "En 'Mis Reservas', pestaña HISTORIAL. Ahí encontrarás todas las reservas finalizadas."
-            },
-            {
-                    "¿Qué significa cada estado de reserva?",
-                    "• ACTIVA: confirmada y pendiente de realizar.\n• EN CURSO: el recurso está siendo utilizado en este momento.\n• EMPIEZA PRONTO: comienza en menos de 30 minutos.\n• FINALIZADA: ya ha concluido.\n• CANCELADA: fue cancelada por ti o por un administrador."
-            },
-            {
-                    "¿Cómo contacto con el administrador?",
-                    "Si tienes algún problema técnico o necesitas ayuda, contacta con el administrador de tu sede a través de los canales que tu institución haya habilitado."
-            }
-    };
+    private String[][] buildFaq() {
+        return new String[][]{
+                {getString(R.string.faq_q1), getString(R.string.faq_a1)},
+                {getString(R.string.faq_q2), getString(R.string.faq_a2)},
+                {getString(R.string.faq_q3), getString(R.string.faq_a3)},
+                {getString(R.string.faq_q4), getString(R.string.faq_a4)},
+                {getString(R.string.faq_q5), getString(R.string.faq_a5)},
+                {getString(R.string.faq_q6), getString(R.string.faq_a6)},
+                {getString(R.string.faq_q7), getString(R.string.faq_a7)},
+                {getString(R.string.faq_q8), getString(R.string.faq_a8)},
+                {getString(R.string.faq_q9), getString(R.string.faq_a9)}
+        };
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +47,7 @@ public class AyudaActivity extends AppCompatActivity {
 
         RecyclerView rv = findViewById(R.id.rvFaq);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(new FaqAdapter(Arrays.asList(FAQ)));
+        rv.setAdapter(new FaqAdapter(Arrays.asList(buildFaq())));
     }
 
     @Override
