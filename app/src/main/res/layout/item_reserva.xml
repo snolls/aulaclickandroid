@@ -47,7 +47,7 @@
                     android:layout_toStartOf="@+id/tvBadgeEstado"
                     android:layout_marginEnd="8dp"
                     android:ellipsize="end"
-                    android:maxLines="2"
+                    android:maxLines="1"
                     android:textColor="@color/colorTextPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold"
