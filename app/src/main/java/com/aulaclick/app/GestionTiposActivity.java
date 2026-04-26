@@ -34,7 +34,9 @@ public class GestionTiposActivity extends AppCompatActivity {
 
     private TipoRecursoAdapter adapter;
     private List<TipoRecurso> listaTipos = new ArrayList<>();
+    private List<TipoRecurso> todosTipos = new ArrayList<>();
     private List<SedeDTO> listaSedesAdmin = new ArrayList<>();
+    private Long sedeFiltroCurrent = null;
     private String userRol;
 
     @Override
@@ -97,6 +99,7 @@ public class GestionTiposActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<List<SedeDTO>> call, @NonNull Response<List<SedeDTO>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     listaSedesAdmin = response.body();
+                    configurarSpinnerFiltro();
                 }
             }
             @Override
@@ -104,13 +107,47 @@ public class GestionTiposActivity extends AppCompatActivity {
         });
     }
 
+    private void configurarSpinnerFiltro() {
+        View ll = findViewById(R.id.llFiltroSedeCatalog);
+        android.widget.Spinner spinner = findViewById(R.id.spinnerFiltroSedeCatalog);
+        if (ll == null || spinner == null) return;
+        ll.setVisibility(View.VISIBLE);
+
+        List<SedeDTO> opciones = new ArrayList<>();
+        SedeDTO todas = new SedeDTO(); todas.setNombre(getString(R.string.label_todas_las_sedes));
+        opciones.add(todas);
+        opciones.addAll(listaSedesAdmin);
+
+        ArrayAdapter<SedeDTO> adp = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opciones);
+        adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adp);
+        spinner.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                sedeFiltroCurrent = position == 0 ? null : opciones.get(position).getId();
+                aplicarFiltroSede();
+            }
+            @Override public void onNothingSelected(android.widget.AdapterView<?> parent) {}
+        });
+    }
+
+    @android.annotation.SuppressLint("NotifyDataSetChanged")
+    private void aplicarFiltroSede() {
+        List<TipoRecurso> filtrados = new ArrayList<>();
+        for (TipoRecurso t : todosTipos) {
+            if (sedeFiltroCurrent == null || sedeFiltroCurrent.equals(t.getSedeId())) filtrados.add(t);
+        }
+        listaTipos = filtrados;
+        adapter.updateData(filtrados);
+    }
+
     private void cargarTipos() {
         ApiClient.getApiService().getTiposRecurso().enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<List<TipoRecurso>> call, @NonNull Response<List<TipoRecurso>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    listaTipos = response.body();
-                    adapter.updateData(listaTipos);
+                    todosTipos = response.body();
+                    aplicarFiltroSede();
                 }
             }
             @Override

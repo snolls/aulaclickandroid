@@ -19,6 +19,35 @@
             app:navigationIcon="@drawable/ic_arrow_back"
             app:title="@string/catalog_equip"
             app:titleTextColor="@color/colorTextPrimary" />
+
+        <LinearLayout
+            android:id="@+id/llFiltroSedeCatalog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_location"
+                app:tint="@color/colorTextSecondary" />
+
+            <Spinner
+                android:id="@+id/spinnerFiltroSedeCatalog"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent" />
+
+        </LinearLayout>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
