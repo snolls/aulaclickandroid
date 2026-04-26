@@ -41,14 +41,7 @@ public class RecursoAdapter extends RecyclerView.Adapter<RecursoAdapter.ViewHold
         Recurso recurso = recursos.get(position);
 
         // Carga de imagen
-        String urlParaMostrar = null;
-        if (recurso.getImagenUrl() != null && !recurso.getImagenUrl().isEmpty()) {
-            urlParaMostrar = recurso.getImagenUrl();
-        } else if (recurso.getTipoRecurso() != null
-                && recurso.getTipoRecurso().getImagenUrl() != null
-                && !recurso.getTipoRecurso().getImagenUrl().isEmpty()) {
-            urlParaMostrar = recurso.getTipoRecurso().getImagenUrl();
-        }
+        String urlParaMostrar = recurso.getImagenUrl();
 
         if (urlParaMostrar != null) {
             Glide.with(holder.itemView.getContext())

@@ -195,7 +195,7 @@ public class GestionTiposActivity extends AppCompatActivity {
     }
 
     private void crearTipo(String name, Long sedeId) {
-        TipoRecurso tipo = new TipoRecurso(name, null);
+        TipoRecurso tipo = new TipoRecurso(name);
         tipo.setSedeId(sedeId);
         ApiClient.getApiService().crearTipoRecurso(tipo).enqueue(new Callback<>() {
             @Override
@@ -238,7 +238,7 @@ public class GestionTiposActivity extends AppCompatActivity {
     }
 
     private void actualizarTipo(Integer id, String name) {
-        TipoRecurso tipo = new TipoRecurso(name, null);
+        TipoRecurso tipo = new TipoRecurso(name);
         ApiClient.getApiService().actualizarTipoRecurso(id, tipo).enqueue(new Callback<>() {
             @Override
             public void onResponse(@NonNull Call<TipoRecurso> call, @NonNull Response<TipoRecurso> response) {
