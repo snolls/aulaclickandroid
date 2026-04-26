@@ -44,8 +44,10 @@ public class GestionUsuariosActivity extends AppCompatActivity {
     private ProgressBar progressUsuarios;
     private TextView tvEmpty;
 
-    private List<RolDTO> rolesDisponibles = new ArrayList<>();
-    private List<SedeDTO> sedesDisponibles   = new ArrayList<>();
+    private List<RolDTO>     rolesDisponibles  = new ArrayList<>();
+    private List<SedeDTO>    sedesDisponibles  = new ArrayList<>();
+    private List<UsuarioDTO> todosLosUsuarios  = new ArrayList<>();
+    private Long             sedeFiltroCurrent = null;
     private int pendingLoads = 0;
     private AlertDialog dialogActivo;
     private String miRol;
@@ -69,6 +71,11 @@ public class GestionUsuariosActivity extends AppCompatActivity {
 
         rvUsuarios.setLayoutManager(new LinearLayoutManager(this));
 
+        if ("ADMIN".equalsIgnoreCase(miRol)) {
+            android.view.View llFiltro = findViewById(R.id.llFiltroSedeUsuarios);
+            if (llFiltro != null) llFiltro.setVisibility(android.view.View.VISIBLE);
+        }
+
         FloatingActionButton fab = findViewById(R.id.fabNuevoUsuario);
         fab.setVisibility(View.VISIBLE);
         fab.setOnClickListener(v -> mostrarDialogoUsuario(null));
@@ -90,6 +97,9 @@ public class GestionUsuariosActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<List<SedeDTO>> call, @NonNull Response<List<SedeDTO>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     sedesDisponibles = response.body();
+                    if ("ADMIN".equalsIgnoreCase(miRol)) {
+                        configurarSpinnerFiltroSede();
+                    }
                 }
                 decrementAndCheck();
             }
@@ -136,10 +146,9 @@ public class GestionUsuariosActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<List<UsuarioDTO>> call,
                                    @NonNull Response<List<UsuarioDTO>> response) {
                 progressUsuarios.setVisibility(View.GONE);
-                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
-                    rvUsuarios.setAdapter(new UsuariosAdapter(response.body(),
-                            GestionUsuariosActivity.this::mostrarDialogoUsuario));
-                    rvUsuarios.setVisibility(View.VISIBLE);
+                if (response.isSuccessful() && response.body() != null) {
+                    todosLosUsuarios = response.body();
+                    aplicarFiltroSede();
                 } else if (response.code() == 403) {
                     tvEmpty.setVisibility(View.VISIBLE);
                     Toast.makeText(GestionUsuariosActivity.this,
@@ -158,6 +167,56 @@ public class GestionUsuariosActivity extends AppCompatActivity {
                         "Error de conexión: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void configurarSpinnerFiltroSede() {
+        android.widget.Spinner spinner = findViewById(R.id.spinnerFiltroSedeUsuarios);
+        if (spinner == null) return;
+
+        List<SedeDTO> opciones = new ArrayList<>();
+        SedeDTO todas = new SedeDTO();
+        todas.setNombre("Todas las sedes");
+        opciones.add(todas);
+        opciones.addAll(sedesDisponibles);
+
+        android.widget.ArrayAdapter<SedeDTO> adapter = new android.widget.ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item, opciones);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                sedeFiltroCurrent = position == 0 ? null : opciones.get(position).getId();
+                aplicarFiltroSede();
+            }
+            @Override
+            public void onNothingSelected(android.widget.AdapterView<?> parent) {}
+        });
+    }
+
+    @android.annotation.SuppressLint("NotifyDataSetChanged")
+    private void aplicarFiltroSede() {
+        List<UsuarioDTO> filtrados = new ArrayList<>();
+        for (UsuarioDTO u : todosLosUsuarios) {
+            if (sedeFiltroCurrent == null) {
+                // "Todas las sedes": mostrar todos
+                filtrados.add(u);
+            } else {
+                // Filtro activo: el ADMIN global es transversal, no pertenece a ninguna sede
+                if ("ADMIN".equalsIgnoreCase(u.getRol())) continue;
+                if (sedeFiltroCurrent.equals(u.getSedeId())) filtrados.add(u);
+            }
+        }
+        if (filtrados.isEmpty()) {
+            rvUsuarios.setVisibility(View.GONE);
+            tvEmpty.setVisibility(View.VISIBLE);
+        } else {
+            rvUsuarios.setAdapter(new UsuariosAdapter(filtrados,
+                    GestionUsuariosActivity.this::mostrarDialogoUsuario));
+            rvUsuarios.setVisibility(View.VISIBLE);
+            tvEmpty.setVisibility(View.GONE);
+        }
     }
 
     private void mostrarDialogoUsuario(@Nullable UsuarioDTO usuarioAEditar) {
@@ -184,6 +243,21 @@ public class GestionUsuariosActivity extends AppCompatActivity {
         if (esAdminSede) {
             tvSedeLabel.setVisibility(View.GONE);
             spinnerSede.setVisibility(View.GONE);
+        }
+
+        // Cuando el rol seleccionado es ADMIN, la sede no aplica
+        if (!esAdminSede) {
+            spinnerRol.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
+                    RolDTO rolSeleccionado = rolesDisponibles.get(position);
+                    boolean esAdmin = "ADMIN".equalsIgnoreCase(rolSeleccionado.getNombre());
+                    tvSedeLabel.setVisibility(esAdmin ? View.GONE : View.VISIBLE);
+                    spinnerSede.setVisibility(esAdmin ? View.GONE : View.VISIBLE);
+                }
+                @Override
+                public void onNothingSelected(android.widget.AdapterView<?> parent) {}
+            });
         }
 
         ArrayAdapter<RolDTO> rolAdapter = new ArrayAdapter<>(this,
@@ -267,11 +341,16 @@ public class GestionUsuariosActivity extends AppCompatActivity {
             Long idSedeSeleccionada = null;
 
             int posRol = spinnerRol.getSelectedItemPosition();
+            boolean rolEsAdmin = false;
             if (posRol >= 0 && posRol < rolesDisponibles.size()) {
                 idRolSeleccionado = rolesDisponibles.get(posRol).getId();
+                rolEsAdmin = "ADMIN".equalsIgnoreCase(rolesDisponibles.get(posRol).getNombre());
             }
 
-            if (esAdminSede) {
+            if (rolEsAdmin) {
+                // ADMIN global → sin sede
+                idSedeSeleccionada = null;
+            } else if (esAdminSede) {
                 if (!isNew && usuarioAEditar != null) {
                     idSedeSeleccionada = usuarioAEditar.getSedeId();
                 }
@@ -301,7 +380,7 @@ public class GestionUsuariosActivity extends AppCompatActivity {
                 Toast.makeText(this, "Por favor, selecciona un Rol válido", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (!esAdminSede && idSedeSeleccionada == null) {
+            if (!esAdminSede && !rolEsAdmin && idSedeSeleccionada == null) {
                 Toast.makeText(this, "Por favor, selecciona una Sede válida", Toast.LENGTH_SHORT).show();
                 return;
             }
