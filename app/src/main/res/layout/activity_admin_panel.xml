@@ -89,6 +89,33 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
+            <!-- Filtro de sede (solo ADMIN global) -->
+            <LinearLayout
+                android:id="@+id/llFiltroSedePanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_location"
+                    app:tint="@color/colorTextSecondary" />
+
+                <Spinner
+                    android:id="@+id/spinnerSedePanel"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent" />
+
+            </LinearLayout>
+
             <!-- Fila 1: Usuarios y Recursos -->
             <LinearLayout
                 android:layout_width="match_parent"

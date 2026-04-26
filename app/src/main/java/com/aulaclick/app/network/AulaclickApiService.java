@@ -43,7 +43,7 @@ public interface AulaclickApiService {
     Call<Void> adminCambiarPassword(@Path("id") Long id, @Body AdminCambiarPasswordDTO dto);
 
     @GET("api/admin/estadisticas")
-    Call<EstadisticasDTO> getEstadisticas();
+    Call<EstadisticasDTO> getEstadisticas(@retrofit2.http.Query("sedeId") Long sedeId);
 
     @GET("api/usuarios")
     Call<List<UsuarioDTO>> getUsuarios();
@@ -88,7 +88,7 @@ public interface AulaclickApiService {
     Call<Void> eliminarRecurso(@Header("X-Rol-Usuario") String rolUsuario, @Path("id") int id);
 
     @GET("api/reservas/admin")
-    Call<List<ReservaDTO>> getReservasAdmin();
+    Call<List<ReservaDTO>> getReservasAdmin(@retrofit2.http.Query("sedeId") Long sedeId);
 
     @GET("api/reservas/recurso/{idRecurso}")
     Call<List<ReservaDTO>> getReservasPorRecurso(@Path("idRecurso") Long idRecurso);

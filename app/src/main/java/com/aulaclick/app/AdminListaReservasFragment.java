@@ -29,17 +29,20 @@ public class AdminListaReservasFragment extends Fragment {
     public static final String ESTADO_HISTORIAL  = "historial";
     public static final String ESTADO_CANCELADAS = "canceladas";
 
-    private static final String ARG_ESTADO = "estado";
+    private static final String ARG_ESTADO   = "estado";
+    private static final String ARG_SEDE_ID  = "sede_id";
 
     private String estado;
+    private Long   sedeId;
     private RecyclerView rvReservas;
     private ProgressBar progressBar;
     private TextView tvEmpty;
 
-    public static AdminListaReservasFragment newInstance(String estado) {
+    public static AdminListaReservasFragment newInstance(String estado, Long sedeId) {
         AdminListaReservasFragment f = new AdminListaReservasFragment();
         Bundle args = new Bundle();
         args.putString(ARG_ESTADO, estado);
+        if (sedeId != null) args.putLong(ARG_SEDE_ID, sedeId);
         f.setArguments(args);
         return f;
     }
@@ -49,6 +52,8 @@ public class AdminListaReservasFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             estado = getArguments().getString(ARG_ESTADO);
+            sedeId = getArguments().containsKey(ARG_SEDE_ID)
+                    ? getArguments().getLong(ARG_SEDE_ID) : null;
         }
     }
 
@@ -70,7 +75,7 @@ public class AdminListaReservasFragment extends Fragment {
         rvReservas.setVisibility(View.GONE);
         tvEmpty.setVisibility(View.GONE);
 
-        ApiClient.getApiService().getReservasAdmin().enqueue(new Callback<List<ReservaDTO>>() {
+        ApiClient.getApiService().getReservasAdmin(sedeId).enqueue(new Callback<List<ReservaDTO>>() {
             @Override
             public void onResponse(@NonNull Call<List<ReservaDTO>> call,
                                    @NonNull Response<List<ReservaDTO>> response) {
