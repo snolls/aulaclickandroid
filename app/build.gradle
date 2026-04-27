@@ -25,9 +25,20 @@ android {
         buildConfigField "String", "CLOUDINARY_UPLOAD_PRESET",  properties.getProperty("CLOUDINARY_UPLOAD_PRESET", '""')
     }
 
+    signingConfigs {
+        release {
+            storeFile     file(properties.getProperty("KEYSTORE_PATH", ""))
+            storePassword properties.getProperty("KEYSTORE_PASSWORD", "")
+            keyAlias      properties.getProperty("KEY_ALIAS", "")
+            keyPassword   properties.getProperty("KEY_PASSWORD", "")
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            signingConfig   signingConfigs.release
+            minifyEnabled   true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
