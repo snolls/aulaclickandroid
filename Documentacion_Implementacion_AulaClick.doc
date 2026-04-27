@@ -1,0 +1,78 @@
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+    <meta charset="utf-8">
+    <title>Memoria de Implementación - Proyecto AulaClick</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>100</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+        body { font-family: 'Calibri', sans-serif; font-size: 11pt; }
+        h1 { font-size: 18pt; color: #2F5496; }
+        h2 { font-size: 14pt; color: #2F5496; border-bottom: 1px solid #2F5496; padding-bottom: 2px; }
+        p { text-align: justify; }
+        ul, ol { margin-top: 0; }
+        li { margin-bottom: 6px; }
+    </style>
+</head>
+<body>
+    <h1>Memoria de Implementación - Proyecto AulaClick</h1>
+    
+    <h2>Aspectos de Desarrollo de Especial Interés</h2>
+    <p>El desarrollo de <b>AulaClick</b>, un sistema de reserva de recursos y aulas, ha requerido la integración de una arquitectura cliente-servidor robusta, combinando una aplicación móvil nativa en <b>Android</b> con un backend RESTful desarrollado en <b>Spring Boot</b>.</p>
+    
+    <p>Entre los aspectos más destacados del desarrollo se encuentran:</p>
+    <ul>
+        <li><b>Arquitectura y Diseño:</b> Se ha seguido el patrón Modelo-Vista-Controlador (MVC) en el backend y una arquitectura limpia en Android.</li>
+        <li><b>Reserva Dinámica de Recursos:</b> Se ha implementado un sistema complejo que tiene en cuenta las reglas operativas de cada recurso (como la disponibilidad en fines de semana, horas de apertura y cierre).</li>
+        <li><b>Validación en Tiempo Real:</b> En la aplicación Android se ha integrado un sistema de validación cliente-servidor que evita la superposición de reservas y garantiza la coherencia de los datos introducidos por el usuario antes de procesar la solicitud en el backend.</li>
+        <li><b>Interfaz de Usuario (UI) y Experiencia de Usuario (UX):</b> Se han aplicado guías de Material Design, con un enfoque particular en el manejo de errores (por ejemplo, validación visual en el inicio de sesión utilizando <code>TextInputLayout</code>) y el filtrado por fechas utilizando <code>MaterialDatePicker</code>.</li>
+    </ul>
+
+    <h2>Principales Problemas Encontrados y Soluciones Aplicadas</h2>
+    <p>Durante el ciclo de desarrollo se identificaron y resolvieron diversos retos técnicos:</p>
+    <ol>
+        <li><b>Errores de Serialización de Fechas entre Android y Spring Boot:</b><br>
+            <i>Problema:</i> Las fechas y horas de las reservas no se deserializaban correctamente al enviarse desde la aplicación Android al backend, causando errores <code>400 Bad Request</code>.<br>
+            <i>Solución:</i> Se implementaron anotaciones <code>@JsonFormat</code> en las entidades y DTOs del backend para asegurar un formato ISO estandarizado, y se ajustaron los mapeos en Android para procesar estos formatos adecuadamente.
+        </li>
+        <li><b>Fallos en la Persistencia de Reservas:</b><br>
+            <i>Problema:</i> Al intentar crear una reserva enviando la entidad completa, se producían errores debido a relaciones complejas (lazy loading) e información no inicializada.<br>
+            <i>Solución:</i> Se migró el proceso de creación de reservas al uso del patrón DTO (<code>ReservaCrearDTO</code>). El servicio backend ahora recibe el DTO, busca manualmente los objetos relacionados (Usuario, Recurso) en la base de datos y construye la entidad de forma segura antes de persistirla.
+        </li>
+        <li><b>Inconsistencias en el Modelo de Datos (Campos de Imagen):</b><br>
+            <i>Problema:</i> Las referencias a <code>imagenUrl</code> generaban errores de compilación y visualización debido a cambios en los requerimientos.<br>
+            <i>Solución:</i> Se realizó una limpieza exhaustiva del código eliminando la lógica depreciada de manejo dinámico de imágenes individuales en <code>TipoRecurso</code>, <code>Reserva</code> y <code>RecursoAdapter</code>, estandarizando temporalmente placeholders para asegurar la estabilidad del UI y simplificar el modelo.
+        </li>
+        <li><b>Problemas con el Historial y Seguimiento en Git:</b><br>
+            <i>Problema:</i> Archivos no rastreados por configuraciones en <code>.gitignore</code> y metadatos de autor erróneos en los commits del historial.<br>
+            <i>Solución:</i> Revisión y reconfiguración del archivo <code>.gitignore</code>. Se utilizó la reescritura de historial (<code>git filter-branch</code>) para corregir los nombres y correos de los contribuyentes.
+        </li>
+    </ol>
+
+    <h2>Funciones Planificadas No Implementadas y Futuras Mejoras</h2>
+    <p>Para futuras iteraciones del proyecto, quedan planteadas las siguientes mejoras y funcionalidades:</p>
+    <ol>
+        <li><b>Gestión Avanzada de Imágenes y Archivos Multimedia:</b><br>
+            Implementar la subida y alojamiento real de imágenes en el servidor o mediante un servicio en la nube (como AWS S3 o Firebase Storage) para personalizar los recursos y perfiles de usuario.
+        </li>
+        <li><b>Roles y Permisos Más Granulares:</b><br>
+            Añadir una jerarquía de roles más compleja (ej. Super Administrador, Administrador de Departamento, Profesor, Alumno) con vistas y permisos específicos.
+        </li>
+        <li><b>Sistema de Notificaciones Push:</b><br>
+            Integrar notificaciones (vía Firebase Cloud Messaging) para avisar al usuario sobre la confirmación, modificación o cancelación de sus reservas, así como recordatorios de reservas próximas.
+        </li>
+        <li><b>Integración con Calendarios Externos:</b><br>
+            Permitir la exportación o sincronización de las reservas con Google Calendar u Outlook.
+        </li>
+        <li><b>Generación Automática de Informes:</b><br>
+            Un panel para administradores desde el cual puedan exportar a PDF o Excel estadísticas de uso de los recursos.
+        </li>
+    </ol>
+</body>
+</html>

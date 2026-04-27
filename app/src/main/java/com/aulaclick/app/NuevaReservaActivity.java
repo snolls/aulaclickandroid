@@ -9,6 +9,13 @@ import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 import java.util.Locale;
 
+/**
+ * Actividad que maneja el formulario de creación de una nueva reserva.
+ * Implementa validaciones en el lado del cliente basadas en las propiedades del recurso,
+ * tales como horario de apertura, cierre y permisos para fines de semana.
+ * Se eligió utilizar MaterialTimePicker y MaterialDatePicker por coherencia de diseño (Material UI)
+ * y para prevenir errores de entrada del usuario.
+ */
 public class NuevaReservaActivity extends AppCompatActivity {
 
     private TextInputEditText etHoraInicio, etHoraFin, etFechaReserva, etMotivo;
@@ -58,6 +65,14 @@ public class NuevaReservaActivity extends AppCompatActivity {
         etHoraInicio.setOnClickListener(v -> showTimePicker(true));
         etHoraFin.setOnClickListener(v -> showTimePicker(false));
 
+        /**
+         * Listener para el botón de confirmar.
+         * Pasos realizados:
+         * 1. Valida que los campos no estén vacíos.
+         * 2. Revisa que no haya errores de formato (validación de UI).
+         * 3. Comprueba el permiso de fines de semana.
+         * 4. Transforma los datos y construye un ReservaRequestDTO para enviar al servidor.
+         */
         btnConfirmar.setOnClickListener(v -> {
             String startStr = etHoraInicio.getText() != null ? etHoraInicio.getText().toString() : "";
             String endStr = etHoraFin.getText() != null ? etHoraFin.getText().toString() : "";
@@ -239,6 +254,11 @@ public class NuevaReservaActivity extends AppCompatActivity {
         picker.show(getSupportFragmentManager(), "TIME_PICKER");
     }
 
+    /**
+     * Valida dinámicamente las horas seleccionadas en los campos de entrada frente
+     * a las restricciones del recurso (apertura/cierre, horarios pasados).
+     * Muestra los errores utilizando `TextInputLayout` para un feedback visual inmediato.
+     */
     private void validarHorasSeleccionadas() {
         if (tilHoraInicio == null || tilHoraFin == null || recursoSeleccionado == null) return;
         tilHoraInicio.setError(null);

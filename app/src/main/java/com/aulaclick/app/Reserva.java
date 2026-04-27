@@ -1,5 +1,11 @@
 package com.aulaclick.app;
 
+/**
+ * Modelo de datos en Android para representar una Reserva.
+ * Se elige mantener campos en formato String (fecha, hora) por simplicidad
+ * al parsear la respuesta JSON del servidor, delegando la lógica de formato
+ * al adaptador de UI.
+ */
 public class Reserva {
     private Long id;
     private String nombreRecurso;
