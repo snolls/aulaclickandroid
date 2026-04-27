@@ -13,7 +13,7 @@ AulaClick es la aplicación cliente para el sistema de reserva de recursos, aula
 
 | Pantalla de Login | Panel Principal | Lista de Recursos | Detalles y Reserva |
 | :---: | :---: | :---: | :---: |
-| ![Login](docs/login_placeholder.png) | ![Dashboard](docs/dashboard_placeholder.png) | ![Recursos](docs/recursos_placeholder.png) | ![Reserva](docs/reserva_placeholder.png) |
+| ![Login](docs/login_placeholder.png) | ![Recursos](docs/recursos_placeholder.png) | ![Reserva](docs/reserva_placeholder.png) | ![Perfil](docs/dashboard_placeholder.png) |![Panel de Administración](docs/dashboard_placeholder.png) |
 
 ## Requisitos Previos
 
