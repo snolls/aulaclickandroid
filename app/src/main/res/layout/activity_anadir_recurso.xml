@@ -236,7 +236,7 @@
                     android:textSize="16sp"
                     android:textColor="@color/colorTextPrimary" />
 
-                <com.google.android.material.switchmaterial.SwitchMaterial
+                <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/switchEstado"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -272,7 +272,7 @@
                         android:text="Permitir reservas en fin de semana"
                         android:textSize="14sp"
                         android:textColor="@color/colorTextPrimary" />
-                    <com.google.android.material.switchmaterial.SwitchMaterial
+                    <com.google.android.material.materialswitch.MaterialSwitch
                         android:id="@+id/switchFinesSemana"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

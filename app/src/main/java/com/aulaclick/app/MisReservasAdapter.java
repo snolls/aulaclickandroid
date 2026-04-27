@@ -106,7 +106,7 @@ public class MisReservasAdapter extends RecyclerView.Adapter<MisReservasAdapter.
                             .setTitle("Confirmar cancelación")
                             .setMessage("¿Estás seguro de que deseas cancelar esta reserva? Esta acción no se puede deshacer y el recurso quedará libre.")
                             .setPositiveButton("Sí, cancelar", (dialog, which) -> {
-                                int pos = holder.getAdapterPosition();
+                                int pos = holder.getBindingAdapterPosition();
                                 if (pos == RecyclerView.NO_ID) return;
                                 com.google.gson.JsonObject dummyBody = new com.google.gson.JsonObject();
                                 ApiClient.getApiService()
@@ -116,7 +116,7 @@ public class MisReservasAdapter extends RecyclerView.Adapter<MisReservasAdapter.
                                             public void onResponse(@NonNull Call<ReservaDTO> call,
                                                                    @NonNull Response<ReservaDTO> response) {
                                                 if (response.isSuccessful()) {
-                                                    int p2 = holder.getAdapterPosition();
+                                                    int p2 = holder.getBindingAdapterPosition();
                                                     if (p2 != RecyclerView.NO_ID) {
                                                         reservas.remove(p2);
                                                         notifyItemRemoved(p2);

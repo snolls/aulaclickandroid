@@ -147,7 +147,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                 @Override
                 public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                    int position = viewHolder.getAdapterPosition();
+                    int position = viewHolder.getBindingAdapterPosition();
                     Recurso recurso = listaFiltrada.get(position);
 
                     new MaterialAlertDialogBuilder(DashboardActivity.this)

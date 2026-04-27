@@ -503,7 +503,7 @@ public class GestionGaleriaActivity extends AppCompatActivity {
             }
 
             holder.imageView.setOnClickListener(v -> {
-                int pos = holder.getAdapterPosition();
+                int pos = holder.getBindingAdapterPosition();
                 if (pos == RecyclerView.NO_ID) return;
                 ImagenGaleriaDTO img = listaImagenes.get(pos);
                 if (selectionMode) {
@@ -513,7 +513,7 @@ public class GestionGaleriaActivity extends AppCompatActivity {
             });
 
             holder.imageView.setOnLongClickListener(v -> {
-                int pos = holder.getAdapterPosition();
+                int pos = holder.getBindingAdapterPosition();
                 if (pos == RecyclerView.NO_ID) return true;
                 ImagenGaleriaDTO img = listaImagenes.get(pos);
                 if (!selectionMode) {

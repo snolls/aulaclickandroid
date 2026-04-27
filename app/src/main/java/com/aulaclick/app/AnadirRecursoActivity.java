@@ -1,10 +1,7 @@
 package com.aulaclick.app;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -17,7 +14,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,7 +34,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -55,8 +51,8 @@ public class AnadirRecursoActivity extends AppCompatActivity {
     // ── Vistas ──────────────────────────────────────────────────────────────
     private TextInputEditText etNombre, etCapacidad;
     private ChipGroup cgTipo, cgDepartamento, cgEquipamiento;
-    private SwitchMaterial switchEstado;
-    private SwitchMaterial switchFinesSemana;
+    private MaterialSwitch switchEstado;
+    private MaterialSwitch switchFinesSemana;
     private TextInputEditText etHoraApertura, etHoraCierre;
     private MaterialButton btnGuardar;
     private MaterialButton btnSeleccionarFoto;
@@ -80,16 +76,6 @@ public class AnadirRecursoActivity extends AppCompatActivity {
     // ── Galería nube (estado para borrado) ───────────────────────────────────
     private List<ImagenGaleriaDTO> listaImagenesGaleria;
     private GaleriaAdapter galeriaAdapterActual;
-
-    // ── Permisos ─────────────────────────────────────────────────────────────
-    private final ActivityResultLauncher<String> requestPermissionLauncher =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                if (isGranted) {
-                    abrirSelectorImagen();
-                } else {
-                    Snackbar.make(btnSeleccionarFoto, "Necesitamos permiso para acceder a tus fotos", Snackbar.LENGTH_LONG).show();
-                }
-            });
 
     // ── Selector de galería ──────────────────────────────────────────────────
     private final ActivityResultLauncher<PickVisualMediaRequest> selectorImagenLauncher =
@@ -245,20 +231,8 @@ public class AnadirRecursoActivity extends AppCompatActivity {
         }
     }
 
-    private void verificarYPedirPermisos() {
-        String permisoRequerido = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ?
-                Manifest.permission.READ_MEDIA_IMAGES :
-                Manifest.permission.READ_EXTERNAL_STORAGE;
-
-        if (ContextCompat.checkSelfPermission(this, permisoRequerido) == PackageManager.PERMISSION_GRANTED) {
-            abrirSelectorImagen();
-        } else {
-            requestPermissionLauncher.launch(permisoRequerido);
-        }
-    }
-
     private void abrirGaleriaLocal() {
-        verificarYPedirPermisos();
+        abrirSelectorImagen();
     }
 
     private void abrirSelectorImagen() {
@@ -801,7 +775,7 @@ public class AnadirRecursoActivity extends AppCompatActivity {
                     .into(holder.imageView);
             holder.imageView.setOnClickListener(v -> listener.onClick(imagen));
             holder.imageView.setOnLongClickListener(v -> {
-                int pos = holder.getAdapterPosition();
+                int pos = holder.getBindingAdapterPosition();
                 if (pos == RecyclerView.NO_ID) return true;
                 new MaterialAlertDialogBuilder(AnadirRecursoActivity.this)
                         .setTitle("¿Eliminar imagen?")
