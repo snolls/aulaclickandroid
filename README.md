@@ -1,7 +1,5 @@
 # AulaClick - Aplicación Android
 
-![Banner de AulaClick](docs/banner_placeholder.png) <!-- Reemplazar con el banner real -->
-
 AulaClick es la aplicación cliente para el sistema de reserva de recursos, aulas y equipamiento. Desarrollada de forma nativa en **Android** (Java), esta aplicación permite a los usuarios (estudiantes y personal) buscar recursos disponibles, consultar su disponibilidad y realizar reservas dinámicas directamente desde sus dispositivos móviles.
 
 ## Características Principales
@@ -16,7 +14,6 @@ AulaClick es la aplicación cliente para el sistema de reserva de recursos, aula
 | Pantalla de Login | Panel Principal | Lista de Recursos | Detalles y Reserva |
 | :---: | :---: | :---: | :---: |
 | ![Login](docs/login_placeholder.png) | ![Dashboard](docs/dashboard_placeholder.png) | ![Recursos](docs/recursos_placeholder.png) | ![Reserva](docs/reserva_placeholder.png) |
-*(Nota: Añadir las capturas de pantalla reales en la carpeta `docs/`)*
 
 ## Requisitos Previos
 
