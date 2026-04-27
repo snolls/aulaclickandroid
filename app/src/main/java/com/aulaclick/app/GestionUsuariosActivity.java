@@ -1,6 +1,5 @@
 package com.aulaclick.app;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -14,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +27,7 @@ import com.aulaclick.app.network.models.AdminCambiarPasswordDTO;
 import com.aulaclick.app.network.models.UsuarioRolSedeDTO;
 import com.aulaclick.app.utils.SessionManager;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -192,7 +193,7 @@ public class GestionUsuariosActivity extends AppCompatActivity {
                 getString(R.string.sort_rol),
                 getString(R.string.sort_sede)
         };
-        new android.app.AlertDialog.Builder(this)
+        new MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.dialog_title_sort)
                 .setSingleChoiceItems(opciones, ordenActual, (dialog, which) -> {
                     ordenActual = which;
@@ -400,7 +401,7 @@ public class GestionUsuariosActivity extends AppCompatActivity {
         etPassword.addTextChangedListener(clearErrors);
         etCambiarPassword.addTextChangedListener(clearErrors);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
                 .setTitle(isNew ? getString(R.string.dialog_nuevo_usuario) : getString(R.string.dialog_editar_usuario))
                 .setView(dialogView)
                 .setNegativeButton("Cancelar", null)
@@ -593,7 +594,7 @@ public class GestionUsuariosActivity extends AppCompatActivity {
     }
 
     private void confirmarEliminar(UsuarioDTO usuario) {
-        new AlertDialog.Builder(this)
+        new MaterialAlertDialogBuilder(this)
                 .setTitle("Eliminar usuario")
                 .setMessage(getString(R.string.dialog_eliminar_usuario_msg, usuario.getNombreCompleto()))
                 .setPositiveButton("Eliminar", (d, w) -> {

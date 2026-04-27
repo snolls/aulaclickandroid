@@ -6,17 +6,20 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +33,7 @@ import com.cloudinary.android.callback.UploadCallback;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -88,6 +92,17 @@ public class GestionGaleriaActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (adapter.isSelectionMode()) {
+                    actualizarModoSeleccion(0);
+                } else {
+                    finish();
+                }
+            }
+        });
+
         inicializarCloudinary();
 
         adapter = new GaleriaAdminAdapter(count -> actualizarModoSeleccion(count));
@@ -131,15 +146,6 @@ public class GestionGaleriaActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        if (adapter.isSelectionMode()) {
-            actualizarModoSeleccion(0);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
     // ── Modo selección ────────────────────────────────────────────────────────
 
     private void actualizarModoSeleccion(int cantidad) {
@@ -151,6 +157,29 @@ public class GestionGaleriaActivity extends AppCompatActivity {
             toolbar.setTitle("Galería Multimedia");
             if (menuItemEliminar != null) menuItemEliminar.setVisible(false);
         }
+    }
+
+    // ── Diálogo de progreso ───────────────────────────────────────────────────
+
+    private AlertDialog crearDialogoProgreso(String mensaje) {
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+        layout.setPadding(64, 48, 64, 48);
+        layout.setGravity(Gravity.CENTER_VERTICAL);
+
+        CircularProgressIndicator progress = new CircularProgressIndicator(this);
+        progress.setIndeterminate(true);
+        layout.addView(progress);
+
+        TextView tv = new TextView(this);
+        tv.setText(mensaje);
+        tv.setPadding(32, 0, 0, 0);
+        layout.addView(tv);
+
+        return new MaterialAlertDialogBuilder(this)
+                .setView(layout)
+                .setCancelable(false)
+                .create();
     }
 
     // ── Carga ─────────────────────────────────────────────────────────────────
@@ -189,9 +218,7 @@ public class GestionGaleriaActivity extends AppCompatActivity {
     // ── Borrado individual ────────────────────────────────────────────────────
 
     private void borrarImagen(Long id, int position) {
-        android.app.ProgressDialog pd = new android.app.ProgressDialog(this);
-        pd.setMessage("Eliminando de la nube...");
-        pd.setCancelable(false);
+        AlertDialog pd = crearDialogoProgreso("Eliminando de la nube...");
         pd.show();
 
         ApiClient.getApiService().eliminarImagenGaleria(id).enqueue(new Callback<Void>() {
@@ -234,9 +261,7 @@ public class GestionGaleriaActivity extends AppCompatActivity {
     }
 
     private void eliminarMasivo(List<Long> ids) {
-        android.app.ProgressDialog pd = new android.app.ProgressDialog(this);
-        pd.setMessage("Eliminando " + ids.size() + " imágenes...");
-        pd.setCancelable(false);
+        AlertDialog pd = crearDialogoProgreso("Eliminando " + ids.size() + " imágenes...");
         pd.show();
 
         ApiClient.getApiService().eliminarImagenesMasivo(ids).enqueue(new Callback<Void>() {
@@ -277,9 +302,7 @@ public class GestionGaleriaActivity extends AppCompatActivity {
 
     private void procesarSubidaMasiva(List<Uri> uris) {
         int total = uris.size();
-        android.app.ProgressDialog pd = new android.app.ProgressDialog(this);
-        pd.setMessage("Subiendo " + total + " imagen(es) a la nube...");
-        pd.setCancelable(false);
+        AlertDialog pd = crearDialogoProgreso("Subiendo " + total + " imagen(es) a la nube...");
         pd.show();
 
         List<ImagenRequestDTO> dtosListos = Collections.synchronizedList(new ArrayList<>());
@@ -328,8 +351,7 @@ public class GestionGaleriaActivity extends AppCompatActivity {
         }
     }
 
-    private void registrarEnBatch(List<ImagenRequestDTO> dtos, android.app.ProgressDialog pd) {
-        pd.setMessage("Registrando en la galería...");
+    private void registrarEnBatch(List<ImagenRequestDTO> dtos, AlertDialog pd) {
         ApiClient.getApiService().registrarImagenesMasivo(new ArrayList<>(dtos)).enqueue(new Callback<List<ImagenGaleriaDTO>>() {
             @Override
             public void onResponse(@NonNull Call<List<ImagenGaleriaDTO>> call, @NonNull Response<List<ImagenGaleriaDTO>> response) {
@@ -355,9 +377,7 @@ public class GestionGaleriaActivity extends AppCompatActivity {
     }
 
     private void subirImagenACloudinary(Uri uri) {
-        android.app.ProgressDialog pd = new android.app.ProgressDialog(this);
-        pd.setMessage("Subiendo imagen...");
-        pd.setCancelable(false);
+        AlertDialog pd = crearDialogoProgreso("Subiendo imagen...");
         pd.show();
 
         MediaManager.get().upload(uri)
@@ -502,7 +522,6 @@ public class GestionGaleriaActivity extends AppCompatActivity {
                     selectionListener.onSelectionChanged(seleccionadas.size());
                     notifyDataSetChanged();
                 } else {
-                    // Pulsación larga en modo selección → eliminar elemento individual
                     new MaterialAlertDialogBuilder(GestionGaleriaActivity.this)
                             .setTitle("¿Eliminar imagen?")
                             .setMessage("Esta imagen se borrará definitivamente de Cloudinary y de la base de datos. Esta acción no se puede deshacer.")

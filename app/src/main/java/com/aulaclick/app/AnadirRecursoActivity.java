@@ -15,6 +15,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -74,7 +75,7 @@ public class AnadirRecursoActivity extends AppCompatActivity {
     private String urlImagenSubida = null;
     private Long idImagenActual = null;
     private Uri uriImagenLocal = null;
-    private android.app.ProgressDialog progressDialog;
+    private AlertDialog progressDialog;
 
     // ── Galería nube (estado para borrado) ───────────────────────────────────
     private List<ImagenGaleriaDTO> listaImagenesGaleria;
@@ -515,9 +516,7 @@ public class AnadirRecursoActivity extends AppCompatActivity {
     }
 
     private void borrarImagenDeLaNube(Long id, int position) {
-        android.app.ProgressDialog pd = new android.app.ProgressDialog(this);
-        pd.setMessage("Eliminando de la nube...");
-        pd.setCancelable(false);
+        AlertDialog pd = crearDialogoProgreso("Eliminando de la nube...");
         pd.show();
 
         ApiClient.getApiService().eliminarImagenGaleria(id).enqueue(new Callback<Void>() {
@@ -579,12 +578,30 @@ public class AnadirRecursoActivity extends AppCompatActivity {
         }
     }
 
+    private AlertDialog crearDialogoProgreso(String mensaje) {
+        android.widget.LinearLayout layout = new android.widget.LinearLayout(this);
+        layout.setOrientation(android.widget.LinearLayout.HORIZONTAL);
+        layout.setPadding(64, 48, 64, 48);
+        layout.setGravity(android.view.Gravity.CENTER_VERTICAL);
+        com.google.android.material.progressindicator.CircularProgressIndicator progress =
+                new com.google.android.material.progressindicator.CircularProgressIndicator(this);
+        progress.setIndeterminate(true);
+        layout.addView(progress);
+        android.widget.TextView tv = new android.widget.TextView(this);
+        tv.setText(mensaje);
+        tv.setPadding(32, 0, 0, 0);
+        layout.addView(tv);
+        return new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                .setView(layout)
+                .setCancelable(false)
+                .create();
+    }
+
     private void mostrarProgreso(String mensaje) {
-        if (progressDialog == null) {
-            progressDialog = new android.app.ProgressDialog(this);
-            progressDialog.setCancelable(false);
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
         }
-        progressDialog.setMessage(mensaje);
+        progressDialog = crearDialogoProgreso(mensaje);
         progressDialog.show();
         btnGuardar.setEnabled(false);
         btnGuardar.setText(R.string.btn_saving);

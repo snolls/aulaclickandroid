@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -62,6 +63,13 @@ public class AdminPanelActivity extends AppCompatActivity {
         spinnerSedePanel  = findViewById(R.id.spinnerSedePanel);
 
         String userRol    = sessionManager.getUserRole();
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                volverAPerfil();
+            }
+        });
         boolean isAdmin   = "ADMIN".equalsIgnoreCase(userRol);
         boolean isAdminSede = "ADMIN_SEDE".equalsIgnoreCase(userRol);
 
@@ -235,9 +243,6 @@ public class AdminPanelActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-    @Override
-    public void onBackPressed() { volverAPerfil(); }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
