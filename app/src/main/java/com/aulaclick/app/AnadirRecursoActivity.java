@@ -34,7 +34,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.materialswitch.MaterialSwitch;
+import androidx.appcompat.widget.SwitchCompat;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -51,8 +51,8 @@ public class AnadirRecursoActivity extends AppCompatActivity {
     // ── Vistas ──────────────────────────────────────────────────────────────
     private TextInputEditText etNombre, etCapacidad;
     private ChipGroup cgTipo, cgDepartamento, cgEquipamiento;
-    private MaterialSwitch switchEstado;
-    private MaterialSwitch switchFinesSemana;
+    private SwitchCompat switchEstado;
+    private SwitchCompat switchFinesSemana;
     private TextInputEditText etHoraApertura, etHoraCierre;
     private MaterialButton btnGuardar;
     private MaterialButton btnSeleccionarFoto;
