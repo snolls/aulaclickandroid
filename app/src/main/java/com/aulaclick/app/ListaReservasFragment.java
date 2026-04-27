@@ -40,6 +40,7 @@ public class ListaReservasFragment extends Fragment {
     private RecyclerView rvReservas;
     private ProgressBar progressBar;
     private TextView tvEmpty;
+    private boolean primeraVez = true;
 
     public static ListaReservasFragment newInstance(String estado) {
         ListaReservasFragment f = new ListaReservasFragment();
@@ -70,6 +71,16 @@ public class ListaReservasFragment extends Fragment {
 
         cargarReservas();
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (primeraVez) {
+            primeraVez = false;
+            return;
+        }
+        cargarReservas();
     }
 
     private void cargarReservas() {
